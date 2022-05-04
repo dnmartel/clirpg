@@ -12,7 +12,16 @@ class Personajes {
 
     atacar(origen, destino) {
         buscarNombres(origen, destino);
-        let puntosADescontar = nombreOrigen.ataque - nombreDestino.defensa;
+        let luckyNumber = between((nombreOrigen.ataque - nombreDestino.defensa), nombreOrigen.ataque);
+        let puntosADescontar = 0;
+        let esCrit = (Math.random() * 11)
+        console.log(esCrit);
+        if ( esCrit > 7) {
+            puntosADescontar = Math.round((nombreOrigen.ataque - nombreDestino.defensa) * luckyNumber);
+            alert("El ataque ha sido critico!!")
+        } else {
+            puntosADescontar = Math.round((nombreOrigen.ataque - nombreDestino.defensa));
+        }
         nombreDestino.vida -= puntosADescontar;
         console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
         alert(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
@@ -26,8 +35,16 @@ class Personajes {
     curar(origen, destino) {
 
         buscarNombres(origen, destino);
-
-        let puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.05);
+        let luckyNumber = between(1, (nombreOrigen.vida / 10));
+        let puntosASumar = 0;
+        let esCrit = (Math.random() * 11)
+        console.log(esCrit);
+        if ( esCrit > 7) {
+            puntosASumar = (Math.ceil((nombreOrigen.vida + 1) * 0.055)) * luckyNumber;
+            alert("El efecto ha sido critico!!")
+        } else {
+            puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.055);
+        }
         nombreDestino.vida += puntosASumar;
         console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
         alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
@@ -55,6 +72,13 @@ class Personajes {
 //Defino variables globales
 let nombreOrigen, nombreDestino;
 
+//Funcion numero aleatorio
+function between(min, max) {
+    return Math.floor(
+        Math.random() * (max - min) + min
+    )
+}
+
 //Defino función auxiliar de busqueda para metodos
 function buscarNombres(origen, destino) {
     pjActivo.forEach(element => {
@@ -80,10 +104,10 @@ function expNivel(nombreOrigen) {
         nombreOrigen.exp -= 100;
         nombreOrigen.nivel += 1;
         alert(`${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.03);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.03);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.02);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.02);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.04);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.04);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.03);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.03);
     }
 }
 
@@ -149,7 +173,7 @@ function statClase() {
                     element.vida = 110;
                     element.vidaMax = 110;
                     element.ataque = 14;
-                    element.defensa = 6;
+                    element.defensa = 2;
                     element.img = `./img/char/picaro.png`;
                     repeat = false;
                     break;
@@ -193,7 +217,7 @@ function initG() {
 }
 
 //Funcion que reinicia el juego
-function resetG(){
+function resetG() {
     let ocultarBtn = document.getElementById("btnAP");
     ocultarBtn.className = "";
     ocultarBtn = document.getElementById("btnIniciar");
