@@ -71,7 +71,7 @@ function buscarNombres(origen, destino) {
 
 //Funcion agrega personajes
 function newPJ() {
-    pjActivo.push(new Personajes(prompt("Ingresa el nombre del personaje").toLowerCase(), prompt("Ingresa la clase del personaje: \n\nPaladin\nCazador\nGuerrero\nMago\nBrujo").toLowerCase()));
+    pjActivo.push(new Personajes(prompt("Ingresa el nombre del personaje").toLowerCase(), prompt("Ingresa la clase del personaje: \n\nPaladin\nCazador\nGuerrero\nMago\nBrujo\nPicaro").toLowerCase()));
 }
 
 //Función de experiencia y nivel
