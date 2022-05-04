@@ -57,5 +57,8 @@ body .botones button {
   width: 200px;
   margin: 2em 2em;
 }
+body .botones .ocultar {
+  display: none;
+}
 
 /*# sourceMappingURL=style.css.map */

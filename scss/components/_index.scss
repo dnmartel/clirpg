@@ -33,6 +33,7 @@ body {
                 font-size: 1em;
                 display: block;
                 color: rebeccapurple;
+
                 strong {
                     color: black;
                     font-size: 1.1em;
@@ -51,6 +52,10 @@ body {
             align-self: center;
             width: 200px;
             margin: 2em 2em;
+        }
+        
+        .ocultar {
+            display: none;
         }
     }
 }
