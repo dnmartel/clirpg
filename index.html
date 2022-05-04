@@ -18,8 +18,12 @@
         <div id="stats">
         </div>
     </section>
-    <button onclick="newPJ(), statClase(), printPJ()">Añadir personaje</button>
-
+    <div class="botones">
+        <button onclick="newPJ(), statClase(), printPJ()">Añadir personaje</button>
+        <button onclick="pjA(prompt(`Quien ataca?`), prompt(`Quien recibe el ataque?`)), printPJ()">Atacar</button>
+        <button onclick="pjC(prompt(`Quien cura?`), prompt(`Quien recibe la curación?`)), printPJ()">Curarse</button>
+        <button onclick="pjI(prompt(`Quien insulta?`), prompt(`Quien recibe el insulto?`)), printPJ()">Insultar</button>
+    </div>
 
 
     <script src="./src/main.js" defer></script>

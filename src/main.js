@@ -1,3 +1,54 @@
+//Genero la clase constructora para los personajes
+class Personajes {
+    constructor(nombre, clase) {
+        this.nombre = nombre;
+        this.clase = clase;
+        this.vida;
+        this.ataque;
+        this.defensa;
+        this.nivel;
+        this.exp;
+    }
+
+    atacar(origen, destino) {
+        buscarNombres(origen, destino);
+        let puntosADescontar = nombreOrigen.ataque - nombreDestino.defensa;
+        nombreDestino.vida -= puntosADescontar;
+        console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+        if (nombreDestino.vida < 0) {
+            nombreDestino.vida = 0;
+        }
+        nombreOrigen.exp += Math.floor(Math.random() * 10);
+        expNivel(nombreOrigen);
+    };
+
+    curar(origen, destino) {
+
+        buscarNombres(origen, destino);
+
+        let puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.05);
+        nombreDestino.vida += puntosASumar;
+        console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
+        nombreOrigen.exp += Math.floor(Math.random() * 10);
+        expNivel(nombreOrigen);
+
+        if (nombreDestino.vida > nombreDestino.vidaMax) {
+            nombreDestino.vida = nombreDestino.vidaMax
+        }
+
+    }
+
+    insultar(origen, destino) {
+        buscarNombres(origen, destino);
+        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
+        nombreDestino.exp -= Math.floor(Math.random() * 5);
+        if (nombreDestino.exp <= 0) {
+            nombreDestino.exp = 0;
+        }
+    }
+
+}
+
 //Defino variables globales
 let nombreOrigen, nombreDestino;
 
@@ -115,58 +166,6 @@ function pjI(origen, destino) {
     pjActivo[0].insultar(origen, destino)
 };
 
-
-//Genero la clase constructora para los personajes
-class Personajes {
-    constructor(nombre, clase) {
-        this.nombre = nombre;
-        this.clase = clase;
-        this.vida;
-        this.ataque;
-        this.defensa;
-        this.nivel;
-        this.exp;
-    }
-
-    atacar(origen, destino) {
-        buscarNombres(origen, destino);
-        let puntosADescontar = nombreOrigen.ataque - nombreDestino.defensa;
-        nombreDestino.vida -= puntosADescontar;
-        console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
-        if (nombreDestino.vida < 0) {
-            nombreDestino.vida = 0;
-        }
-        nombreOrigen.exp += Math.floor(Math.random() * 10);
-        expNivel(nombreOrigen);
-    };
-
-    curar(origen, destino) {
-
-        buscarNombres(origen, destino);
-
-        let puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.05);
-        nombreDestino.vida += puntosASumar;
-        console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-        nombreOrigen.exp += Math.floor(Math.random() * 10);
-        expNivel(nombreOrigen);
-
-        if (nombreDestino.vida > nombreDestino.vidaMax) {
-            nombreDestino.vida = nombreDestino.vidaMax
-        }
-
-    }
-
-    insultar(origen, destino) {
-        buscarNombres(origen, destino);
-        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
-        nombreDestino.exp -= Math.floor(Math.random() * 5);
-        if (nombreDestino.exp <= 0) {
-            nombreDestino.exp = 0;
-        }
-    }
-
-}
-
 //Armo el array donde irán los personajes activos
 const pjActivo = [];
 
@@ -203,13 +202,13 @@ console.log(pjActivo); */
 
 
 // Atacar
-// pjA(prompt("origen"), prompt("destino"));
+// pjA(prompt(`origen`), prompt(`destino`));
 
 // Curar
-// pjC(prompt("origen"), prompt("destino"));
+// pjC(prompt(`origen`), prompt(`destino`));
 
 // Insultar
-// pjI(prompt("origen"), prompt("destino"));
+// pjI(prompt(`origen`), prompt(`destino`));
 
 
 

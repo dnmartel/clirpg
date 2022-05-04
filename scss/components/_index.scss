@@ -2,6 +2,7 @@ body {
     background-color: antiquewhite;
     display: flex;
     flex-flow: column nowrap;
+
     h1 {
         margin: 2em 2em;
     }
@@ -19,7 +20,7 @@ body {
                 margin: 1em;
             }
 
-            img {       
+            img {
                 display: block;
             }
         }
@@ -29,16 +30,21 @@ body {
             flex-flow: column nowrap;
 
             p {
-                font-size: 1em;/* 
+                font-size: 1em;
+                /* 
                 margin: 1em; */
-                display: block ;
+                display: block;
             }
         }
     }
 
-    button {
-        align-self: center;
-        width: 200px;
-        margin: 2em 2em;
+    .botones {
+        display: flex;
+        justify-content: center;
+        button {
+            align-self: center;
+            width: 200px;
+            margin: 2em 2em;
+        }
     }
 }

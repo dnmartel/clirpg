@@ -45,7 +45,11 @@ body section #stats p {
   margin: 1em; */
   display: block;
 }
-body button {
+body .botones {
+  display: flex;
+  justify-content: center;
+}
+body .botones button {
   align-self: center;
   width: 200px;
   margin: 2em 2em;
