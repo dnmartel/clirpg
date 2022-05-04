@@ -41,9 +41,12 @@ body section #stats {
 }
 body section #stats p {
   font-size: 1em;
-  /* 
-  margin: 1em; */
   display: block;
+  color: rebeccapurple;
+}
+body section #stats p strong {
+  color: black;
+  font-size: 1.1em;
 }
 body .botones {
   display: flex;

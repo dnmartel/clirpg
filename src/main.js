@@ -152,7 +152,7 @@ function printPJ() {
     statsID.innerHTML = " ";
     pjActivo.forEach(element => {
         nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + " </p>";
-        statsID.innerHTML += "<p> Nivel: " + element.nivel + "<br>Experiencia: " + element.exp + "<br>Vida: " + element.vida + "<br>Ataque: " + element.ataque + "<br>Defensa: " + element.defensa +" </p> <br><br><br><br>" ;
+        statsID.innerHTML += "<p> <strong>Nivel:</strong> " + element.nivel + "<br><strong>Experiencia:</strong> " + element.exp + "<br><strong>Vida:</strong> " + element.vida + "<br><strong>Ataque:</strong> " + element.ataque + "<br><strong>Defensa:</strong> " + element.defensa +" </p> <br><br><br><br>" ;
     });
 }
 

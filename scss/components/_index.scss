@@ -31,16 +31,22 @@ body {
 
             p {
                 font-size: 1em;
-                /* 
-                margin: 1em; */
                 display: block;
+                color: rebeccapurple;
+                strong {
+                    color: black;
+                    font-size: 1.1em;
+                }
             }
+
+
         }
     }
 
     .botones {
         display: flex;
         justify-content: center;
+
         button {
             align-self: center;
             width: 200px;
