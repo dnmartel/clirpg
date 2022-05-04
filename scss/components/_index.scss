@@ -1,6 +1,9 @@
 body {
+    background-color: antiquewhite;
+    display: flex;
+    flex-flow: column nowrap;
     h1 {
-        margin: 2em 0;
+        margin: 2em 2em;
     }
 
     section {
@@ -31,5 +34,11 @@ body {
                 display: block ;
             }
         }
+    }
+
+    button {
+        align-self: center;
+        width: 200px;
+        margin: 2em 2em;
     }
 }

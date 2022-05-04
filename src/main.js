@@ -90,6 +90,18 @@ function statClase() {
     });
 }
 
+// Funcióon que imprime PJ en pantalla
+function printPJ() {
+    let nombreImagenID = document.getElementById(`nombreImagen`);
+    let statsID = document.getElementById(`stats`);
+    nombreImagenID.innerHTML = " ";
+    statsID.innerHTML = " ";
+    pjActivo.forEach(element => {
+        nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + " </p>";
+        statsID.innerHTML += "<p> Nivel: " + element.nivel + "<br>Experiencia: " + element.exp + "<br>Vida: " + element.vida + "<br>Ataque: " + element.ataque + "<br>Defensa: " + element.defensa +" </p> <br><br><br><br>" ;
+    });
+}
+
 //Abreviación del metodo para atacar
 function pjA(origen, destino) {
     pjActivo[0].atacar(origen, destino)
@@ -159,19 +171,10 @@ class Personajes {
 const pjActivo = [];
 
 pjActivo.push(new Personajes("myle", "paladin"));
-pjActivo.push(new Personajes("brotana", "cazador"))
+pjActivo.push(new Personajes("brotana", "cazador"));
 
 
-function printPJ() {
-    let nombreImagenID = document.getElementById(`nombreImagen`);
-    let statsID = document.getElementById(`stats`);
-    nombreImagenID.innerHTML = " ";
-    statsID.innerHTML = " ";
-    pjActivo.forEach(element => {
-        nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + " </p>";
-        statsID.innerHTML += "<p> Nivel: " + element.nivel + "<br>Experiencia: " + element.exp + "<br>Vida: " + element.vida + "<br>Ataque: " + element.ataque + "<br>Defensa: " + element.defensa +" </p> <br><br><br><br>" ;
-    });
-}
+
 
 console.log(pjActivo);
 
