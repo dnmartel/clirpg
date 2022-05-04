@@ -1,0 +1,41 @@
+body {
+    h1 {
+        margin: 2em 0;
+    }
+
+    div {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+
+
+
+        #nombreImagen {
+            li {
+                text-align: center;
+                font-size: 1em;
+                margin: 1em;
+
+                img {
+                    display: block;
+                }
+            }
+        }
+
+        #stats {
+            display: flex;
+            flex-flow: column nowrap;
+            
+            li {
+                /* text-align: center; */
+                font-size: 1em;
+                margin: 1em;
+
+                img {
+                    display: block;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+/* Importo fuentes de G Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+
+/* Importo reglas generales */
+
+@import 'base/general';
+/*@import 'base/mapas';
+@import 'base/extends';
+@import 'base/mixins'; */
+
+/* Importo secciones */
+
+@import 'components/index';
+

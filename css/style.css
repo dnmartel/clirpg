@@ -1,0 +1,46 @@
+/* Importo fuentes de G Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
+/* Importo reglas generales */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  list-style: none;
+}
+
+/*@import 'base/mapas';
+@import 'base/extends';
+@import 'base/mixins'; */
+/* Importo secciones */
+body h1 {
+  margin: 2em 0;
+}
+body div {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+body div #nombreImagen li {
+  text-align: center;
+  font-size: 1em;
+  margin: 1em;
+}
+body div #nombreImagen li img {
+  display: block;
+}
+body div #stats {
+  display: flex;
+  flex-flow: column nowrap;
+}
+body div #stats li {
+  /* text-align: center; */
+  font-size: 1em;
+  margin: 1em;
+}
+body div #stats li img {
+  display: block;
+}
+
+/*# sourceMappingURL=style.css.map */
