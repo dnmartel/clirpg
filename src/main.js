@@ -55,12 +55,12 @@ let nombreOrigen, nombreDestino;
 //Defino función auxiliar de busqueda para metodos
 function buscarNombres(origen, destino) {
     pjActivo.forEach(element => {
-        if (element.nombre == origen) {
+        if (element.nombre.toLowerCase() == origen.toLowerCase()) {
             nombreOrigen = element;
         }
     });
     pjActivo.forEach(element => {
-        if (element.nombre == destino) {
+        if (element.nombre.toLowerCase() == destino.toLowerCase()) {
             nombreDestino = element;
         }
     });
@@ -68,7 +68,7 @@ function buscarNombres(origen, destino) {
 
 //Funcion agrega personajes
 function newPJ() {
-    pjActivo.push(new Personajes(prompt("Ingresa el nombre del personaje"), prompt("Ingresa la clase del personaje: \n paladin, cazador, guerrero, mago, brujo")));
+    pjActivo.push(new Personajes(prompt("Ingresa el nombre del personaje").toLowerCase(), prompt("Ingresa la clase del personaje: \n paladin, cazador, guerrero, mago, brujo").toLowerCase()));
 }
 
 //Función de experiencia y nivel
