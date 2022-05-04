@@ -156,13 +156,10 @@ class Personajes {
 }
 
 //Armo el array donde irán los personajes activos
-const pjActivo = [{
-    nombre: "myle",
-    clase: "paladin"
-}, {
-    nombre: "brotana",
-    clase: "cazador"
-}];
+const pjActivo = [];
+
+pjActivo.push(new Personajes("myle", "paladin"));
+pjActivo.push(new Personajes("brotana", "cazador"))
 
 
 function printPJ() {
@@ -171,15 +168,15 @@ function printPJ() {
     nombreImagenID.innerHTML = " ";
     statsID.innerHTML = " ";
     pjActivo.forEach(element => {
-        nombreImagenID.innerHTML += "<li> <img src=" + element.img + " </img> " + element.nombre + " </li> <br>";
-    });
-    pjActivo.forEach(element => {
-        statsID.innerHTML += "<li> Nivel: " + element.nivel + " Experiencia: " + element.exp + " Vida: " + element.vida + " Ataque: " + element.ataque + " Defensa: " + element.defensa +" </li>";
+        nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + " </p>";
+        statsID.innerHTML += "<p> Nivel: " + element.nivel + "<br>Experiencia: " + element.exp + "<br>Vida: " + element.vida + "<br>Ataque: " + element.ataque + "<br>Defensa: " + element.defensa +" </p> <br><br><br><br>" ;
     });
 }
 
 console.log(pjActivo);
 
+/* let parrafo = document.createElement("p")
+parrafo.textContent = (<></>) */
 
 //TEST
 /* console.log("Estado inicial");

@@ -3,38 +3,32 @@ body {
         margin: 2em 0;
     }
 
-    div {
+    section {
         display: flex;
         flex-flow: row nowrap;
         justify-content: center;
         align-items: center;
 
-
-
         #nombreImagen {
-            li {
+            p {
                 text-align: center;
-                font-size: 1em;
+                font-size: 1.2em;
                 margin: 1em;
+            }
 
-                img {
-                    display: block;
-                }
+            img {       
+                display: block;
             }
         }
 
         #stats {
             display: flex;
             flex-flow: column nowrap;
-            
-            li {
-                /* text-align: center; */
-                font-size: 1em;
-                margin: 1em;
 
-                img {
-                    display: block;
-                }
+            p {
+                font-size: 1em;/* 
+                margin: 1em; */
+                display: block ;
             }
         }
     }
