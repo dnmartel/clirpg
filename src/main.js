@@ -10,7 +10,7 @@ class Personajes {
         this.exp;
     }
 
-    atacar(origen, destino) {
+    atacar(origen, destino, repeticiones = 1) {
         buscarNombres(origen, destino);
         let luckyNumber = between((nombreOrigen.ataque - nombreDestino.defensa), nombreOrigen.ataque);
         let puntosADescontar = 0;
@@ -22,17 +22,17 @@ class Personajes {
         } else {
             puntosADescontar = Math.round((nombreOrigen.ataque - nombreDestino.defensa));
         }
-        nombreDestino.vida -= puntosADescontar;
-        console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
-        alert(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+        nombreDestino.vida -= (puntosADescontar * repeticiones)
+        console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar * repeticiones} puntos de vida !`);
+        alert(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar * repeticiones}  puntos de vida !`);
         if (nombreDestino.vida < 0) {
             nombreDestino.vida = 0;
         }
-        nombreOrigen.exp += Math.floor(Math.random() * 10);
+        nombreOrigen.exp += Math.floor(Math.random() * 20);
         expNivel(nombreOrigen);
     };
 
-    curar(origen, destino) {
+    curar(origen, destino, repeticiones = 1) {
 
         buscarNombres(origen, destino);
         let luckyNumber = between(1, (nombreOrigen.vida / 10));
@@ -43,12 +43,12 @@ class Personajes {
             puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
             alert("El efecto ha sido critico!!")
         } else {
-            puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.055);
+            puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
         }
-        nombreDestino.vida += puntosASumar;
-        console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-        alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-        nombreOrigen.exp += Math.floor(Math.random() * 10);
+        nombreDestino.vida += puntosASumar * repeticiones;
+        console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
+        alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
+        nombreOrigen.exp += Math.floor(Math.random() * 15);
         expNivel(nombreOrigen);
 
         if (nombreDestino.vida > nombreDestino.vidaMax) {
@@ -57,11 +57,11 @@ class Personajes {
 
     }
 
-    insultar(origen, destino) {
+    insultar(origen, destino, repeticiones = 1) {
         buscarNombres(origen, destino);
-        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
+        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre} ${repeticiones} veces! Su moral y experiencia han bajado ! `);
         alert(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
-        nombreDestino.exp -= Math.floor(Math.random() * 5);
+        nombreDestino.exp -= Math.floor(Math.random() * 15) * repeticiones;
         if (nombreDestino.exp <= 0) {
             nombreDestino.exp = 0;
         }
@@ -119,10 +119,10 @@ function statClase() {
                 case `paladin`:
                     element.nivel = 1;
                     element.exp = 0;
-                    element.vida = 180;
-                    element.vidaMax = 180;
-                    element.ataque = 8;
-                    element.defensa = 7;
+                    element.vida = 170;
+                    element.vidaMax = 170;
+                    element.ataque = 9;
+                    element.defensa = 8;
                     element.img = `./img/char/paladin.png`;
                     repeat = false;
                     break;
@@ -131,7 +131,7 @@ function statClase() {
                     element.exp = 0;
                     element.vida = 150;
                     element.vidaMax = 150;
-                    element.ataque = 10;
+                    element.ataque = 11;
                     element.defensa = 5;
                     element.img = `./img/char/cazador.png`;
                     repeat = false;
@@ -151,7 +151,7 @@ function statClase() {
                     element.exp = 0;
                     element.vida = 200;
                     element.vidaMax = 200;
-                    element.ataque = 11;
+                    element.ataque = 12;
                     element.defensa = 10;
                     element.img = `./img/char/guerrero.png`;
                     repeat = false;
@@ -234,16 +234,16 @@ function resetG() {
 }
 
 //Abreviación del metodo para atacar
-function pjA(origen, destino) {
-    pjActivo[0].atacar(origen, destino)
+function pjA(origen, destino, repeticiones) {
+    pjActivo[0].atacar(origen, destino, repeticiones)
 };
 //Abreviación del metodo para curarse
-function pjC(origen, destino) {
-    pjActivo[0].curar(origen, destino)
+function pjC(origen, destino, repeticiones) {
+    pjActivo[0].curar(origen, destino, repeticiones)
 };
 //Abreviación del metodo para insultar
-function pjI(origen, destino) {
-    pjActivo[0].insultar(origen, destino)
+function pjI(origen, destino, repeticiones) {
+    pjActivo[0].insultar(origen, destino, repeticiones)
 };
 
 //Armo el array donde irán los personajes activos
@@ -307,21 +307,21 @@ btnIniciar.addEventListener("click", initG);
 //BOTON ATACAR
 let btnA = document.getElementById("btnA");
 btnA.addEventListener("click", () => {
-    pjA(prompt(`Quien ataca?`), prompt(`Quien recibe el ataque?`));
+    pjA(prompt(`Quien ataca?`), prompt(`Quien recibe el ataque?`), prompt("Cuantas veces se repite ? "));
     printPJ();
 });
 
 //BOTON CURARSE
 let btnC = document.getElementById("btnC");
 btnC.addEventListener("click", () => {
-    pjC(prompt(`Quien cura?`), prompt(`Quien recibe la curación?`));
+    pjC(prompt(`Quien cura?`), prompt(`Quien recibe la curación?`, prompt("Cuantas veces se repite ? ")));
     printPJ();
 });
 
 //BOTON ATACAR
 let btnI = document.getElementById("btnI");
 btnI.addEventListener("click", () => {
-    pjI(prompt(`Quien insulta?`), prompt(`Quien recibe el insulto?`))
+    pjI(prompt(`Quien insulta?`), prompt(`Quien recibe el insulto?`, prompt("Cuantas veces se repite ? ")))
     printPJ();
 });
 
