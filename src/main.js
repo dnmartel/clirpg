@@ -16,7 +16,7 @@ class Personajes {
         let puntosADescontar = 0;
         let esCrit = (Math.random() * 11)
         console.log(esCrit);
-        if ( esCrit > 7) {
+        if (esCrit > 7) {
             puntosADescontar = Math.round((nombreOrigen.ataque - nombreDestino.defensa) * luckyNumber);
             alert("El ataque ha sido critico!!")
         } else {
@@ -39,8 +39,8 @@ class Personajes {
         let puntosASumar = 0;
         let esCrit = (Math.random() * 11)
         console.log(esCrit);
-        if ( esCrit > 7) {
-            puntosASumar = (Math.ceil((nombreOrigen.vida + 1) * 0.055)) * luckyNumber;
+        if (esCrit > 7) {
+            puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
             alert("El efecto ha sido critico!!")
         } else {
             puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.055);
@@ -288,4 +288,44 @@ console.log(pjActivo); */
 
 statClase();
 printPJ();
-console.log(pjActivo);
+
+
+//EVENTOS
+
+//BOTON AÑADIR PERSONAJE
+let bntAP = document.getElementById("btnAP");
+bntAP.addEventListener("click", () => {
+    newPJ();
+    statClase();
+    printPJ()
+});
+
+//BOTON INICIAR
+let btnIniciar = document.getElementById("btnIniciar");
+btnIniciar.addEventListener("click", initG);
+
+//BOTON ATACAR
+let btnA = document.getElementById("btnA");
+btnA.addEventListener("click", () => {
+    pjA(prompt(`Quien ataca?`), prompt(`Quien recibe el ataque?`));
+    printPJ();
+});
+
+//BOTON CURARSE
+let btnC = document.getElementById("btnC");
+btnC.addEventListener("click", () => {
+    pjC(prompt(`Quien cura?`), prompt(`Quien recibe la curación?`));
+    printPJ();
+});
+
+//BOTON ATACAR
+let btnI = document.getElementById("btnI");
+btnI.addEventListener("click", () => {
+    pjI(prompt(`Quien insulta?`), prompt(`Quien recibe el insulto?`))
+    printPJ();
+});
+
+//BOTON INICIAR
+let btnR = document.getElementById("btnR");
+btnR.addEventListener("click", resetG);
+
