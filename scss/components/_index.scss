@@ -1,4 +1,5 @@
 body {
+
     background-color: antiquewhite;
     display: flex;
     flex-flow: column nowrap;
@@ -8,31 +9,48 @@ body {
     }
 
     section {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+
+        /* article {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center; */
 
         #nombreImagen {
+            grid-area: 1 / 1 / 9 / 4;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+
             p {
                 text-align: center;
                 font-size: 1.2em;
-                margin: 1em;
+                font-weight: 700;
+                margin: 0 0 24px 0;
             }
 
             img {
                 display: block;
+                width: 85px;
             }
         }
 
         #stats {
+            grid-area: 1 / 4 / 9 / 7;
             display: flex;
             flex-flow: column nowrap;
+            align-items: flex-start;
+            min-width: 120px;
 
             p {
                 font-size: 1em;
                 display: block;
                 color: rebeccapurple;
+                margin: 0 0 60px 0;
 
                 strong {
                     color: black;
@@ -42,20 +60,50 @@ body {
 
 
         }
+
+        #acciones {
+            grid-area: 1 / 7 / 9 / 10;
+
+            .acciones {
+                height: 85px;
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: flex-start;
+                justify-content: space-evenly;
+                margin-bottom: 60px;
+            }
+
+        }
+
+        #inputAcciones {
+            grid-area: 1 / 10 / 9 / 13;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: flex-start;
+
+            form {
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                align-items: center;
+                height: 85px;
+                margin-bottom: 60px;
+            }
+        }
+    }
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+
+    button {
+        align-self: center;
+        width: 200px;
+        margin: 2em 2em;
     }
 
-    .botones {
-        display: flex;
-        justify-content: center;
-
-        button {
-            align-self: center;
-            width: 200px;
-            margin: 2em 2em;
-        }
-        
-        .ocultar {
-            display: none;
-        }
+    .ocultar {
+        display: none;
     }
 }
