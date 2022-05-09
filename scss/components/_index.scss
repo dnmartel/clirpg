@@ -15,11 +15,6 @@ body {
         grid-column-gap: 0px;
         grid-row-gap: 0px;
 
-        /* article {
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: center; */
-
         #nombreImagen {
             grid-area: 1 / 1 / 9 / 4;
             display: flex;
@@ -107,7 +102,9 @@ body {
 
 .botones {
     display: flex;
+    flex-flow: column wrap;
     justify-content: center;
+    align-items: center ;
 
     button {
         align-self: center;
@@ -118,4 +115,5 @@ body {
     .ocultar {
         display: none;
     }
+    
 }

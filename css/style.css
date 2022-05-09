@@ -27,10 +27,6 @@ body section {
   grid-template-rows: repeat(8, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  /* article {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center; */
 }
 body section #nombreImagen {
   grid-area: 1/1/9/4;
@@ -102,7 +98,9 @@ body section #inputAcciones form input {
 
 .botones {
   display: flex;
+  flex-flow: column wrap;
   justify-content: center;
+  align-items: center;
 }
 .botones button {
   align-self: center;

@@ -27,6 +27,19 @@ function expNivel(nombreOrigen) {
     }
 };
 
+
+//Funciones para ocultar y mostrar botones segun ID
+function ocultarBtn(ID) {
+    let ocultarBtn = document.getElementById(`${ID}`);
+    ocultarBtn.className = "ocultar";
+}
+
+function mostrarBtn(ID) {
+    let mostrarBtn = document.getElementById(`${ID}`);
+    mostrarBtn.className = "";
+}
+
+
 //Defino variables globales
 let nombreOrigen, nombreDestino;
 
@@ -118,7 +131,7 @@ class Personajes {
                 puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
             }
             nombreDestino.vida += puntosASumar * repeticiones;
-            console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
+                console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
             alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
             nombreOrigen.exp += Math.floor(Math.random() * 15);
             expNivel(nombreOrigen);
@@ -142,95 +155,119 @@ class Personajes {
 };
 
 // ################### FUNCIONES PRINCIPALES ###################
-//Funcion agrega personajesm
-function newPJ() {
-    pjActivo.push(new Personajes(prompt("Ingresa el nombre del personaje").toLowerCase(), prompt("Ingresa la clase del personaje: \n\nPaladin\nCazador\nGuerrero\nMago\nBrujo\nPicaro").toLowerCase()));
-};
-
 // Funcion que agregar stats segun clase   ---- Acá también las defino
 function statClase() {
-    do {
-        pjActivo.forEach(element => {
-            switch (element.clase.toLowerCase()) {
-                case `paladin`:
-                    element.nivel = 1;
-                    element.exp = 0;
-                    element.vida = 170;
-                    element.vidaMax = 170;
-                    element.ataque = 9;
-                    element.defensa = 8;
-                    element.img = `./img/char/paladin.png`;
-                    repeat = false;
-                    break;
-                case `cazador`:
-                    element.nivel = 1;
-                    element.exp = 0;
-                    element.vida = 150;
-                    element.vidaMax = 150;
-                    element.ataque = 11;
-                    element.defensa = 5;
-                    element.img = `./img/char/cazador.png`;
-                    repeat = false;
-                    break;
-                case `mago`:
-                    element.nivel = 1;
-                    element.exp = 0;
-                    element.vida = 120;
-                    element.vidaMax = 120;
-                    element.ataque = 13;
-                    element.defensa = 4;
-                    element.img = `./img/char/mago.png`;
-                    repeat = false;
-                    break;
-                case `guerrero`:
-                    element.nivel = 1;
-                    element.exp = 0;
-                    element.vida = 200;
-                    element.vidaMax = 200;
-                    element.ataque = 12;
-                    element.defensa = 10;
-                    element.img = `./img/char/guerrero.png`;
-                    repeat = false;
-                    break;
-                case `brujo`:
-                    element.nivel = 1;
-                    element.exp = 0;
-                    element.vida = 120;
-                    element.vidaMax = 120;
-                    element.ataque = 13;
-                    element.defensa = 4;
-                    element.img = `./img/char/brujo.png`;
-                    repeat = false;
-                    break;
+    
+    pjActivo.forEach(element => {
+        switch (element.clase.toLowerCase()) {
+            case `paladin`:
+                element.nivel = 1;
+                element.exp = 0;
+                element.vida = 170;
+                element.vidaMax = 170;
+                element.ataque = 9;
+                element.defensa = 8;
+                element.img = `./img/char/paladin.png`;
+                repeat = false;
+                break;
+            case `cazador`:
+                element.nivel = 1;
+                element.exp = 0;
+                element.vida = 150;
+                element.vidaMax = 150;
+                element.ataque = 11;
+                element.defensa = 5;
+                element.img = `./img/char/cazador.png`;
+                repeat = false;
+                break;
+            case `mago`:
+                element.nivel = 1;
+                element.exp = 0;
+                element.vida = 120;
+                element.vidaMax = 120;
+                element.ataque = 13;
+                element.defensa = 4;
+                element.img = `./img/char/mago.png`;
+                repeat = false;
+                break;
+            case `guerrero`:
+                element.nivel = 1;
+                element.exp = 0;
+                element.vida = 200;
+                element.vidaMax = 200;
+                element.ataque = 12;
+                element.defensa = 10;
+                element.img = `./img/char/guerrero.png`;
+                repeat = false;
+                break;
+            case `brujo`:
+                element.nivel = 1;
+                element.exp = 0;
+                element.vida = 120;
+                element.vidaMax = 120;
+                element.ataque = 13;
+                element.defensa = 4;
+                element.img = `./img/char/brujo.png`;
+                repeat = false;
+                break;
 
-                case `picaro`:
-                    element.nivel = 1;
-                    element.exp = 0;
-                    element.vida = 110;
-                    element.vidaMax = 110;
-                    element.ataque = 14;
-                    element.defensa = 2;
-                    element.img = `./img/char/picaro.png`;
-                    repeat = false;
-                    break;
-                default:
-                    alert(`la clase especificada no existe`);
-                    element.clase = prompt("Ingresa la clase del personaje: \n\nPaladin\nCazador\nGuerrero\nMago\nBrujo").toLowerCase();
-                    repeat = true;
-                    break;
-            }
-        });
-    } while (repeat);
+            case `picaro`:
+                element.nivel = 1;
+                element.exp = 0;
+                element.vida = 110;
+                element.vidaMax = 110;
+                element.ataque = 14;
+                element.defensa = 2;
+                element.img = `./img/char/picaro.png`;
+                repeat = false;
+                break;
+            default:
+                /* alert(`la clase especificada no existe`); */
+                /* element.clase = prompt("Ingresa la clase del personaje: \n\nPaladin\nCazador\nGuerrero\nMago\nBrujo").toLowerCase(); */
+                /* repeat = true; */
+                break;
+        }
+    });
 };
 
-// Función que imprime PJ en pantalla
-function printPJ() {
+//Funcion agrega personajes
+function newPJ() {
+    let formNewPJID = document.getElementById("formNewPJ");
+    let clasesDisponibles = ""
+    let arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero`, `picaro`];
+    arrayClasesDisponibles.forEach(element => {
+        clasesDisponibles += `<option>${element}</option> \n`;
+    })
+
+    formNewPJID.innerHTML = `
+    <input type="text" placeholder="Nombre" id="nombreNewPJ">
+    <select type="text" placeholder="Clase" id="claseNewPJ">
+    <option selected disabled hidden>Clase</option>
+    ${clasesDisponibles}
+    </select>
+    <button id="newPJButton">Crear</button>
+    `;
+
+    document.getElementById("newPJButton").addEventListener("click", () => {
+
+        pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), document.getElementById("claseNewPJ").value));
+        
+        statClase();
+        
+        printPJ(pjActivo);
+        
+        formNewPJID.innerHTML = "";
+    });
+};
+
+// Función que imprime PJ en pantalla segun Array
+function printPJ(array) {
     let nombreImagenID = document.getElementById(`nombreImagen`);
     let statsID = document.getElementById(`stats`);
 
     nombreImagenID.innerHTML = " ";
     statsID.innerHTML = " ";
-    pjActivo.forEach(element => {
+    array.forEach(element => {
         nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + ` <br> ${element.clase}` + " </p>";
         statsID.innerHTML += "<p> <strong>Nivel:</strong> " + element.nivel + "<br><strong>Experiencia:</strong> " + element.exp + "<br><strong>Vida:</strong> " + element.vida + "<br><strong>Ataque:</strong> " + element.ataque + "<br><strong>Defensa:</strong> " + element.defensa + " </p>";
     });
@@ -244,9 +281,9 @@ function initG() {
         accionesID.innerHTML += `
             <div class=acciones id=acc-${parseInt(pjActivo.indexOf(element))}>
 
-            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ() >Atacar</button>
-            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ() >Curarse</button>
-            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ() >Insultar</button>
+            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Atacar</button>
+            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Curarse</button>
+            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Insultar</button>
             
             </div>`;
     });
@@ -272,44 +309,27 @@ function initG() {
         `;
     });
 
-    let ocultarBtn = document.getElementById("btnAP");
-    ocultarBtn.className = "ocultar";
-    ocultarBtn = document.getElementById("btnIniciar");
-    ocultarBtn.className = "ocultar";
-
-    let mostrarBtn = document.getElementById("btnR");
-    mostrarBtn.className = "";
+    ocultarBtn("btnAP");
+    ocultarBtn("btnIniciar");
+    ocultarBtn("btnIniciar");
+    mostrarBtn("btnR");
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //Funcion que reinicia el juego
 function resetG() {
-    let ocultarBtn = document.getElementById("btnAP");
-    ocultarBtn.className = "";
-    ocultarBtn = document.getElementById("btnIniciar");
-    ocultarBtn.className = "";
-
-    let mostrarBtn = document.getElementById("btnR");
-    mostrarBtn.className = "ocultar";
-
+    //Restablezco clases de botones
+    mostrarBtn("btnAP");
+    mostrarBtn("btnIniciar");
+    ocultarBtn("btnR");
+    //Vacio htmls
     let accionesID = document.getElementById(`acciones`);
     accionesID.innerHTML = "";
-
     let inputAccionesID = document.getElementById(`inputAcciones`);
     inputAccionesID.innerHTML = "";
 
-    pjActivo.splice(2, 10);
-    printPJ();
+    // Elimino personajes agregados
+    printPJ(pjOriginales);
+    pjActivo.splice(2, pjActivo.length);
 };
 
 //Abreviación del metodo para atacar
@@ -336,21 +356,18 @@ pjActivo.push(new Personajes("myle", "paladin"));
 pjActivo.push(new Personajes("brotana", "cazador"));
 
 
-
 // ################### INICIALIZO E IMPRIMO ###################
 statClase();
-printPJ();
+printPJ(pjActivo);
 
+//Backup de PJ originales
+const pjOriginales = pjActivo.map(x => x);
 
 // ################### EVENTOS ###################
 
 //BOTON AÑADIR PERSONAJE
 let bntAP = document.getElementById("btnAP");
-bntAP.addEventListener("click", () => {
-    newPJ();
-    statClase();
-    printPJ()
-});
+bntAP.addEventListener("click", newPJ);
 
 //BOTON INICIAR JUEGO
 let btnIniciar = document.getElementById("btnIniciar");
@@ -359,3 +376,4 @@ btnIniciar.addEventListener("click", initG);
 //BOTON RESET
 let btnR = document.getElementById("btnR");
 btnR.addEventListener("click", resetG);
+
