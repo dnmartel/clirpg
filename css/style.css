@@ -76,6 +76,9 @@ body section #acciones .acciones {
   justify-content: space-evenly;
   margin-bottom: 60px;
 }
+body section #acciones .acciones button {
+  width: 50%;
+}
 body section #inputAcciones {
   grid-area: 1/10/9/13;
   display: flex;
@@ -89,6 +92,12 @@ body section #inputAcciones form {
   align-items: center;
   height: 85px;
   margin-bottom: 60px;
+}
+body section #inputAcciones form select {
+  width: 100%;
+}
+body section #inputAcciones form input {
+  width: 100%;
 }
 
 .botones {

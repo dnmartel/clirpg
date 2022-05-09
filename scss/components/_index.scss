@@ -71,6 +71,10 @@ body {
                 align-items: flex-start;
                 justify-content: space-evenly;
                 margin-bottom: 60px;
+
+                button {
+                    width: 50%;
+                }
             }
 
         }
@@ -88,6 +92,14 @@ body {
                 align-items: center;
                 height: 85px;
                 margin-bottom: 60px;
+
+                select {
+                    width: 100%;
+                }
+
+                input {
+                    width: 100%;
+                }
             }
         }
     }

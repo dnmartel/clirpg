@@ -253,13 +253,6 @@ function initG() {
 
     let inputAccionesID = document.getElementById(`inputAcciones`);
     inputAccionesID.innerHTML = "";
-    /* pjActivo.forEach(element => {
-        inputAccionesID.innerHTML += `
-        <form>
-        <input type="text" placeholder="A quien?" id="aQuien${parseInt(pjActivo.indexOf(element))}">
-        <input type="number" placeholder="Cuantas veces?" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
-        </form>`;
-    }); */
 
     let opcionesSelect;
     pjActivo.forEach(element => {
