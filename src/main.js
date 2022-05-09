@@ -219,14 +219,22 @@ function initG() {
     let accionesID = document.getElementById(`acciones`);
     accionesID.innerHTML = "";
     pjActivo.forEach(element => {
-        accionesID.innerHTML += `<div class=acciones id=acc-` + (parseInt(pjActivo.indexOf(element)) + 1) + `> <button name=btnA` + (parseInt(pjActivo.indexOf(element)) + 1) + ` class=ocultar onclick=pjA(` + `"${element.nombre}",` + `"brotana",` + `1),printPJ()` + `>Atacar</button><button name=btnC` + (parseInt(pjActivo.indexOf(element)) + 1) + ` class=ocultar onclick=pjC(` + `"${element.nombre}",` + `"${element.nombre}",` + `1),printPJ()` + `>Curarse</button><button name=btnI` + (parseInt(pjActivo.indexOf(element)) + 1) + ` class=ocultar onclick=pjI(` + `"${element.nombre}",` + `"${(element.nombre)}",` + `1),printPJ()` + `>Insultar</button></div>`;
+        accionesID.innerHTML += `
+        <div class=acciones id=acc-${(parseInt(pjActivo.indexOf(element)) + 1)}>
+        <button name=btnA${(parseInt(pjActivo.indexOf(element)) + 1)} class=ocultar onclick=pjA("${element.nombre}","${element.nombre}",1),printPJ() >Atacar</button>
+        <button name=btnC${(parseInt(pjActivo.indexOf(element)) + 1)} class=ocultar onclick=pjC(${element.nombre}","${element.nombre}",1),printPJ() >Curarse</button>
+        <button name=btnI${(parseInt(pjActivo.indexOf(element)) + 1)} class=ocultar onclick=pjI("${element.nombre}","${element.nombre}",1),printPJ() >Insultar</button>
+        </div>`;
     });
 
     let inputAccionesID = document.getElementById(`inputAcciones`);
     inputAccionesID.innerHTML = "";
     pjActivo.forEach(element => {
-        inputAccionesID.innerHTML += `<form><input type="text" placeholder="A quien?" id="aQuien-` + (parseInt(pjActivo.indexOf(element)) + 1) + `">
-    <input type="number" placeholder="Cuantas veces?" name="repeticiones-` + (parseInt(pjActivo.indexOf(element)) + 1) + `"></form>`;
+        inputAccionesID.innerHTML += `
+        <form>
+        <input type="text" placeholder="A quien?" id="aQuien-${(parseInt(pjActivo.indexOf(element)) + 1)}">
+        <input type="number" placeholder="Cuantas veces?" name="repeticiones-${(parseInt(pjActivo.indexOf(element)) + 1)}">
+        </form>`;
     });
 
     let ocultarBtn = document.getElementById("btnAP");
@@ -236,7 +244,19 @@ function initG() {
 
     let mostrarBtn = document.getElementById("btnR");
     mostrarBtn.className = "";
+
 };
+
+
+
+
+
+
+
+
+
+
+
 
 //Funcion que reinicia el juego
 function resetG() {
