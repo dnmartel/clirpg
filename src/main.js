@@ -22,8 +22,8 @@ function expNivel(nombreOrigen) {
         alert(`${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}`);
         nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.04);
         nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.04);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.03);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.03);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.06);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.06);
     }
 };
 
@@ -36,6 +36,19 @@ function between(min, max) {
         Math.random() * (max - min) + min
     )
 };
+
+//Funciones de apoyo al renderizado de botones
+function retornaAQuienID(index) {
+    let retornaAQuienID = document.getElementById(`aQuien${index}`);
+    return retornaAQuienID.value;
+};
+
+function retornaRepetID(index) {
+    let retornaRepetID = document.getElementById(`repeticiones${index}`);
+    return retornaRepetID.value;
+};
+
+
 
 // ################### CLASES ###################
 
@@ -64,10 +77,14 @@ class Personajes {
             let esCrit = (Math.random() * 11)
             console.log(esCrit);
             if (esCrit > 8) {
-                puntosADescontar = Math.round((nombreOrigen.ataque - nombreDestino.defensa) * luckyNumber);
+                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)) * luckyNumber);
                 alert("El ataque ha sido critico!")
             } else {
-                puntosADescontar = Math.round((nombreOrigen.ataque - nombreDestino.defensa));
+                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)));
+            }
+
+            if (puntosADescontar < 0) {
+                puntosADescontar = 0;
             }
             nombreDestino.vida -= (puntosADescontar * repeticiones)
             console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar * repeticiones} puntos de vida !`);
@@ -82,7 +99,12 @@ class Personajes {
 
     curar(origen, destino, repeticiones = 1) {
         buscarNombres(origen, destino);
-        if (nombreDestino.vida == nombreDestino.vidaMax) {
+
+        if (nombreOrigen.vida == 0) {
+            alert(`${origen} está muerto, los muertos ya no pueden curarse`)
+        } else if (nombreDestino.vida == 0) {
+            alert(`Un vendaje no revivira a ${destino}.`)
+        } else if (nombreDestino.vida == nombreDestino.vidaMax) {
             alert(`${destino} ya tiene la vida al máximo.`)
         } else {
             let luckyNumber = between(1, (nombreOrigen.vida / 10));
@@ -220,21 +242,41 @@ function initG() {
     accionesID.innerHTML = "";
     pjActivo.forEach(element => {
         accionesID.innerHTML += `
-        <div class=acciones id=acc-${(parseInt(pjActivo.indexOf(element)) + 1)}>
-        <button name=btnA${(parseInt(pjActivo.indexOf(element)) + 1)} class=ocultar onclick=pjA("${element.nombre}","${element.nombre}",1),printPJ() >Atacar</button>
-        <button name=btnC${(parseInt(pjActivo.indexOf(element)) + 1)} class=ocultar onclick=pjC(${element.nombre}","${element.nombre}",1),printPJ() >Curarse</button>
-        <button name=btnI${(parseInt(pjActivo.indexOf(element)) + 1)} class=ocultar onclick=pjI("${element.nombre}","${element.nombre}",1),printPJ() >Insultar</button>
-        </div>`;
+            <div class=acciones id=acc-${parseInt(pjActivo.indexOf(element))}>
+
+            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ() >Atacar</button>
+            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ() >Curarse</button>
+            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ() >Insultar</button>
+            
+            </div>`;
     });
 
     let inputAccionesID = document.getElementById(`inputAcciones`);
     inputAccionesID.innerHTML = "";
-    pjActivo.forEach(element => {
+    /* pjActivo.forEach(element => {
         inputAccionesID.innerHTML += `
         <form>
-        <input type="text" placeholder="A quien?" id="aQuien-${(parseInt(pjActivo.indexOf(element)) + 1)}">
-        <input type="number" placeholder="Cuantas veces?" name="repeticiones-${(parseInt(pjActivo.indexOf(element)) + 1)}">
+        <input type="text" placeholder="A quien?" id="aQuien${parseInt(pjActivo.indexOf(element))}">
+        <input type="number" placeholder="Cuantas veces?" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
         </form>`;
+    }); */
+
+    let opcionesSelect;
+    pjActivo.forEach(element => {
+        opcionesSelect += `<option value="${element.nombre}">${element.nombre}</option> \n`
+    })
+
+    pjActivo.forEach(element => {
+        inputAccionesID.innerHTML += `
+
+        <form>
+        <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
+        <option value="${element.nombre}" selected hidden disabled>${element.nombre}</option>
+        ${opcionesSelect}
+        </select>
+        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
+        </form>
+        `;
     });
 
     let ocultarBtn = document.getElementById("btnAP");
@@ -244,8 +286,7 @@ function initG() {
 
     let mostrarBtn = document.getElementById("btnR");
     mostrarBtn.className = "";
-
-};
+}
 
 
 
@@ -280,9 +321,6 @@ function resetG() {
 
 //Abreviación del metodo para atacar
 function pjA(origen, destino, repeticiones) {
-    /* let quienID = document.getElementById(`quien`) */
-    /*     let aQuienID = document.getElementById(`aQuien-${(parseInt(pjActivo.indexOf(element)) + 1)}`).value;
-        let repeticionesID = document.getElementById(`repeticiones-${(parseInt(pjActivo.indexOf(element)) + 1)}`).value; */
     pjActivo[0].atacar(origen, destino, repeticiones)
 };
 
