@@ -275,6 +275,7 @@ let pjGuardado = [];
 function cargarPartida() {
     objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
     objetoRecuperado.forEach(element => {
+        pjActivo = [];
         pjGuardado.push(new Personajes(element.nombre, element.clase));
         /* ESTO TENGO QUE PASARLO COMO LO HAGO EN STATCLASE
         element.vida, element.ataque, element.defensa, element.nivel, element.exp)   */
@@ -287,27 +288,29 @@ function cargarPartida() {
         pjGuardado[indexRec].vidaMax = element.vidaMax;
         pjGuardado[indexRec].img = element.img;
 
-        
+
 
     });
-    printPJ(pjGuardado);
-    
-    initG(pjGuardado);
+
+    pjGuardadoProd = pjGuardado.map(x=>x);
+    printPJ(pjGuardadoProd);
+
+    initGG();
 
     pjGuardado = [];
 }
 
-//Funcion que inicia el juego
-function initG(array) {
+//Funcion que inicia el juego Guardado
+function initGG() {
     let accionesID = document.getElementById(`acciones`);
     accionesID.innerHTML = "";
-    array.forEach(element => {
+    pjGuardadoProd.forEach(element => {
         accionesID.innerHTML += `
-            <div class=acciones id=acc-${parseInt(array.indexOf(element))}>
+            <div class=acciones id=acc-${parseInt(pjGuardadoProd.indexOf(element))}>
 
-            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(array.indexOf(element))}),retornaRepetID(${parseInt(array.indexOf(element))})),printPJ(array) >Atacar</button>
-            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(array.indexOf(element))}),retornaRepetID(${parseInt(array.indexOf(element))})),printPJ(array) >Curarse</button>
-            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(array.indexOf(element))}),retornaRepetID(${parseInt(array.indexOf(element))})),printPJ(array) >Insultar</button>
+            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjGuardadoProd.indexOf(element))}),retornaRepetID(${parseInt(pjGuardadoProd.indexOf(element))})),printPJ(pjGuardadoProd) >Atacar</button>
+            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjGuardadoProd.indexOf(element))}),retornaRepetID(${parseInt(pjGuardadoProd.indexOf(element))})),printPJ(pjGuardadoProd) >Curarse</button>
+            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjGuardadoProd.indexOf(element))}),retornaRepetID(${parseInt(pjGuardadoProd.indexOf(element))})),printPJ(pjGuardadoProd) >Insultar</button>
             
             </div>`;
     });
@@ -316,19 +319,60 @@ function initG(array) {
     inputAccionesID.innerHTML = "";
 
     let opcionesSelect;
-    array.forEach(element => {
+    pjGuardadoProd.forEach(element => {
         opcionesSelect += `<option value="${element.nombre}">${element.nombre}</option> \n`
     })
 
-    array.forEach(element => {
+    pjGuardadoProd.forEach(element => {
         inputAccionesID.innerHTML += `
 
         <form>
-        <select id="aQuien${parseInt(array.indexOf(element))}">
+        <select id="aQuien${parseInt(pjGuardadoProd.indexOf(element))}">
         <option value="${element.nombre}" selected hidden disabled>${element.nombre}</option>
         ${opcionesSelect}
         </select>
-        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(array.indexOf(element))}">
+        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjGuardadoProd.indexOf(element))}">
+        </form>
+        `;
+    });
+
+    ocultarBtn("btnAP");
+    ocultarBtn("btnIniciar");
+    mostrarBtn("btnR");
+}
+
+//Funcion que inicia el juego
+function initG() {
+    let accionesID = document.getElementById(`acciones`);
+    accionesID.innerHTML = "";
+    pjActivo.forEach(element => {
+        accionesID.innerHTML += `
+            <div class=acciones id=acc-${parseInt(pjActivo.indexOf(element))}>
+
+            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Atacar</button>
+            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Curarse</button>
+            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Insultar</button>
+            
+            </div>`;
+    });
+
+    let inputAccionesID = document.getElementById(`inputAcciones`);
+    inputAccionesID.innerHTML = "";
+
+    let opcionesSelect;
+    pjActivo.forEach(element => {
+        opcionesSelect += `<option value="${element.nombre}">${element.nombre}</option> \n`
+    })
+
+    pjActivo.forEach(element => {
+        inputAccionesID.innerHTML += `
+
+        <form>
+        <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
+        <option value="${element.nombre}" selected hidden disabled>${element.nombre}</option>
+        ${opcionesSelect}
+        </select>
+        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
         </form>
         `;
     });
@@ -394,8 +438,33 @@ bntAP.addEventListener("click", newPJ);
 
 //BOTON INICIAR JUEGO
 let btnIniciar = document.getElementById("btnIniciar");
-btnIniciar.addEventListener("click", ()=>{
-    initG(pjActivo);
+btnIniciar.addEventListener("click", () => {
+
+    //SWEET ALERT
+    let timerInterval
+    Swal.fire({
+        title: 'Preparando todo!',
+        html: 'Listos en <b></b>...',
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+            }, 100)
+        },
+        willClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('Me cerré')
+        }
+    })
+
+    //INICIA
+    initG();
 });
 
 //BOTON RESET
