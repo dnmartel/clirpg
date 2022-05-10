@@ -270,75 +270,31 @@ function guardarPartida() {
 }
 
 //Función que carga la partida guardada en localStorage
-let pjGuardado = [];
 
 function cargarPartida() {
     objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
+
+    pjActivo.splice(0, pjActivo.length);
+    let indexRec = 0;
+
     objetoRecuperado.forEach(element => {
-        pjActivo = [];
-        pjGuardado.push(new Personajes(element.nombre, element.clase));
-        /* ESTO TENGO QUE PASARLO COMO LO HAGO EN STATCLASE
-        element.vida, element.ataque, element.defensa, element.nivel, element.exp)   */
-        let indexRec = objetoRecuperado.indexOf(element);
-        pjGuardado[indexRec].vida = element.vida;
-        pjGuardado[indexRec].ataque = element.ataque;
-        pjGuardado[indexRec].defensa = element.defensa;
-        pjGuardado[indexRec].nivel = element.nivel;
-        pjGuardado[indexRec].exp = element.exp;
-        pjGuardado[indexRec].vidaMax = element.vidaMax;
-        pjGuardado[indexRec].img = element.img;
+        pjActivo.push(new Personajes(element.nombre, element.clase));
+        
+        pjActivo[indexRec].vida = element.vida;
+        pjActivo[indexRec].ataque = element.ataque;
+        pjActivo[indexRec].defensa = element.defensa;
+        pjActivo[indexRec].nivel = element.nivel;
+        pjActivo[indexRec].exp = element.exp;
+        pjActivo[indexRec].vidaMax = element.vidaMax;
+        pjActivo[indexRec].img = element.img;
 
-
-
+        indexRec += 1;
     });
 
-    pjGuardadoProd = pjGuardado.map(x=>x);
-    printPJ(pjGuardadoProd);
+    console.log(pjActivo);
+    printPJ(pjActivo);
 
-    initGG();
-
-    pjGuardado = [];
-}
-
-//Funcion que inicia el juego Guardado
-function initGG() {
-    let accionesID = document.getElementById(`acciones`);
-    accionesID.innerHTML = "";
-    pjGuardadoProd.forEach(element => {
-        accionesID.innerHTML += `
-            <div class=acciones id=acc-${parseInt(pjGuardadoProd.indexOf(element))}>
-
-            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjGuardadoProd.indexOf(element))}),retornaRepetID(${parseInt(pjGuardadoProd.indexOf(element))})),printPJ(pjGuardadoProd) >Atacar</button>
-            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjGuardadoProd.indexOf(element))}),retornaRepetID(${parseInt(pjGuardadoProd.indexOf(element))})),printPJ(pjGuardadoProd) >Curarse</button>
-            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjGuardadoProd.indexOf(element))}),retornaRepetID(${parseInt(pjGuardadoProd.indexOf(element))})),printPJ(pjGuardadoProd) >Insultar</button>
-            
-            </div>`;
-    });
-
-    let inputAccionesID = document.getElementById(`inputAcciones`);
-    inputAccionesID.innerHTML = "";
-
-    let opcionesSelect;
-    pjGuardadoProd.forEach(element => {
-        opcionesSelect += `<option value="${element.nombre}">${element.nombre}</option> \n`
-    })
-
-    pjGuardadoProd.forEach(element => {
-        inputAccionesID.innerHTML += `
-
-        <form>
-        <select id="aQuien${parseInt(pjGuardadoProd.indexOf(element))}">
-        <option value="${element.nombre}" selected hidden disabled>${element.nombre}</option>
-        ${opcionesSelect}
-        </select>
-        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjGuardadoProd.indexOf(element))}">
-        </form>
-        `;
-    });
-
-    ocultarBtn("btnAP");
-    ocultarBtn("btnIniciar");
-    mostrarBtn("btnR");
+    initG();
 }
 
 //Funcion que inicia el juego
