@@ -131,7 +131,7 @@ class Personajes {
                 puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
             }
             nombreDestino.vida += puntosASumar * repeticiones;
-                console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
+            console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
             alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
             nombreOrigen.exp += Math.floor(Math.random() * 15);
             expNivel(nombreOrigen);
@@ -157,7 +157,7 @@ class Personajes {
 // ################### FUNCIONES PRINCIPALES ###################
 // Funcion que agregar stats segun clase   ---- Acá también las defino
 function statClase() {
-    
+
     pjActivo.forEach(element => {
         switch (element.clase.toLowerCase()) {
             case `paladin`:
@@ -168,7 +168,6 @@ function statClase() {
                 element.ataque = 9;
                 element.defensa = 8;
                 element.img = `./img/char/paladin.png`;
-                repeat = false;
                 break;
             case `cazador`:
                 element.nivel = 1;
@@ -178,7 +177,6 @@ function statClase() {
                 element.ataque = 11;
                 element.defensa = 5;
                 element.img = `./img/char/cazador.png`;
-                repeat = false;
                 break;
             case `mago`:
                 element.nivel = 1;
@@ -188,7 +186,6 @@ function statClase() {
                 element.ataque = 13;
                 element.defensa = 4;
                 element.img = `./img/char/mago.png`;
-                repeat = false;
                 break;
             case `guerrero`:
                 element.nivel = 1;
@@ -198,7 +195,6 @@ function statClase() {
                 element.ataque = 12;
                 element.defensa = 10;
                 element.img = `./img/char/guerrero.png`;
-                repeat = false;
                 break;
             case `brujo`:
                 element.nivel = 1;
@@ -208,7 +204,6 @@ function statClase() {
                 element.ataque = 13;
                 element.defensa = 4;
                 element.img = `./img/char/brujo.png`;
-                repeat = false;
                 break;
 
             case `picaro`:
@@ -219,12 +214,8 @@ function statClase() {
                 element.ataque = 14;
                 element.defensa = 2;
                 element.img = `./img/char/picaro.png`;
-                repeat = false;
                 break;
             default:
-                /* alert(`la clase especificada no existe`); */
-                /* element.clase = prompt("Ingresa la clase del personaje: \n\nPaladin\nCazador\nGuerrero\nMago\nBrujo").toLowerCase(); */
-                /* repeat = true; */
                 break;
         }
     });
@@ -251,11 +242,11 @@ function newPJ() {
     document.getElementById("newPJButton").addEventListener("click", () => {
 
         pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), document.getElementById("claseNewPJ").value));
-        
+
         statClase();
-        
+
         printPJ(pjActivo);
-        
+
         formNewPJID.innerHTML = "";
     });
 };
@@ -273,17 +264,50 @@ function printPJ(array) {
     });
 };
 
+//Función que guarda la partida en localStorage
+function guardarPartida() {
+    localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo));
+}
+
+//Función que carga la partida guardada en localStorage
+let pjGuardado = [];
+
+function cargarPartida() {
+    objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
+    objetoRecuperado.forEach(element => {
+        pjGuardado.push(new Personajes(element.nombre, element.clase));
+        /* ESTO TENGO QUE PASARLO COMO LO HAGO EN STATCLASE
+        element.vida, element.ataque, element.defensa, element.nivel, element.exp)   */
+        let indexRec = objetoRecuperado.indexOf(element);
+        pjGuardado[indexRec].vida = element.vida;
+        pjGuardado[indexRec].ataque = element.ataque;
+        pjGuardado[indexRec].defensa = element.defensa;
+        pjGuardado[indexRec].nivel = element.nivel;
+        pjGuardado[indexRec].exp = element.exp;
+        pjGuardado[indexRec].vidaMax = element.vidaMax;
+        pjGuardado[indexRec].img = element.img;
+
+        
+
+    });
+    printPJ(pjGuardado);
+    
+    initG(pjGuardado);
+
+    pjGuardado = [];
+}
+
 //Funcion que inicia el juego
-function initG() {
+function initG(array) {
     let accionesID = document.getElementById(`acciones`);
     accionesID.innerHTML = "";
-    pjActivo.forEach(element => {
+    array.forEach(element => {
         accionesID.innerHTML += `
-            <div class=acciones id=acc-${parseInt(pjActivo.indexOf(element))}>
+            <div class=acciones id=acc-${parseInt(array.indexOf(element))}>
 
-            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Atacar</button>
-            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Curarse</button>
-            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Insultar</button>
+            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(array.indexOf(element))}),retornaRepetID(${parseInt(array.indexOf(element))})),printPJ(array) >Atacar</button>
+            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(array.indexOf(element))}),retornaRepetID(${parseInt(array.indexOf(element))})),printPJ(array) >Curarse</button>
+            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(array.indexOf(element))}),retornaRepetID(${parseInt(array.indexOf(element))})),printPJ(array) >Insultar</button>
             
             </div>`;
     });
@@ -292,25 +316,24 @@ function initG() {
     inputAccionesID.innerHTML = "";
 
     let opcionesSelect;
-    pjActivo.forEach(element => {
+    array.forEach(element => {
         opcionesSelect += `<option value="${element.nombre}">${element.nombre}</option> \n`
     })
 
-    pjActivo.forEach(element => {
+    array.forEach(element => {
         inputAccionesID.innerHTML += `
 
         <form>
-        <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
+        <select id="aQuien${parseInt(array.indexOf(element))}">
         <option value="${element.nombre}" selected hidden disabled>${element.nombre}</option>
         ${opcionesSelect}
         </select>
-        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
+        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(array.indexOf(element))}">
         </form>
         `;
     });
 
     ocultarBtn("btnAP");
-    ocultarBtn("btnIniciar");
     ocultarBtn("btnIniciar");
     mostrarBtn("btnR");
 }
@@ -371,9 +394,18 @@ bntAP.addEventListener("click", newPJ);
 
 //BOTON INICIAR JUEGO
 let btnIniciar = document.getElementById("btnIniciar");
-btnIniciar.addEventListener("click", initG);
+btnIniciar.addEventListener("click", ()=>{
+    initG(pjActivo);
+});
 
 //BOTON RESET
 let btnR = document.getElementById("btnR");
 btnR.addEventListener("click", resetG);
 
+//BOTON GUARDAR PARTIDA
+let btnGP = document.getElementById("btnGP");
+btnGP.addEventListener("click", guardarPartida);
+
+//BOTON CARGAR PARTIDA
+let btnCP = document.getElementById("btnCP");
+btnCP.addEventListener("click", cargarPartida);
