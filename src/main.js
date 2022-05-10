@@ -279,7 +279,7 @@ function cargarPartida() {
 
     objetoRecuperado.forEach(element => {
         pjActivo.push(new Personajes(element.nombre, element.clase));
-        
+
         pjActivo[indexRec].vida = element.vida;
         pjActivo[indexRec].ataque = element.ataque;
         pjActivo[indexRec].defensa = element.defensa;
@@ -291,7 +291,6 @@ function cargarPartida() {
         indexRec += 1;
     });
 
-    console.log(pjActivo);
     printPJ(pjActivo);
 
     initG();
@@ -351,8 +350,12 @@ function resetG() {
     inputAccionesID.innerHTML = "";
 
     // Elimino personajes agregados
-    printPJ(pjOriginales);
-    pjActivo.splice(2, pjActivo.length);
+    pjActivo.splice(0, pjActivo.length);
+    pjActivo.push(new Personajes("myle", "paladin"));
+    pjActivo.push(new Personajes("brotana", "cazador"));
+    statClase();
+    printPJ(pjActivo);
+
 };
 
 //Abreviación del metodo para atacar
