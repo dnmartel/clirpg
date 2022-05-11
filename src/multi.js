@@ -475,3 +475,13 @@ btnGP.addEventListener("click", guardarPartida);
 //BOTON CARGAR PARTIDA
 let btnCP = document.getElementById("btnCP");
 btnCP.addEventListener("click", cargarPartida);
+
+
+//boton back, te lleva al index con cambios
+document.getElementById("btn-back-i").addEventListener( "click", ()=>{
+    document.getElementById("section-index").classList.remove("height-100");
+    document.getElementById("section-index").classList.add("height-0", "d-none");
+    document.getElementById("game-mode").classList.remove("d-none","height-0");
+    document.getElementById("game-mode").classList.add("height-100");
+    document.getElementById("btn-back-i").classList.remove("d-none");
+})

@@ -17,12 +17,27 @@
             <h1>CLIRPG</h1>
         </div>
         <div id="div-btn-index">
-            <button id="btn-index">Iniciar</button>
+            <button class="button-index" id="btn-index">Iniciar</button>
         </div>
     </section>
-    <section id="game-mode" class="flex-center height-0">
-        <button id="btn-singleplayer">Single Player</button><a href="./multiplayer.html"><button>Multiplayer</button></a>
+    <section id="game-mode" class="flex-center height-0 d-none">
+        <a href="#">
+            <button class="button-index" id="btn-singleplayer">Single Player</button>
+        </a>
+        <a href="./multiplayer.html">
+            <button class="button-index">Multiplayer</button>
+        </a>
+
+        <div class="d-none flex-center" id="pop-up">
+            <p>
+                En desarrollo :D
+            </p>
+        </div>
+
+        <button class="button-index d-none" id="btn-back-i">&#8592; volver</button>
     </section>
+
+
 
 
 

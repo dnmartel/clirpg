@@ -33,13 +33,20 @@
 .body-i #section-index #centro h1 {
   font-size: 3em;
 }
-.body-i #section-index #div-btn-index button {
+.body-i #section-index #div-btn-index .button-index {
   background-color: gray;
   height: 50px;
   width: 200px;
   margin-top: 5em;
-  animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 2s infinite;
-  box-shadow: 1.6em 0.8em rgba(0, 0, 0, 0.8);
+  animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
+  box-shadow: 1.2em 0.8em rgba(0, 0, 0, 0.8);
+}
+.body-i #section-index #div-btn-index .button-index:hover {
+  animation-play-state: paused;
+}
+.body-i #section-index #div-btn-index .button-index:active {
+  box-shadow: 0.5em 0.4em rgba(0, 0, 0, 0.8);
+  transform: translateY(4px);
 }
 @keyframes init-float {
   0% {
@@ -58,18 +65,85 @@
     transform: translateY(0);
   }
 }
+@keyframes init-float-r {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(1em);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-1em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 .body-i #game-mode {
   background-color: lightcoral;
+  flex-flow: column;
 }
 .body-i #game-mode button {
-  margin: 1em;
+  margin: 2em;
+}
+.body-i #game-mode #btn-singleplayer {
+  animation: init-float-r 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
+}
+.body-i #game-mode #btn-singleplayer:hover {
+  animation-play-state: paused;
+}
+.body-i #game-mode #btn-singleplayer:active {
+  box-shadow: 0.5em 0.4em rgba(0, 0, 0, 0.8);
+  transform: translateY(4px);
 }
 .body-i .height-100 {
   height: 100vh;
 }
 .body-i .height-0 {
   height: 0vh;
+}
+.body-i .d-none {
   display: none;
+}
+.body-i .button-index {
+  background-color: gray;
+  text-transform: uppercase;
+  height: 50px;
+  width: 166px;
+  margin-top: 5em;
+  animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
+  box-shadow: 1.2em 0.8em rgba(0, 0, 0, 0.8);
+}
+.body-i .button-index:hover {
+  animation-play-state: paused;
+}
+.body-i .button-index:active {
+  box-shadow: 0.5em 0.4em rgba(0, 0, 0, 0.8);
+  transform: translateY(4px);
+}
+.body-i #btn-back-i {
+  height: 30px;
+  width: 100px;
+  position: fixed;
+  top: 0.3em;
+  left: 0.3em;
+  animation: none;
+  box-shadow: 0.8em 0.5em rgba(0, 0, 0, 0.8);
+}
+.body-i #btn-back-i:active {
+  box-shadow: 0.5em 0.3em rgba(0, 0, 0, 0.8);
+  transform: translateY(4px);
+}
+.body-i #pop-up {
+  height: 10%;
+  width: 20%;
+  position: fixed;
+  top: 30%;
+  z-index: 1;
+  background-color: blanchedalmond;
 }
 
 .body-mp {
