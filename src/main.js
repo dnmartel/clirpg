@@ -267,6 +267,13 @@ function printPJ(array) {
 //Función que guarda la partida en localStorage
 function guardarPartida() {
     localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo));
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Partida guardada',
+        showConfirmButton: false,
+        timer: 1500
+    })
 }
 
 //Función que carga la partida guardada en localStorage
@@ -293,7 +300,17 @@ function cargarPartida() {
 
     printPJ(pjActivo);
 
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Partida cargada',
+        showConfirmButton: false,
+        timer: 1500
+    })
+
     initG();
+
+
 }
 
 //Funcion que inicia el juego
@@ -339,6 +356,7 @@ function initG() {
 
 //Funcion que reinicia el juego
 function resetG() {
+
     //Restablezco clases de botones
     mostrarBtn("btnAP");
     mostrarBtn("btnIniciar");
@@ -404,7 +422,7 @@ btnIniciar.addEventListener("click", () => {
     Swal.fire({
         title: 'Preparando todo!',
         html: 'Listos en <b></b>...',
-        timer: 1000,
+        timer: 500,
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
@@ -428,7 +446,27 @@ btnIniciar.addEventListener("click", () => {
 
 //BOTON RESET
 let btnR = document.getElementById("btnR");
-btnR.addEventListener("click", resetG);
+btnR.addEventListener("click", () => {
+    Swal.fire({
+        title: 'Estás seguro?',
+        text: "Si no has guardado la partida, se perderá el progreso!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Progreso reiniciado!',
+
+                resetG()
+            )
+        }
+    })
+
+    
+});
 
 //BOTON GUARDAR PARTIDA
 let btnGP = document.getElementById("btnGP");
