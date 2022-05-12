@@ -31,12 +31,13 @@ function expNivel(nombreOrigen) {
 //Funciones para ocultar y mostrar botones segun ID
 function ocultarBtn(ID) {
     let ocultarBtn = document.getElementById(`${ID}`);
-    ocultarBtn.className = "ocultar";
+    ocultarBtn.classList.add("ocultar");
 }
 
 function mostrarBtn(ID) {
     let mostrarBtn = document.getElementById(`${ID}`);
-    mostrarBtn.className = "mostrar-margin";
+    mostrarBtn.classList.add("mostrar-margin");
+    mostrarBtn.classList.remove("ocultar")
 }
 
 
@@ -236,8 +237,13 @@ function newPJ() {
     <option selected disabled hidden>Clase</option>
     ${clasesDisponibles}
     </select>
-    <button id="newPJButton">Crear</button>
+    <button class="buttons" id="newPJButton"><span>Crear</span></button>
     `;
+
+    ocultarBtn("btnAP");
+    ocultarBtn("btnIniciar");
+    ocultarBtn("btnCP");
+    ocultarBtn("btnGP");
 
     document.getElementById("newPJButton").addEventListener("click", () => {
 
@@ -248,6 +254,11 @@ function newPJ() {
         printPJ(pjActivo);
 
         formNewPJID.innerHTML = "";
+
+        mostrarBtn("btnAP");
+        mostrarBtn("btnIniciar");
+        mostrarBtn("btnCP");
+        mostrarBtn("btnGP");
     });
 };
 
@@ -468,7 +479,7 @@ btnR.addEventListener("click", () => {
         }
     })
 
-    
+
 });
 
 //BOTON GUARDAR PARTIDA
