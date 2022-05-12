@@ -20,6 +20,16 @@
         grid-column-gap: 0px;
         grid-row-gap: 0px;
 
+        /* .cards{
+            width: 60%;
+            background: rgba( 118, 163, 199, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 5px );
+            -webkit-backdrop-filter: blur( 5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+        } */
+
         #nombreImagen {
             grid-area: 1 / 1 / 9 / 4;
             display: flex;
@@ -37,6 +47,8 @@
                 display: block;
                 width: 85px;
             }
+
+
         }
 
         #stats {
