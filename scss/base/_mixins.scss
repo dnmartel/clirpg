@@ -1,0 +1,9 @@
+/* Mixins */
+
+@mixin transform($value) {
+    transform: $value;
+    -webkit-transform: $value;
+    -o-transform: $value;
+    -moz-transform: $value;
+    -ms-transform: $value;    
+}

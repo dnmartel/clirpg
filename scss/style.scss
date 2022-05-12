@@ -6,10 +6,10 @@
 /* Importo reglas generales */
 
 @import 'base/general';
-/*@import 'base/mapas';
-@import 'base/extends';
-@import 'base/mixins'; */
-
+@import 'base/mapas'; 
+// background: map-get($colors, primary);
+@import 'base/mixins';
+// @include transform(translateY(-1em));
 /* Importo secciones */
 
 @import 'components/index';

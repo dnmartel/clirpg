@@ -1,5 +1,8 @@
+@import '../base/mixins';
+@import '../base/mapas';
+
 .body-i {
-    background-color: antiquewhite;
+    background-color: map-get($colors, backgrounds);
 
     #section-index {
 
@@ -15,69 +18,72 @@
             }
         }
 
-        #div-btn-index {
-            .button-index {
-                background-color: gray;
-                height: 50px;
-                width: 200px;
-                margin-top: 5em;
-                animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
-                box-shadow: 1.2em .8em rgba(0, 0, 0, 0.8);
+        .button-index {
+            background-color: map-get($colors, button);
+            margin: 2em;
+            text-transform: uppercase;
+            height: 50px;
+            width: 166px;
+            margin-top: 5em;
+            animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
+            box-shadow: 1.2em .8em rgba(0, 0, 0, 0.8);
 
-                &:hover {
-                    animation-play-state: paused;
-                }
+            &:hover {
+                animation-play-state: paused;
+                background-color: map-get($colors, button-hover);
+            }
 
-                &:active {
-                    box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-                    transform: translateY(4px);
-                }
+            &:active {
+                @include transform(translateX(4px));
+                box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
             }
         }
 
+
         @keyframes init-float {
             0% {
-                transform: (translateY(0));
+                @include transform(translateY(0));
             }
 
             25% {
-                transform: (translateY(-1em));
+                @include transform(translateY(-1em));
             }
 
             50% {
-                transform: (translateY(0));
+                @include transform(translateY(0));
             }
 
             75% {
-                transform: (translateY(1em));
+                @include transform(translateY(1em));
             }
 
             100% {
-                transform: (translateY(0));
+                @include transform(translateY(0));
             }
         }
 
         @keyframes init-float-r {
             0% {
-                transform: (translateY(0));
+                @include transform(translateY(0));
             }
 
             25% {
-                transform: (translateY(1em));
+                @include transform(translateY(1em));
             }
 
             50% {
-                transform: (translateY(0));
+                @include transform(translateY(0));
             }
 
             75% {
-                transform: (translateY(-1em));
+                @include transform(translateY(-1em));
             }
 
             100% {
-                transform: (translateY(0));
+                @include transform(translateY(0));
             }
         }
+
 
     }
 
@@ -85,23 +91,24 @@
         background-color: lightcoral;
         flex-flow: column;
 
-        button {
-            margin: 2em;
-
-        }
-
         #btn-singleplayer {
             animation: init-float-r 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
 
             &:hover {
                 animation-play-state: paused;
+                background-color: map-get($colors, button-hover);
             }
 
             &:active {
+                transform: translateX(4px);
                 box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-                transform: translateY(4px);
             }
         }
+    }
+
+    .translate-anim {
+        
+        transition: opacity .5s, margin-top .5s, margin-bottom .5s;
     }
 
     .height-100 {
@@ -117,25 +124,28 @@
     }
 
     .button-index {
-        background-color: gray;
+        background-color: map-get($colors, button);
+        margin: 2em;
         text-transform: uppercase;
         height: 50px;
         width: 166px;
         margin-top: 5em;
-        animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
+        transition: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
         box-shadow: 1.2em .8em rgba(0, 0, 0, 0.8);
 
         &:hover {
             animation-play-state: paused;
+            background-color: map-get($colors, button-hover);
         }
 
         &:active {
+            @include transform(translateX(4px));
             box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-            transform: translateY(4px);
         }
     }
 
     #btn-back-i {
+        margin: 2em;
         height: 30px;
         width: 100px;
         position: fixed;
@@ -145,16 +155,17 @@
         box-shadow: .8em .5em rgba(0, 0, 0, 0.8);
 
         &:active {
-            box-shadow: .5em .3em rgba(0, 0, 0, 0.8);
-            transform: translateY(4px);
+            @include transform(translateX(4px));
+            box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
         }
+
     }
 
-    #pop-up{
+    #pop-up {
         height: 10%;
         width: 20%;
         position: fixed;
-        top: 30%;
+        top: 25%;
         z-index: 1;
         background-color: blanchedalmond;
     }

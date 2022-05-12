@@ -36,7 +36,7 @@ function ocultarBtn(ID) {
 
 function mostrarBtn(ID) {
     let mostrarBtn = document.getElementById(`${ID}`);
-    mostrarBtn.className = "";
+    mostrarBtn.className = "mostrar-margin";
 }
 
 
@@ -352,6 +352,9 @@ function initG() {
     ocultarBtn("btnAP");
     ocultarBtn("btnIniciar");
     mostrarBtn("btnR");
+
+    document.getElementsByClassName("")
+
 }
 
 //Funcion que reinicia el juego
@@ -436,7 +439,7 @@ btnIniciar.addEventListener("click", () => {
         }
     }).then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('Me cerré')
+            console.log('Inicio');
         }
     })
 
@@ -475,13 +478,3 @@ btnGP.addEventListener("click", guardarPartida);
 //BOTON CARGAR PARTIDA
 let btnCP = document.getElementById("btnCP");
 btnCP.addEventListener("click", cargarPartida);
-
-
-//boton back, te lleva al index con cambios
-document.getElementById("btn-back-i").addEventListener( "click", ()=>{
-    document.getElementById("section-index").classList.remove("height-100");
-    document.getElementById("section-index").classList.add("height-0", "d-none");
-    document.getElementById("game-mode").classList.remove("d-none","height-0");
-    document.getElementById("game-mode").classList.add("height-100");
-    document.getElementById("btn-back-i").classList.remove("d-none");
-})
