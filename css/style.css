@@ -9,20 +9,23 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  background-color: white;
-  margin: 2em;
-  height: 50px;
-  width: 166px;
-  margin-top: 2em;
+  /*  height: 50px;
+      width: 166px; */
+  margin: 1em 0;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.75em;
+  background: #161616;
 }
-.buttons:hover {
+.buttons:hover span {
   transform: translateY(-0.33em);
   -webkit-transform: translateY(-0.33em);
   -o-transform: translateY(-0.33em);
   -moz-transform: translateY(-0.33em);
   -ms-transform: translateY(-0.33em);
 }
-.buttons:active {
+.buttons:active span {
   transform: translateY(0);
   -webkit-transform: translateY(0);
   -o-transform: translateY(0);
@@ -55,10 +58,24 @@
   display: none;
 }
 
+.buttons span {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid #161616;
+  border-radius: 0.75em;
+  padding: 0.75em 1.5em;
+  background: #e8e8e8;
+  color: #161616;
+  transform: translateY(-0.2em);
+  -webkit-transform: translateY(-0.2em);
+  -o-transform: translateY(-0.2em);
+  -moz-transform: translateY(-0.2em);
+  -ms-transform: translateY(-0.2em);
+  transition: transform 0.15s ease;
+}
+
 #btn-back-i {
   margin: 2em;
-  height: 30px;
-  width: 100px;
   position: fixed;
   top: 0.3em;
   left: 0.3em;
@@ -70,20 +87,23 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  background-color: white;
-  margin: 2em;
-  height: 50px;
-  width: 166px;
-  margin-top: 2em;
+  /*  height: 50px;
+      width: 166px; */
+  margin: 1em 0;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.75em;
+  background: #161616;
 }
-.buttons:hover {
+.buttons:hover span {
   transform: translateY(-0.33em);
   -webkit-transform: translateY(-0.33em);
   -o-transform: translateY(-0.33em);
   -moz-transform: translateY(-0.33em);
   -ms-transform: translateY(-0.33em);
 }
-.buttons:active {
+.buttons:active span {
   transform: translateY(0);
   -webkit-transform: translateY(0);
   -o-transform: translateY(0);
@@ -100,20 +120,23 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  background-color: white;
-  margin: 2em;
-  height: 50px;
-  width: 166px;
-  margin-top: 2em;
+  /*  height: 50px;
+      width: 166px; */
+  margin: 1em 0;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.75em;
+  background: #161616;
 }
-.buttons:hover {
+.buttons:hover span {
   transform: translateY(-0.33em);
   -webkit-transform: translateY(-0.33em);
   -o-transform: translateY(-0.33em);
   -moz-transform: translateY(-0.33em);
   -ms-transform: translateY(-0.33em);
 }
-.buttons:active {
+.buttons:active span {
   transform: translateY(0);
   -webkit-transform: translateY(0);
   -o-transform: translateY(0);
@@ -155,20 +178,23 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  background-color: white;
-  margin: 2em;
-  height: 50px;
-  width: 166px;
-  margin-top: 2em;
+  /*  height: 50px;
+      width: 166px; */
+  margin: 1em 0;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.75em;
+  background: #161616;
 }
-.buttons:hover {
+.buttons:hover span {
   transform: translateY(-0.33em);
   -webkit-transform: translateY(-0.33em);
   -o-transform: translateY(-0.33em);
   -moz-transform: translateY(-0.33em);
   -ms-transform: translateY(-0.33em);
 }
-.buttons:active {
+.buttons:active span {
   transform: translateY(0);
   -webkit-transform: translateY(0);
   -o-transform: translateY(0);

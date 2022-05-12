@@ -1,21 +1,24 @@
-@import './mixins'; 
+@import './mixins';
 @import '../base/mixins';
 @import '../base/mapas';
 
 /* Extends */
 
 %buttons {
-    background-color: map-get($colors, button);
-    margin: 2em;
-    height: 50px;
-    width: 166px;
-    margin-top: 2em;
+/*  height: 50px;
+    width: 166px; */
+    margin: 1em 0;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.75em;
+    background: map-get($colors, button-outline );
 
-    &:hover{
+    &:hover span {
         @include transform(translateY(-0.33em));
     }
 
-    &:active {
+    &:active span{
         @include transform(translateY(0));
     }
 }
