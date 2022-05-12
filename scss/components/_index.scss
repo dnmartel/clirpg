@@ -1,5 +1,6 @@
 @import '../base/mixins';
 @import '../base/mapas';
+@import '../base/extends';
 
 .body-i {
     background-color: map-get($colors, backgrounds);
@@ -18,146 +19,11 @@
             }
         }
 
-        .button-index {
-            background-color: map-get($colors, button);
-            margin: 2em;
-            text-transform: uppercase;
-            height: 50px;
-            width: 166px;
-            margin-top: 5em;
-            animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
-            box-shadow: 1.2em .8em rgba(0, 0, 0, 0.8);
-
-            &:hover {
-                animation-play-state: paused;
-                background-color: map-get($colors, button-hover);
-            }
-
-            &:active {
-                @include transform(translateX(4px));
-                box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-            }
-        }
-
-
-        @keyframes init-float {
-            0% {
-                @include transform(translateY(0));
-            }
-
-            25% {
-                @include transform(translateY(-1em));
-            }
-
-            50% {
-                @include transform(translateY(0));
-            }
-
-            75% {
-                @include transform(translateY(1em));
-            }
-
-            100% {
-                @include transform(translateY(0));
-            }
-        }
-
-        @keyframes init-float-r {
-            0% {
-                @include transform(translateY(0));
-            }
-
-            25% {
-                @include transform(translateY(1em));
-            }
-
-            50% {
-                @include transform(translateY(0));
-            }
-
-            75% {
-                @include transform(translateY(-1em));
-            }
-
-            100% {
-                @include transform(translateY(0));
-            }
-        }
-
-
     }
 
     #game-mode {
         background-color: lightcoral;
         flex-flow: column;
-
-        #btn-singleplayer {
-            animation: init-float-r 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
-
-            &:hover {
-                animation-play-state: paused;
-                background-color: map-get($colors, button-hover);
-            }
-
-            &:active {
-                transform: translateX(4px);
-                box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-            }
-        }
-    }
-
-    .translate-anim {
-        
-        transition: opacity .5s, margin-top .5s, margin-bottom .5s;
-    }
-
-    .height-100 {
-        height: 100vh;
-    }
-
-    .height-0 {
-        height: 0vh;
-    }
-
-    .d-none {
-        display: none;
-    }
-
-    .button-index {
-        background-color: map-get($colors, button);
-        margin: 2em;
-        text-transform: uppercase;
-        height: 50px;
-        width: 166px;
-        margin-top: 5em;
-        transition: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
-        box-shadow: 1.2em .8em rgba(0, 0, 0, 0.8);
-
-        &:hover {
-            animation-play-state: paused;
-            background-color: map-get($colors, button-hover);
-        }
-
-        &:active {
-            @include transform(translateX(4px));
-            box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-        }
-    }
-
-    #btn-back-i {
-        margin: 2em;
-        height: 30px;
-        width: 100px;
-        position: fixed;
-        top: .3em;
-        left: .3em;
-        animation: none;
-        box-shadow: .8em .5em rgba(0, 0, 0, 0.8);
-
-        &:active {
-            @include transform(translateX(4px));
-            box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-        }
 
     }
 

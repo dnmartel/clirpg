@@ -1,5 +1,6 @@
 @import '../base/mixins';
 @import '../base/mapas';
+@import '../base/extends';
 
 .body-mp {
 
@@ -102,45 +103,8 @@
             }
         }
     }
-
-    #btn-back-i {
-        margin: 2em;
-        height: 30px;
-        width: 100px;
-        position: fixed;
-        top: .3em;
-        left: .3em;
-        animation: none;
-        box-shadow: .8em .5em rgba(0, 0, 0, 0.8);
-
-        &:active {
-            @include transform(translateX(4px));
-            box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-        }
-
-    }
 }
 
-.button-index {
-    background-color: map-get($colors, button);
-    margin: 2em;
-    text-transform: uppercase;
-    height: 50px;
-    width: 166px;
-    margin-top: 5em;
-    animation: init-float 5s cubic-bezier(0.001, 0.02, 0.02, 0.001) 10s infinite;
-    box-shadow: 1.2em .8em rgba(0, 0, 0, 0.8);
-
-    &:hover {
-        animation-play-state: paused;
-        background-color: map-get($colors, button-hover);
-    }
-
-    &:active {
-        @include transform(translateX(4px));
-        box-shadow: .5em .4em rgba(0, 0, 0, 0.8);
-    }
-}
 .botones {
     display: flex;
     flex-flow: column wrap;

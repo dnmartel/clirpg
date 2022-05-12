@@ -1,6 +1,21 @@
+@import './mixins'; 
+@import '../base/mixins';
+@import '../base/mapas';
+
 /* Extends */
 
-%flex-center {
-    display: flex;
-    justify-content: center;
+%buttons {
+    background-color: map-get($colors, button);
+    margin: 2em;
+    height: 50px;
+    width: 166px;
+    margin-top: 2em;
+
+    &:hover{
+        @include transform(translateY(-0.33em));
+    }
+
+    &:active {
+        @include transform(translateY(0));
+    }
 }

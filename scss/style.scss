@@ -8,6 +8,8 @@
 @import 'base/general';
 @import 'base/mapas'; 
 // background: map-get($colors, primary);
+@import 'base/extends';
+// @extend %nombre
 @import 'base/mixins';
 // @include transform(translateY(-1em));
 /* Importo secciones */
