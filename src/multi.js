@@ -466,9 +466,10 @@ btnR.addEventListener("click", () => {
         text: "Si no has guardado la partida, se perderá el progreso!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar'
+        confirmButtonColor: '#023859',
+        cancelButtonColor: '#F26444',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire(
