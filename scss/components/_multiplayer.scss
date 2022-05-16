@@ -35,72 +35,112 @@
         margin: 3em 0;
         color: map-get($colors, primary);
         background-color: #ffffff10;
-        width: 85%;
+        width: 90%;
         height: 2em;
         align-self: center;
     }
 
     #seccion-principal {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: repeat(8, 1fr);
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
 
-        /* .cards{
-            width: 95%;
-            background: rgba( 118, 163, 199, 0.25 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-            backdrop-filter: blur( 5px );
-            -webkit-backdrop-filter: blur( 5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-        } */
+        .container {
+            margin: .5em;
+            padding: 1.5em;
+            display: grid;
+            grid-template-columns: 1.3fr 0.5fr 0.7fr 1.2fr 1.1fr 1fr 1fr;
+            grid-template-rows: 1.5fr 0.5fr 0.5fr;
+            gap: 1em 1em;
+            grid-template-areas:
+                "avatar nombre-clase-nivel nombre-clase-nivel exp-vida exp-vida ata-def ata-def"
+                "objetivo-label objetivo-label objetivo-select objetivo-select objetivo-select objetivo-select objetivo-select"
+                "acciones-label acciones-label acciones-botones acciones-botones acciones-botones acciones-botones acciones-botones";
+            width: 400px;
+            height: 150px;
 
-        #nombreImagen {
-            grid-area: 1 / 1 / 9 / 4;
-            display: flex;
-            flex-flow: column nowrap;
-            align-items: center;
+            .avatar {
+                grid-area: avatar;
+            }
 
-            p {
+            .nombre-clase-nivel {
+                grid-area: nombre-clase-nivel;
+                padding-top: 1.2em;
                 color: map-get($colors, secondary);
-                text-align: center;
                 text-transform: capitalize;
-                font-size: 1.2em;
-                font-weight: 600;
-                margin: 0 0 24px 0;
+
+
+                .nombre-card {
+                    font-size: 1.35em;
+                }
+
+                .clase-card {
+                    font-size: .9em;
+                    display: inline-block;
+                    margin: .2em 0;
+                }
+
+                .nivel-card {
+                    font-size: .95em;
+                    color: map-get($colors, secondary);
+                    font-size: 0.9em;
+
+                    strong {
+                        color: map-get($colors, primary);
+                        font-size: 0.95em;
+                    }
+
+                }
+
             }
 
-            img {
-                display: block;
-                width: 85px;
+            .objetivo-label {
+                grid-area: objetivo-label;
             }
 
+            .acciones-label {
+                grid-area: acciones-label;
+            }
 
-        }
+            .objetivo-select {
+                grid-area: objetivo-select;
+            }
 
-        #stats {
-            grid-area: 1 / 4 / 9 / 7;
-            display: flex;
-            flex-flow: column nowrap;
-            align-items: flex-start;
-            min-width: 120px;
+            .acciones-botones {
+                grid-area: acciones-botones;
+            }
 
-            p {
-                font-size: 1em;
-                display: block;
+            .exp-vida {
+                grid-area: exp-vida;
+                font-size: 1.1em;
+                padding-top: 1.2em;
                 color: map-get($colors, secondary);
-                margin: 10px 0 50px 0;
-
+                text-transform: capitalize;
                 strong {
+                    font-size: 1.2em;
                     color: map-get($colors, primary);
-                    font-size: 1.1em;
                 }
             }
 
-
+            .ata-def {
+                grid-area: ata-def;
+                font-size: 1.1em;
+                padding-top: 1.2em;
+                color: map-get($colors, secondary);
+                text-transform: capitalize;
+                strong {
+                    font-size: 1.2em;
+                    color: map-get($colors, primary);
+                }
+            }
         }
+
+        .cards {
+            background: rgba(2, 56, 89, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
 
         #acciones {
             grid-area: 1 / 7 / 9 / 10;
@@ -115,15 +155,14 @@
 
                 .buttons-acciones {
                     width: 50%;
+
                     @media (max-width: 650px) {
                         width: 80%;
                     }
                 }
             }
 
-            @media (max-width: 650px) {
-                        
-            }
+            @media (max-width: 650px) {}
 
         }
 
@@ -202,7 +241,7 @@
         }
     }
 
-    .btn-principal{
+    .btn-principal {
         background: map-get($colors, primary);
         font-size: 1.01em;
     }

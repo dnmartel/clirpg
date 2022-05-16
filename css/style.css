@@ -234,60 +234,88 @@
   margin: 3em 0;
   color: #F26444;
   background-color: #ffffff10;
-  width: 85%;
+  width: 90%;
   height: 2em;
   align-self: center;
 }
-.body-mp #seccion-principal {
+.body-mp #seccion-principal .container {
+  margin: 0.5em;
+  padding: 1.5em;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  /* .cards{
-      width: 95%;
-      background: rgba( 118, 163, 199, 0.25 );
-      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-      backdrop-filter: blur( 5px );
-      -webkit-backdrop-filter: blur( 5px );
-      border-radius: 10px;
-      border: 1px solid rgba( 255, 255, 255, 0.18 );
-  } */
+  grid-template-columns: 1.3fr 0.5fr 0.7fr 1.2fr 1.1fr 1fr 1fr;
+  grid-template-rows: 1.5fr 0.5fr 0.5fr;
+  gap: 1em 1em;
+  grid-template-areas: "avatar nombre-clase-nivel nombre-clase-nivel exp-vida exp-vida ata-def ata-def" "objetivo-label objetivo-label objetivo-select objetivo-select objetivo-select objetivo-select objetivo-select" "acciones-label acciones-label acciones-botones acciones-botones acciones-botones acciones-botones acciones-botones";
+  width: 400px;
+  height: 150px;
 }
-.body-mp #seccion-principal #nombreImagen {
-  grid-area: 1/1/9/4;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+.body-mp #seccion-principal .container .avatar {
+  grid-area: avatar;
 }
-.body-mp #seccion-principal #nombreImagen p {
+.body-mp #seccion-principal .container .nombre-clase-nivel {
+  grid-area: nombre-clase-nivel;
+  padding-top: 1.2em;
   color: #ffffffce;
-  text-align: center;
   text-transform: capitalize;
-  font-size: 1.2em;
-  font-weight: 600;
-  margin: 0 0 24px 0;
 }
-.body-mp #seccion-principal #nombreImagen img {
-  display: block;
-  width: 85px;
+.body-mp #seccion-principal .container .nombre-clase-nivel .nombre-card {
+  font-size: 1.35em;
 }
-.body-mp #seccion-principal #stats {
-  grid-area: 1/4/9/7;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  min-width: 120px;
+.body-mp #seccion-principal .container .nombre-clase-nivel .clase-card {
+  font-size: 0.9em;
+  display: inline-block;
+  margin: 0.2em 0;
 }
-.body-mp #seccion-principal #stats p {
-  font-size: 1em;
-  display: block;
+.body-mp #seccion-principal .container .nombre-clase-nivel .nivel-card {
+  font-size: 0.95em;
   color: #ffffffce;
-  margin: 10px 0 50px 0;
+  font-size: 0.9em;
 }
-.body-mp #seccion-principal #stats p strong {
+.body-mp #seccion-principal .container .nombre-clase-nivel .nivel-card strong {
   color: #F26444;
+  font-size: 0.95em;
+}
+.body-mp #seccion-principal .container .objetivo-label {
+  grid-area: objetivo-label;
+}
+.body-mp #seccion-principal .container .acciones-label {
+  grid-area: acciones-label;
+}
+.body-mp #seccion-principal .container .objetivo-select {
+  grid-area: objetivo-select;
+}
+.body-mp #seccion-principal .container .acciones-botones {
+  grid-area: acciones-botones;
+}
+.body-mp #seccion-principal .container .exp-vida {
+  grid-area: exp-vida;
   font-size: 1.1em;
+  padding-top: 1.2em;
+  color: #ffffffce;
+  text-transform: capitalize;
+}
+.body-mp #seccion-principal .container .exp-vida strong {
+  font-size: 1.2em;
+  color: #F26444;
+}
+.body-mp #seccion-principal .container .ata-def {
+  grid-area: ata-def;
+  font-size: 1.1em;
+  padding-top: 1.2em;
+  color: #ffffffce;
+  text-transform: capitalize;
+}
+.body-mp #seccion-principal .container .ata-def strong {
+  font-size: 1.2em;
+  color: #F26444;
+}
+.body-mp #seccion-principal .cards {
+  background: rgba(2, 56, 89, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .body-mp #seccion-principal #acciones {
   grid-area: 1/7/9/10;

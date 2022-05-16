@@ -263,7 +263,7 @@ function newPJ() {
 };
 
 // Función que imprime PJ en pantalla segun Array
-function printPJ(array) {
+/* function printPJ(array) {
     let nombreImagenID = document.getElementById(`nombreImagen`);
     let statsID = document.getElementById(`stats`);
 
@@ -273,8 +273,53 @@ function printPJ(array) {
         nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + ` <br> ${element.clase}` + " </p>";
         statsID.innerHTML += "<p> <strong>Nivel:</strong> " + element.nivel + "<br><strong>Experiencia:</strong> " + element.exp + "<br><strong>Vida:</strong> " + element.vida + "<br><strong>Ataque:</strong> " + element.ataque + "<br><strong>Defensa:</strong> " + element.defensa + " </p>";
     });
-};
+}; */
+function printPJ(array) {
+    let seccionPrincipalID = document.getElementById(`seccion-principal`);
 
+    seccionPrincipalID.innerHTML = " ";
+    array.forEach(element => {
+        seccionPrincipalID.innerHTML += `
+        <div class="container cards">
+            <div class="avatar">
+                <img src="${element.img}">
+            </div>
+            <div class="nombre-clase-nivel">
+                <span class="nombre-card">${element.nombre}</span><br>
+                <span class="clase-card">${element.clase}</span><br>
+                <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>
+            </div>
+        
+            <div class="objetivo-label">
+                <span>Objetivo</span>
+            </div>
+            <div class="acciones-label">
+                <span>Acciones</span>
+            </div>
+            <div class="objetivo-select" id="obj-${parseInt(pjActivo.indexOf(element))}">
+                <span>Acá va el select</span>
+            </div>
+            <div class="acciones-botones" id="acc-${parseInt(pjActivo.indexOf(element))}">
+                <span>Acá van los botones</span>
+            </div>
+            <div class="exp-vida">
+                <span>
+                    <strong>Exp.: </strong>${element.exp}<br>
+                    <strong>Vida: </strong>${element.vida}<br>
+                </span>
+            </div>
+            <div class="ata-def">
+                <span>
+                <strong>Ataque: </strong>${element.ataque}<br>
+                <strong>Defensa: </strong>${element.defensa}<br>
+                </span>
+            </div>
+        </div>
+        `
+
+
+    });
+};
 
 //Función que guarda la partida en localStorage
 function guardarPartida() {
@@ -366,7 +411,7 @@ function initG() {
     ocultarBtn("btnCP");
     mostrarBtn("btnGP");
     mostrarBtn("btnR");
-    
+
 
     document.getElementsByClassName("")
 
