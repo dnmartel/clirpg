@@ -18,6 +18,11 @@
             h1 {
                 font-size: 3em;
             }
+            @media screen and (max-width: 650px )  {
+                #logo-clirpg {
+                    width: 350px;
+                }
+            }
         }
 
     }

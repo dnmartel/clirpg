@@ -158,6 +158,11 @@
 .body-i #section-index #centro h1 {
   font-size: 3em;
 }
+@media screen and (max-width: 650px) {
+  .body-i #section-index #centro #logo-clirpg {
+    width: 350px;
+  }
+}
 .body-i #game-mode {
   background-color: #023859;
   flex-flow: column;
@@ -207,6 +212,11 @@
 }
 .body-mp .div-title {
   margin: 3em 2em;
+}
+@media screen and (max-width: 650px) {
+  .body-mp .div-title {
+    margin: 8em 2em;
+  }
 }
 .body-mp .div-title h1 {
   font-family: Kindly;
@@ -322,14 +332,26 @@
 }
 .botones button {
   align-self: center;
-  width: 200px;
-  margin: 2em 2em;
+  width: 180px;
+  margin: 2em 1em;
 }
 .botones .ocultar {
   display: none;
 }
 .botones .mostrar-margin {
   margin-top: 5em;
+}
+@media screen and (max-width: 650px) {
+  .botones .botones-container {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .botones .botones-container button {
+    width: 180px;
+    margin-top: 0.1em;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

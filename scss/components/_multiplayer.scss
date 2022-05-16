@@ -11,6 +11,10 @@
     .div-title {
         margin: 3em 2em;
 
+        @media screen and (max-width: 650px) {
+            margin: 8em 2em;
+        }
+
         h1 {
             font-family: Kindly;
             color: map-get($colors, primary);
@@ -127,6 +131,7 @@
                 input {
                     width: 100%;
                 }
+                
             }
         }
     }
@@ -139,7 +144,7 @@
         border: 2px;
         border-radius: 0.75em;
         background: map-get($colors, button);
-        
+
     }
 }
 
@@ -153,8 +158,8 @@
 
     button {
         align-self: center;
-        width: 200px;
-        margin: 2em 2em;
+        width: 180px;
+        margin: 2em 1em;
     }
 
     .ocultar {
@@ -164,5 +169,18 @@
     .mostrar-margin {
         margin-top: 5em;
     }
-
+    
+    @media screen and (max-width: 650px) {
+        
+        .botones-container {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center;
+            button{
+                width: 180px;
+                margin-top: .1em;
+            }
+        }
+    }
 }
