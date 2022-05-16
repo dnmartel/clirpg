@@ -9,8 +9,6 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  /*  height: 50px;
-      width: 166px; */
   margin: 1em 0;
   font-size: 1em;
   font-weight: bold;
@@ -33,6 +31,12 @@
   -ms-transform: translateY(0);
 }
 
+@font-face {
+  font-family: "Kindly";
+  src: url("/KindlyRewind-BOon.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
 * {
   margin: 0;
   padding: 0;
@@ -87,8 +91,6 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  /*  height: 50px;
-      width: 166px; */
   margin: 1em 0;
   font-size: 1em;
   font-weight: bold;
@@ -120,8 +122,6 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  /*  height: 50px;
-      width: 166px; */
   margin: 1em 0;
   font-size: 1em;
   font-weight: bold;
@@ -145,22 +145,22 @@
 }
 
 .body-i {
-  background-color: antiquewhite;
+  background-color: #023859;
 }
 .body-i #section-index {
   flex-flow: column nowrap;
 }
 .body-i #section-index #centro {
-  width: 600px;
+  /* width: 600px;
   height: 200px;
-  background-color: lightcoral;
+  background-color: lightcoral; */
   margin-bottom: 5em;
 }
 .body-i #section-index #centro h1 {
   font-size: 3em;
 }
 .body-i #game-mode {
-  background-color: lightcoral;
+  background-color: #023859;
   flex-flow: column;
 }
 .body-i #pop-up {
@@ -179,8 +179,6 @@
 /* Mapas */
 /* Extends */
 .buttons {
-  /*  height: 50px;
-      width: 166px; */
   margin: 1em 0;
   font-size: 1em;
   font-weight: bold;
@@ -204,13 +202,23 @@
 }
 
 .body-mp {
-  background-color: antiquewhite;
+  background-color: #023859;
   display: flex;
   flex-flow: column nowrap;
 }
-.body-mp h1 {
-  margin: 2em 2em;
+.body-mp .div-title {
+  margin: 3em 2em;
+}
+.body-mp .div-title h1 {
+  font-family: Kindly;
+  color: #F26444;
   text-align: center;
+  font-size: 2.5em;
+}
+.body-mp .div-title .p-bajada {
+  color: #ffffffce;
+  text-align: center;
+  font-size: 1.1em;
 }
 .body-mp section {
   display: grid;
@@ -235,9 +243,11 @@
   align-items: center;
 }
 .body-mp section #nombreImagen p {
+  color: #ffffffce;
   text-align: center;
+  text-transform: capitalize;
   font-size: 1.2em;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 24px 0;
 }
 .body-mp section #nombreImagen img {
@@ -254,11 +264,11 @@
 .body-mp section #stats p {
   font-size: 1em;
   display: block;
-  color: rebeccapurple;
+  color: #ffffffce;
   margin: 0 0 60px 0;
 }
 .body-mp section #stats p strong {
-  color: black;
+  color: #F26444;
   font-size: 1.1em;
 }
 .body-mp section #acciones {
@@ -272,7 +282,7 @@
   justify-content: space-evenly;
   margin-bottom: 60px;
 }
-.body-mp section #acciones .acciones button {
+.body-mp section #acciones .acciones .buttons-acciones {
   width: 50%;
 }
 .body-mp section #inputAcciones {
@@ -294,6 +304,15 @@
 }
 .body-mp section #inputAcciones form input {
   width: 100%;
+}
+.body-mp .formNewPJ {
+  margin: 1em 0;
+  padding: 0.75em;
+  font-size: 1em;
+  font-weight: bold;
+  border: 2px;
+  border-radius: 0.75em;
+  background: #e8e8e8;
 }
 
 .botones {

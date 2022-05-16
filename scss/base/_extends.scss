@@ -5,8 +5,25 @@
 /* Extends */
 
 %buttons {
-/*  height: 50px;
-    width: 166px; */
+    
+    margin: 1em 0;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.75em;
+    background: map-get($colors, button-outline );
+
+    &:hover span {
+        @include transform(translateY(-0.33em));
+    }
+
+    &:active span{
+        @include transform(translateY(0));
+    }
+}
+
+%buttons-acciones {
+    
     margin: 1em 0;
     font-size: 1em;
     font-weight: bold;

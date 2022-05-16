@@ -231,9 +231,9 @@ function newPJ() {
         clasesDisponibles += `<option>${element}</option> \n`;
     })
 
-    formNewPJID.innerHTML = `
-    <input type="text" placeholder="Nombre" id="nombreNewPJ">
-    <select type="text" placeholder="Clase" id="claseNewPJ">
+    formNewPJID.innerHTML = `<span><span>
+    <input class="formNewPJ" type="text" placeholder="Nombre" id="nombreNewPJ"></span></span>
+    <select class="formNewPJ" type="text" placeholder="Clase" id="claseNewPJ">
     <option selected disabled hidden>Clase</option>
     ${clasesDisponibles}
     </select>
@@ -332,9 +332,9 @@ function initG() {
         accionesID.innerHTML += `
             <div class=acciones id=acc-${parseInt(pjActivo.indexOf(element))}>
 
-            <button class=ocultar onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Atacar</button>
-            <button class=ocultar onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Curarse</button>
-            <button class=ocultar onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) >Insultar</button>
+            <button class="ocultar buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) ><span>Atacar</span></button>
+            <button class="ocultar buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) ><span>Curar</span></button>
+            <button class="ocultar buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) ><span>Insultar</span></button>
             
             </div>`;
     });

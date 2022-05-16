@@ -4,13 +4,25 @@
 
 .body-mp {
 
-    background-color: antiquewhite;
+    background-color: map-get($colors, backgrounds);
     display: flex;
     flex-flow: column nowrap;
 
-    h1 {
-        margin: 2em 2em;
-        text-align: center;
+    .div-title {
+        margin: 3em 2em;
+
+        h1 {
+            font-family: Kindly;
+            color: map-get($colors, primary);
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        .p-bajada {
+            color: map-get($colors, secondary);
+            text-align: center;
+            font-size: 1.1em;
+        }
     }
 
     section {
@@ -37,9 +49,11 @@
             align-items: center;
 
             p {
+                color: map-get($colors, secondary);
                 text-align: center;
+                text-transform: capitalize;
                 font-size: 1.2em;
-                font-weight: 700;
+                font-weight: 600;
                 margin: 0 0 24px 0;
             }
 
@@ -61,11 +75,11 @@
             p {
                 font-size: 1em;
                 display: block;
-                color: rebeccapurple;
+                color: map-get($colors, secondary);
                 margin: 0 0 60px 0;
 
                 strong {
-                    color: black;
+                    color: map-get($colors, primary);
                     font-size: 1.1em;
                 }
             }
@@ -84,8 +98,9 @@
                 justify-content: space-evenly;
                 margin-bottom: 60px;
 
-                button {
+                .buttons-acciones {
                     width: 50%;
+
                 }
             }
 
@@ -115,7 +130,20 @@
             }
         }
     }
+
+    .formNewPJ {
+        margin: 1em 0;
+        padding: 0.75em;
+        font-size: 1em;
+        font-weight: bold;
+        border: 2px;
+        border-radius: 0.75em;
+        background: map-get($colors, button);
+        
+    }
 }
+
+
 
 .botones {
     display: flex;

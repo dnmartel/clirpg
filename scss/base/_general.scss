@@ -2,6 +2,13 @@
 @import '../base/mapas';
 @import '../base/extends';
 
+@font-face {
+    font-family: 'Kindly';
+    src: url('/KindlyRewind-BOon.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
 * {
     margin: 0;
     padding: 0;

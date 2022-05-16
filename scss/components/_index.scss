@@ -10,9 +10,9 @@
         flex-flow: column nowrap;
 
         #centro {
-            width: 600px;
+            /* width: 600px;
             height: 200px;
-            background-color: lightcoral;
+            background-color: lightcoral; */
             margin-bottom: 5em;
 
             h1 {
@@ -23,7 +23,7 @@
     }
 
     #game-mode {
-        background-color: lightcoral;
+        background-color: map-get($colors, backgrounds);
         flex-flow: column;
 
     }
