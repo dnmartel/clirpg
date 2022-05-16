@@ -275,6 +275,7 @@ function printPJ(array) {
     });
 };
 
+
 //Función que guarda la partida en localStorage
 function guardarPartida() {
     localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo));
@@ -362,7 +363,10 @@ function initG() {
 
     ocultarBtn("btnAP");
     ocultarBtn("btnIniciar");
+    ocultarBtn("btnCP");
+    mostrarBtn("btnGP");
     mostrarBtn("btnR");
+    
 
     document.getElementsByClassName("")
 
@@ -374,7 +378,9 @@ function resetG() {
     //Restablezco clases de botones
     mostrarBtn("btnAP");
     mostrarBtn("btnIniciar");
+    mostrarBtn("btnCP");
     ocultarBtn("btnR");
+    ocultarBtn("btnGP");
     //Vacio htmls
     let accionesID = document.getElementById(`acciones`);
     accionesID.innerHTML = "";
@@ -413,13 +419,6 @@ const pjActivo = [];
 pjActivo.push(new Personajes("myle", "paladin"));
 pjActivo.push(new Personajes("brotana", "cazador"));
 
-
-// ################### INICIALIZO E IMPRIMO ###################
-statClase();
-printPJ(pjActivo);
-
-//Backup de PJ originales
-const pjOriginales = pjActivo.map(x => x);
 
 // ################### EVENTOS ###################
 
@@ -475,10 +474,10 @@ btnR.addEventListener("click", () => {
             Swal.fire({
                 text: 'Progreso reiniciado!',
                 confirmButtonColor: '#023859',
-            }
-            )
+            })
             resetG()
         }
+
     })
 
 
@@ -491,3 +490,12 @@ btnGP.addEventListener("click", guardarPartida);
 //BOTON CARGAR PARTIDA
 let btnCP = document.getElementById("btnCP");
 btnCP.addEventListener("click", cargarPartida);
+
+
+
+// ################### INICIALIZO E IMPRIMO ###################
+statClase();
+printPJ(pjActivo);
+
+
+/* export {Personajes}; */
