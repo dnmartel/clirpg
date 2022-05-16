@@ -450,7 +450,7 @@ btnIniciar.addEventListener("click", () => {
         }
     }).then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('Inicio');
+            console.log('Inicio del juego');
         }
     })
 
@@ -472,11 +472,12 @@ btnR.addEventListener("click", () => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-                'Progreso reiniciado!',
-
-                resetG()
+            Swal.fire({
+                text: 'Progreso reiniciado!',
+                confirmButtonColor: '#023859',
+            }
             )
+            resetG()
         }
     })
 
