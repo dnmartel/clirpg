@@ -348,41 +348,6 @@
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
 }
-.body-mp #seccion-principal #acciones .acciones {
-  height: 85px;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  margin-bottom: 60px;
-}
-.body-mp #seccion-principal #acciones .acciones .buttons-acciones {
-  width: 50%;
-}
-@media (max-width: 650px) {
-  .body-mp #seccion-principal #acciones .acciones .buttons-acciones {
-    width: 80%;
-  }
-}
-.body-mp #seccion-principal #inputAcciones {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-}
-.body-mp #seccion-principal #inputAcciones form {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: center;
-  height: 85px;
-  margin-bottom: 60px;
-}
-.body-mp #seccion-principal #inputAcciones form select {
-  width: 100%;
-}
-.body-mp #seccion-principal #inputAcciones form input {
-  width: 100%;
-}
 .body-mp .formNewPJ {
   margin: 1em 0;
   padding: 0.75em;

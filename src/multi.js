@@ -228,7 +228,7 @@ function newPJ() {
     formNewPJID.innerHTML = `<span><span>
     <input class="formNewPJ" type="text" placeholder="Nombre" id="nombreNewPJ"></span></span>
     <select class="formNewPJ" type="text" placeholder="Clase" id="claseNewPJ">
-    <option selected disabled hidden>Clase</option>
+    <option value="0" selected disabled hidden>Clase</option>
     ${clasesDisponibles}
     </select>
     <button class="buttons" id="newPJButton"><span>Crear</span></button>
@@ -239,9 +239,15 @@ function newPJ() {
     ocultarBtn("btnCP");
     ocultarBtn("btnGP");
 
+    /* function aValidar(params) {
+        if (params == 0) {
+            document.getElementById("claseNewPJ").innerHTML += `<p>Error</p>`
+        } 
+    } */
+
     document.getElementById("newPJButton").addEventListener("click", () => {
 
-        pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), document.getElementById("claseNewPJ").value));
+        pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), /* aValidar( */document.getElementById("claseNewPJ").value/* ) */));
 
         statClase();
 
@@ -251,7 +257,7 @@ function newPJ() {
 
         mostrarBtn("btnAP");
         mostrarBtn("btnIniciar");
-        mostrarBtn("btnCP");
+        // LO OCULTO, DE MOMENTO NO LE VEO SENTIDO MOSTRARLO SI YA DECIDI CARGAR PERSONAJE mostrarBtn("btnCP");
     });
 };
 
