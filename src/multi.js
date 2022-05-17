@@ -296,7 +296,7 @@ function printPJ(array) {
                     <strong>Vida: </strong>${element.vida}<br>
                 </span>
             </div>
-            <div class="ata-def" id="ad-${parseInt(pjActivo.indexOf(element))}">
+            <div class="ata-def" id="atadef-${parseInt(pjActivo.indexOf(element))}">
                 <span>
                 <strong>Ataque: </strong>${element.ataque}<br>
                 <strong>Defensa: </strong>${element.defensa}<br>
@@ -324,7 +324,7 @@ function refreshStats(array) {
             <strong>Vida: </strong>${element.vida}<br>
         </span>`
 
-        document.getElementById(`ad-${parseInt(array.indexOf(element))}`).innerHTML = `
+        document.getElementById(`atadef-${parseInt(array.indexOf(element))}`).innerHTML = `
         <span>
             <strong>Ataque: </strong>${element.ataque}<br>
             <strong>Defensa: </strong>${element.defensa}<br>
