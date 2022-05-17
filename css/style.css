@@ -295,7 +295,7 @@
   text-transform: capitalize;
 }
 .body-mp #seccion-principal .container .exp-vida strong {
-  font-size: 1.2em;
+  font-size: 1.15em;
   color: #F26444;
 }
 .body-mp #seccion-principal .container .ata-def {
@@ -306,19 +306,15 @@
   text-transform: capitalize;
 }
 .body-mp #seccion-principal .container .ata-def strong {
-  font-size: 1.2em;
+  font-size: 1.15em;
   color: #F26444;
 }
 .body-mp #seccion-principal .cards {
   background: rgba(2, 56, 89, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-.body-mp #seccion-principal #acciones {
-  grid-area: 1/7/9/10;
 }
 .body-mp #seccion-principal #acciones .acciones {
   height: 85px;
@@ -337,7 +333,6 @@
   }
 }
 .body-mp #seccion-principal #inputAcciones {
-  grid-area: 1/10/9/13;
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-start;
@@ -377,9 +372,6 @@
   width: 180px;
   margin: 2em 1em;
 }
-.botones .ocultar {
-  display: none;
-}
 .botones .mostrar-margin {
   margin-top: 5em;
 }
@@ -398,6 +390,10 @@
 .botones .btn-principal {
   background: #F26444;
   font-size: 1.01em;
+}
+
+.ocultar {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

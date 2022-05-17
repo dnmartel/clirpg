@@ -114,7 +114,7 @@
                 color: map-get($colors, secondary);
                 text-transform: capitalize;
                 strong {
-                    font-size: 1.2em;
+                    font-size: 1.15em;
                     color: map-get($colors, primary);
                 }
             }
@@ -126,7 +126,7 @@
                 color: map-get($colors, secondary);
                 text-transform: capitalize;
                 strong {
-                    font-size: 1.2em;
+                    font-size: 1.15em;
                     color: map-get($colors, primary);
                 }
             }
@@ -134,16 +134,14 @@
 
         .cards {
             background: rgba(2, 56, 89, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
 
         #acciones {
-            grid-area: 1 / 7 / 9 / 10;
 
             .acciones {
                 height: 85px;
@@ -167,7 +165,7 @@
         }
 
         #inputAcciones {
-            grid-area: 1 / 10 / 9 / 13;
+
             display: flex;
             flex-flow: column nowrap;
             align-items: flex-start;
@@ -218,10 +216,6 @@
         margin: 2em 1em;
     }
 
-    .ocultar {
-        display: none;
-    }
-
     .mostrar-margin {
         margin-top: 5em;
     }
@@ -245,4 +239,8 @@
         background: map-get($colors, primary);
         font-size: 1.01em;
     }
+}
+
+.ocultar {
+    display: none;
 }

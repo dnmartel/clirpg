@@ -258,22 +258,10 @@ function newPJ() {
         mostrarBtn("btnAP");
         mostrarBtn("btnIniciar");
         mostrarBtn("btnCP");
-        mostrarBtn("btnGP");
     });
 };
 
 // Función que imprime PJ en pantalla segun Array
-/* function printPJ(array) {
-    let nombreImagenID = document.getElementById(`nombreImagen`);
-    let statsID = document.getElementById(`stats`);
-
-    nombreImagenID.innerHTML = " ";
-    statsID.innerHTML = " ";
-    array.forEach(element => {
-        nombreImagenID.innerHTML += "<img src=" + element.img + " </img> <p>" + element.nombre + ` <br> ${element.clase}` + " </p>";
-        statsID.innerHTML += "<p> <strong>Nivel:</strong> " + element.nivel + "<br><strong>Experiencia:</strong> " + element.exp + "<br><strong>Vida:</strong> " + element.vida + "<br><strong>Ataque:</strong> " + element.ataque + "<br><strong>Defensa:</strong> " + element.defensa + " </p>";
-    });
-}; */
 function printPJ(array) {
     let seccionPrincipalID = document.getElementById(`seccion-principal`);
 
@@ -284,31 +272,31 @@ function printPJ(array) {
             <div class="avatar">
                 <img src="${element.img}">
             </div>
-            <div class="nombre-clase-nivel">
+            <div class="nombre-clase-nivel" id="ncn-${parseInt(pjActivo.indexOf(element))}">
                 <span class="nombre-card">${element.nombre}</span><br>
                 <span class="clase-card">${element.clase}</span><br>
                 <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>
             </div>
         
-            <div class="objetivo-label">
+            <div class="objetivo-label ocultar" id="obj-label-${parseInt(pjActivo.indexOf(element))}">
                 <span>Objetivo</span>
             </div>
-            <div class="acciones-label">
+            <div class="acciones-label ocultar" id="acc-label-${parseInt(pjActivo.indexOf(element))}">
                 <span>Acciones</span>
             </div>
-            <div class="objetivo-select" id="obj-${parseInt(pjActivo.indexOf(element))}">
+            <div class="objetivo-select ocultar" id="obj-${parseInt(pjActivo.indexOf(element))}">
                 <span>Acá va el select</span>
             </div>
-            <div class="acciones-botones" id="acc-${parseInt(pjActivo.indexOf(element))}">
+            <div class="acciones-botones ocultar" id="acc-${parseInt(pjActivo.indexOf(element))}">
                 <span>Acá van los botones</span>
             </div>
-            <div class="exp-vida">
+            <div class="exp-vida" id="ev-${parseInt(pjActivo.indexOf(element))}">
                 <span>
                     <strong>Exp.: </strong>${element.exp}<br>
                     <strong>Vida: </strong>${element.vida}<br>
                 </span>
             </div>
-            <div class="ata-def">
+            <div class="ata-def" id="ad-${parseInt(pjActivo.indexOf(element))}">
                 <span>
                 <strong>Ataque: </strong>${element.ataque}<br>
                 <strong>Defensa: </strong>${element.defensa}<br>
@@ -320,6 +308,30 @@ function printPJ(array) {
 
     });
 };
+
+//Función que refresca la info de los pjs
+function refreshStats(array) {
+
+    array.forEach(element => {
+        document.getElementById(`ncn-${parseInt(array.indexOf(element))}`).innerHTML = `
+        <span class="nombre-card">${element.nombre}</span><br>
+        <span class="clase-card">${element.clase}</span><br>
+        <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>`;
+
+        document.getElementById(`ev-${parseInt(array.indexOf(element))}`).innerHTML = `
+        <span>
+            <strong>Exp.: </strong>${element.exp}<br>
+            <strong>Vida: </strong>${element.vida}<br>
+        </span>`
+
+        document.getElementById(`ad-${parseInt(array.indexOf(element))}`).innerHTML = `
+        <span>
+            <strong>Ataque: </strong>${element.ataque}<br>
+            <strong>Defensa: </strong>${element.defensa}<br>
+        </span>`
+    });
+
+}
 
 //Función que guarda la partida en localStorage
 function guardarPartida() {
@@ -372,21 +384,8 @@ function cargarPartida() {
 
 //Funcion que inicia el juego
 function initG() {
-    let accionesID = document.getElementById(`acciones`);
-    accionesID.innerHTML = "";
-    pjActivo.forEach(element => {
-        accionesID.innerHTML += `
-            <div class=acciones id=acc-${parseInt(pjActivo.indexOf(element))}>
 
-            <button class="ocultar buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) ><span>Atacar</span></button>
-            <button class="ocultar buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) ><span>Curar</span></button>
-            <button class="ocultar buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),printPJ(pjActivo) ><span>Insultar</span></button>
-            
-            </div>`;
-    });
-
-    let inputAccionesID = document.getElementById(`inputAcciones`);
-    inputAccionesID.innerHTML = "";
+    let inputAccionesID = "";
 
     let opcionesSelect;
     pjActivo.forEach(element => {
@@ -394,7 +393,8 @@ function initG() {
     })
 
     pjActivo.forEach(element => {
-        inputAccionesID.innerHTML += `
+        inputAccionesID = document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`);
+        inputAccionesID.innerHTML = `
 
         <form>
         <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
@@ -404,6 +404,23 @@ function initG() {
         <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
         </form>
         `;
+        document.getElementById(`obj-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+        document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+    });
+
+    let accionesID = "";
+    pjActivo.forEach(element => {
+        accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
+        accionesID.innerHTML = `
+            <button class="buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Atacar</span></button>
+            
+            <button class="buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Curar</span></button>
+            
+            <button class="buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Insultar</span></button>
+            `;
+        document.getElementById(`acc-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+        document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+
     });
 
     ocultarBtn("btnAP");
@@ -427,10 +444,13 @@ function resetG() {
     ocultarBtn("btnR");
     ocultarBtn("btnGP");
     //Vacio htmls
-    let accionesID = document.getElementById(`acciones`);
-    accionesID.innerHTML = "";
-    let inputAccionesID = document.getElementById(`inputAcciones`);
-    inputAccionesID.innerHTML = "";
+
+    pjActivo.forEach(element => {
+        document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).innerHTML = ``;
+    });
+    pjActivo.forEach(element => {
+        document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).innerHTML = ``;
+    });
 
     // Elimino personajes agregados
     pjActivo.splice(0, pjActivo.length);
