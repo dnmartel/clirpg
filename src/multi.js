@@ -57,12 +57,6 @@ function retornaAQuienID(index) {
     return retornaAQuienID.value;
 };
 
-function retornaRepetID(index) {
-    let retornaRepetID = document.getElementById(`repeticiones${index}`);
-    return retornaRepetID.value;
-};
-
-
 
 // ################### CLASES ###################
 
@@ -78,7 +72,7 @@ class Personajes {
         this.exp;
     }
 
-    atacar(origen, destino, repeticiones = 1) {
+    atacar(origen, destino) {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
@@ -100,9 +94,9 @@ class Personajes {
             if (puntosADescontar < 0) {
                 puntosADescontar = 0;
             }
-            nombreDestino.vida -= (puntosADescontar * repeticiones)
-            console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar * repeticiones} puntos de vida !`);
-            alert(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar * repeticiones}  puntos de vida !`);
+            nombreDestino.vida -= puntosADescontar
+            console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+            alert(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar}  puntos de vida !`);
             if (nombreDestino.vida < 0) {
                 nombreDestino.vida = 0;
             }
@@ -111,7 +105,7 @@ class Personajes {
         }
     };
 
-    curar(origen, destino, repeticiones = 1) {
+    curar(origen, destino) {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
@@ -131,9 +125,9 @@ class Personajes {
             } else {
                 puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
             }
-            nombreDestino.vida += puntosASumar * repeticiones;
-            console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
-            alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar * repeticiones} puntos de vida !`);
+            nombreDestino.vida += puntosASumar;
+            console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
+            alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
             nombreOrigen.exp += Math.floor(Math.random() * 15);
             expNivel(nombreOrigen);
 
@@ -143,11 +137,11 @@ class Personajes {
         }
     }
 
-    insultar(origen, destino, repeticiones = 1) {
+    insultar(origen, destino) {
         buscarNombres(origen, destino);
-        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre} ${repeticiones} veces! Su moral y experiencia han bajado ! `);
+        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
         alert(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
-        nombreDestino.exp -= Math.floor(Math.random() * 15) * repeticiones;
+        nombreDestino.exp -= Math.floor(Math.random() * 15);
         if (nombreDestino.exp <= 0) {
             nombreDestino.exp = 0;
         }
@@ -285,10 +279,8 @@ function printPJ(array) {
                 <span>Acciones</span>
             </div>
             <div class="objetivo-select ocultar" id="obj-${parseInt(pjActivo.indexOf(element))}">
-                <span>Acá va el select</span>
             </div>
             <div class="acciones-botones ocultar" id="acc-${parseInt(pjActivo.indexOf(element))}">
-                <span>Acá van los botones</span>
             </div>
             <div class="exp-vida" id="ev-${parseInt(pjActivo.indexOf(element))}">
                 <span>
@@ -309,9 +301,8 @@ function printPJ(array) {
     });
 };
 
-//Función que refresca la info de los pjs
+//Función que refresca la info de los pjs, asignado en botones que modifican valores de objetos en array
 function refreshStats(array) {
-
     array.forEach(element => {
         document.getElementById(`ncn-${parseInt(array.indexOf(element))}`).innerHTML = `
         <span class="nombre-card">${element.nombre}</span><br>
@@ -398,25 +389,23 @@ function initG() {
 
         <form>
         <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
-        <option value="${element.nombre}" selected hidden disabled>${element.nombre}</option>
+        <option value="0" selected hidden disabled>Seleccione un objetivo</option>
         ${opcionesSelect}
         </select>
-        <input type="number" placeholder="Cuantas veces?" value="1" min="1" max="5" id="repeticiones${parseInt(pjActivo.indexOf(element))}">
         </form>
         `;
         document.getElementById(`obj-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
         document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
     });
 
-    let accionesID = "";
     pjActivo.forEach(element => {
         accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
         accionesID.innerHTML = `
-            <button class="buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Atacar</span></button>
+            <button class="buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Atacar</span></button>
             
-            <button class="buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Curar</span></button>
+            <button class="buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Curar</span></button>
             
-            <button class="buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))}),retornaRepetID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Insultar</span></button>
+            <button class="buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Insultar</span></button>
             `;
         document.getElementById(`acc-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
         document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
@@ -462,18 +451,18 @@ function resetG() {
 };
 
 //Abreviación del metodo para atacar
-function pjA(origen, destino, repeticiones) {
-    pjActivo[0].atacar(origen, destino, repeticiones)
+function pjA(origen, destino) {
+    pjActivo[0].atacar(origen, destino)
 };
 
 //Abreviación del metodo para curarse
-function pjC(origen, destino, repeticiones) {
-    pjActivo[0].curar(origen, destino, repeticiones)
+function pjC(origen, destino) {
+    pjActivo[0].curar(origen, destino)
 };
 
 //Abreviación del metodo para insultar
-function pjI(origen, destino, repeticiones) {
-    pjActivo[0].insultar(origen, destino, repeticiones)
+function pjI(origen, destino) {
+    pjActivo[0].insultar(origen, destino)
 };
 
 // ################### ARRAYS ###################
@@ -561,6 +550,3 @@ btnCP.addEventListener("click", cargarPartida);
 // ################### INICIALIZO E IMPRIMO ###################
 statClase();
 printPJ(pjActivo);
-
-
-/* export {Personajes}; */

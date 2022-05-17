@@ -9,10 +9,10 @@
     flex-flow: column nowrap;
 
     .div-title {
-        margin: 3em 2em;
+        margin: 5em 2em;
 
         @media screen and (max-width: 650px) {
-            margin: 8em 2em;
+            margin: 8em 0 1em 0;
         }
 
         h1 {
@@ -38,9 +38,18 @@
         width: 90%;
         height: 2em;
         align-self: center;
+
+        @media screen and (max-width: 650px) {
+            margin: 1em 0 1em 0;
+        }
     }
 
     #seccion-principal {
+
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
 
         .container {
             margin: .5em;
@@ -93,26 +102,54 @@
 
             .objetivo-label {
                 grid-area: objetivo-label;
+                text-align: center;
+                font-size: 1.2em;
+                color: map-get($colors, primary);
+                text-transform: capitalize;
+                font-weight: 600;
             }
 
             .acciones-label {
                 grid-area: acciones-label;
+                text-align: center;
+                font-size: 1.2em;
+                color: map-get($colors, primary);
+                text-transform: capitalize;
+                font-weight: 600;
             }
 
             .objetivo-select {
                 grid-area: objetivo-select;
+
+                select {
+                    width: 100%;
+                    text-transform: capitalize;
+                }
+
+
             }
 
             .acciones-botones {
                 grid-area: acciones-botones;
+                display: flex;
+
+                button {
+                    width: 100%;
+                }
+
+                button:nth-child(2) {
+                    margin: 0 .2em;
+
+                }
             }
 
             .exp-vida {
                 grid-area: exp-vida;
                 font-size: 1.1em;
-                padding-top: 1.2em;
+                padding: 1.2em 0 0 1em;
                 color: map-get($colors, secondary);
                 text-transform: capitalize;
+
                 strong {
                     font-size: 1.15em;
                     color: map-get($colors, primary);
@@ -125,6 +162,7 @@
                 padding-top: 1.2em;
                 color: map-get($colors, secondary);
                 text-transform: capitalize;
+
                 strong {
                     font-size: 1.15em;
                     color: map-get($colors, primary);
@@ -134,7 +172,7 @@
 
         .cards {
             background: rgba(2, 56, 89, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             border-radius: 10px;

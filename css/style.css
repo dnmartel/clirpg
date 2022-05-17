@@ -211,11 +211,11 @@
   flex-flow: column nowrap;
 }
 .body-mp .div-title {
-  margin: 3em 2em;
+  margin: 5em 2em;
 }
 @media screen and (max-width: 650px) {
   .body-mp .div-title {
-    margin: 8em 2em;
+    margin: 8em 0 1em 0;
   }
 }
 .body-mp .div-title h1 {
@@ -237,6 +237,17 @@
   width: 90%;
   height: 2em;
   align-self: center;
+}
+@media screen and (max-width: 650px) {
+  .body-mp .barra-titulos {
+    margin: 1em 0 1em 0;
+  }
+}
+.body-mp #seccion-principal {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }
 .body-mp #seccion-principal .container {
   margin: 0.5em;
@@ -277,20 +288,41 @@
 }
 .body-mp #seccion-principal .container .objetivo-label {
   grid-area: objetivo-label;
+  text-align: center;
+  font-size: 1.2em;
+  color: #F26444;
+  text-transform: capitalize;
+  font-weight: 600;
 }
 .body-mp #seccion-principal .container .acciones-label {
   grid-area: acciones-label;
+  text-align: center;
+  font-size: 1.2em;
+  color: #F26444;
+  text-transform: capitalize;
+  font-weight: 600;
 }
 .body-mp #seccion-principal .container .objetivo-select {
   grid-area: objetivo-select;
 }
+.body-mp #seccion-principal .container .objetivo-select select {
+  width: 100%;
+  text-transform: capitalize;
+}
 .body-mp #seccion-principal .container .acciones-botones {
   grid-area: acciones-botones;
+  display: flex;
+}
+.body-mp #seccion-principal .container .acciones-botones button {
+  width: 100%;
+}
+.body-mp #seccion-principal .container .acciones-botones button:nth-child(2) {
+  margin: 0 0.2em;
 }
 .body-mp #seccion-principal .container .exp-vida {
   grid-area: exp-vida;
   font-size: 1.1em;
-  padding-top: 1.2em;
+  padding: 1.2em 0 0 1em;
   color: #ffffffce;
   text-transform: capitalize;
 }
@@ -311,7 +343,7 @@
 }
 .body-mp #seccion-principal .cards {
   background: rgba(2, 56, 89, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
