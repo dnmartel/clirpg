@@ -19,7 +19,7 @@ function expNivel(nombreOrigen) {
     if (nombreOrigen.exp > 100) {
         nombreOrigen.exp -= 100;
         nombreOrigen.nivel += 1;
-        alert(`${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}`);
+        battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
         nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.04);
         nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.04);
         nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.06);
@@ -57,6 +57,11 @@ function retornaAQuienID(index) {
     return retornaAQuienID.value;
 };
 
+//Función que loguea de forma inversa, añadiendo siempre al principio el contenido
+function battleLog(mensaje){
+    document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensaje);
+}
+
 
 // ################### CLASES ###################
 
@@ -76,9 +81,9 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            alert(`${origen} está muerto, los muertos no pueden atacar.. o si?`)
+            battleLog(`<p>${origen} está muerto, los muertos no pueden atacar.. o si?</p>`)
         } else if (nombreDestino.vida == 0) {
-            alert(`Ya dejalo, ${destino} está muerto.`)
+            battleLog(`<p>Ya dejalo, ${destino} está muerto.</p>`)
         } else {
             let luckyNumber = between((nombreOrigen.ataque - nombreDestino.defensa), nombreOrigen.ataque);
             let puntosADescontar = 0;
@@ -86,7 +91,7 @@ class Personajes {
             console.log(esCrit);
             if (esCrit > 8) {
                 puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)) * luckyNumber);
-                alert("El ataque ha sido critico!")
+                battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
                 puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)));
             }
@@ -95,8 +100,7 @@ class Personajes {
                 puntosADescontar = 0;
             }
             nombreDestino.vida -= puntosADescontar
-            console.log(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
-            alert(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar}  puntos de vida !`);
+            battleLog(`<p>${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !</p>`);
             if (nombreDestino.vida < 0) {
                 nombreDestino.vida = 0;
             }
@@ -109,25 +113,24 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            alert(`${origen} está muerto, los muertos ya no pueden curarse`)
+            battleLog(`<p>${origen} está muerto, los muertos ya no pueden curarse</p>`)
         } else if (nombreDestino.vida == 0) {
-            alert(`Un vendaje no revivira a ${destino}.`)
+            battleLog(`<p>Un vendaje no revivira a ${destino}.</p>`)
         } else if (nombreDestino.vida == nombreDestino.vidaMax) {
-            alert(`${destino} ya tiene la vida al máximo.`)
+            battleLog(`<p>${destino} ya tiene la vida al máximo.</p>`)
         } else {
             let luckyNumber = between(1, (nombreOrigen.vida / 10));
             let puntosASumar = 0;
             let esCrit = (Math.random() * 11)
-            console.log(esCrit);
+            console.log(esCrit);battleLog
             if (esCrit > 7) {
                 puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
-                alert("El efecto ha sido critico!")
+                battleLog("<h5>El efecto ha sido critico!</h5>")
             } else {
                 puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
             }
             nombreDestino.vida += puntosASumar;
-            console.log(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-            alert(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
+            battleLog(`<p>${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !</p>`);
             nombreOrigen.exp += Math.floor(Math.random() * 15);
             expNivel(nombreOrigen);
 
@@ -139,8 +142,7 @@ class Personajes {
 
     insultar(origen, destino) {
         buscarNombres(origen, destino);
-        console.log(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
-        alert(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado ! `);
+        battleLog(`<h5>${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado !</h5>`);
         nombreDestino.exp -= Math.floor(Math.random() * 15);
         if (nombreDestino.exp <= 0) {
             nombreDestino.exp = 0;
@@ -357,6 +359,11 @@ function guardarPartida() {
 //Función que carga la partida guardada en localStorage
 
 function cargarPartida() {
+    //Si no hay partida guardada, no se ejecuta el resto
+    if (JSON.parse(localStorage.getItem(`partidaGuardada`)) == null ){
+        return;
+    }
+    
     objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
 
     pjActivo.splice(0, pjActivo.length);
@@ -416,22 +423,6 @@ function initG() {
         document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
     });
 
-
-
-    /*     pjActivo.forEach(element => {
-            accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
-            accionesID.innerHTML = `
-                <button class="buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Atacar</span></button>
-                
-                <button class="buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Curar</span></button>
-                
-                <button class="buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Insultar</span></button>
-                `;
-            document.getElementById(`acc-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
-            document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
-
-        }); */
-
     pjActivo.forEach(element => {
         accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
         accionesID.innerHTML = `
@@ -485,11 +476,12 @@ function initG() {
     ocultarBtn("btnAP");
     ocultarBtn("btnIniciar");
     ocultarBtn("btnCP");
+    mostrarBtn("battleLog");
     mostrarBtn("btnGP");
     mostrarBtn("btnR");
 
 
-    document.getElementsByClassName("")
+    document.getElementById("battleLog").innerHTML = " ";
 
 }
 
@@ -502,6 +494,7 @@ function resetG() {
     mostrarBtn("btnCP");
     ocultarBtn("btnR");
     ocultarBtn("btnGP");
+    ocultarBtn("battleLog");
     //Vacio htmls
 
     pjActivo.forEach(element => {
@@ -510,6 +503,7 @@ function resetG() {
     pjActivo.forEach(element => {
         document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).innerHTML = ``;
     });
+
 
     // Elimino personajes agregados
     pjActivo.splice(0, pjActivo.length);

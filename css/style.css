@@ -209,6 +209,7 @@
   background-color: #023859;
   display: flex;
   flex-flow: column nowrap;
+  height: 100%;
 }
 .body-mp .div-title {
   margin: 5em 2em;
@@ -241,6 +242,8 @@
 @media screen and (max-width: 650px) {
   .body-mp .barra-titulos {
     margin: 1em 0 1em 0;
+    height: 3em;
+    width: 95%;
   }
 }
 .body-mp #seccion-principal {
@@ -294,6 +297,11 @@
   text-transform: capitalize;
   font-weight: 600;
 }
+@media screen and (max-width: 650px) {
+  .body-mp #seccion-principal .container .objetivo-label {
+    font-size: 1.1em;
+  }
+}
 .body-mp #seccion-principal .container .acciones-label {
   grid-area: acciones-label;
   text-align: center;
@@ -301,6 +309,11 @@
   color: #F26444;
   text-transform: capitalize;
   font-weight: 600;
+}
+@media screen and (max-width: 650px) {
+  .body-mp #seccion-principal .container .acciones-label {
+    font-size: 1.1em;
+  }
 }
 .body-mp #seccion-principal .container .objetivo-select {
   grid-area: objetivo-select;
@@ -330,6 +343,16 @@
   font-size: 1.15em;
   color: #F26444;
 }
+@media screen and (max-width: 650px) {
+  .body-mp #seccion-principal .container .exp-vida strong {
+    font-size: 1.05em;
+  }
+}
+@media screen and (max-width: 650px) {
+  .body-mp #seccion-principal .container .exp-vida {
+    font-size: 1em;
+  }
+}
 .body-mp #seccion-principal .container .ata-def {
   grid-area: ata-def;
   font-size: 1.1em;
@@ -340,6 +363,16 @@
 .body-mp #seccion-principal .container .ata-def strong {
   font-size: 1.15em;
   color: #F26444;
+}
+@media screen and (max-width: 650px) {
+  .body-mp #seccion-principal .container .ata-def strong {
+    font-size: 1.05em;
+  }
+}
+@media screen and (max-width: 650px) {
+  .body-mp #seccion-principal .container .ata-def {
+    font-size: 1em;
+  }
 }
 .body-mp #seccion-principal .cards {
   background: rgba(2, 56, 89, 0.25);
@@ -356,6 +389,26 @@
   border: 2px;
   border-radius: 0.75em;
   background: #e8e8e8;
+}
+.body-mp #battleLog {
+  align-self: center;
+  width: 50%;
+  height: 100px;
+  background-color: #ffffffce;
+  margin: 1em;
+  overflow-y: scroll;
+}
+@media screen and (max-width: 650px) {
+  .body-mp #battleLog {
+    width: 95%;
+    height: 150px;
+  }
+}
+.body-mp #battleLog::-webkit-scrollbar {
+  width: 10px;
+}
+.body-mp #battleLog::-webkit-scrollbar-thumb {
+  background: #F26444;
 }
 
 .botones {
@@ -374,6 +427,7 @@
 }
 @media screen and (max-width: 650px) {
   .botones .botones-container {
+    margin-top: 2em;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
