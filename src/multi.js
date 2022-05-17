@@ -225,29 +225,40 @@ function newPJ() {
         clasesDisponibles += `<option>${element}</option> \n`;
     })
 
-    formNewPJID.innerHTML = `<span><span>
-    <input class="formNewPJ" type="text" placeholder="Nombre" id="nombreNewPJ"></span></span>
-    <select class="formNewPJ" type="text" placeholder="Clase" id="claseNewPJ">
-    <option value="0" selected disabled hidden>Clase</option>
+    //Imprimo formulario temporal
+    formNewPJID.innerHTML = `<span>
+    <input class="formNewPJ" type="text" placeholder="Nombre" id="nombreNewPJ"required></span>
+    <select class="formNewPJ" type="text" placeholder="Clase" id="claseNewPJ" required>
+    <option value="" hidden disabled selected>Clase</option>
     ${clasesDisponibles}
     </select>
     <button class="buttons" id="newPJButton"><span>Crear</span></button>
     `;
 
+    //Oculto botones temporalmente
     ocultarBtn("btnAP");
     ocultarBtn("btnIniciar");
     ocultarBtn("btnCP");
     ocultarBtn("btnGP");
 
-    /* function aValidar(params) {
-        if (params == 0) {
-            document.getElementById("claseNewPJ").innerHTML += `<p>Error</p>`
-        } 
-    } */
 
+
+    //Valido al clickear
     document.getElementById("newPJButton").addEventListener("click", () => {
 
-        pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), /* aValidar( */document.getElementById("claseNewPJ").value/* ) */));
+        //Valido campo nombre
+        if (document.getElementById("nombreNewPJ").value.length == 0) {
+            document.getElementById("nombreNewPJ").focus()
+            return 0;
+        }
+
+        //valido campo clase
+        if (document.getElementById("claseNewPJ").selectedIndex == 0) {
+            document.getElementById("claseNewPJ").focus()
+            return 0;
+        }
+
+        pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), document.getElementById("claseNewPJ").value));
 
         statClase();
 
@@ -258,6 +269,7 @@ function newPJ() {
         mostrarBtn("btnAP");
         mostrarBtn("btnIniciar");
         // LO OCULTO, DE MOMENTO NO LE VEO SENTIDO MOSTRARLO SI YA DECIDI CARGAR PERSONAJE mostrarBtn("btnCP");
+
     });
 };
 
@@ -395,7 +407,7 @@ function initG() {
 
         <form>
         <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
-        <option value="0" selected hidden disabled>Seleccione un objetivo</option>
+        <option value="" selected hidden disabled>Seleccione un objetivo</option>
         ${opcionesSelect}
         </select>
         </form>
@@ -404,17 +416,69 @@ function initG() {
         document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
     });
 
+
+
+    /*     pjActivo.forEach(element => {
+            accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
+            accionesID.innerHTML = `
+                <button class="buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Atacar</span></button>
+                
+                <button class="buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Curar</span></button>
+                
+                <button class="buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Insultar</span></button>
+                `;
+            document.getElementById(`acc-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+            document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+
+        }); */
+
     pjActivo.forEach(element => {
         accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
         accionesID.innerHTML = `
-            <button class="buttons-acciones" onclick=pjA("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Atacar</span></button>
+            <button class="buttons-acciones" id=btnA${parseInt(pjActivo.indexOf(element))}><span>Atacar</span></button>
             
-            <button class="buttons-acciones" onclick=pjC("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Curar</span></button>
+            <button class="buttons-acciones" id=btnC${parseInt(pjActivo.indexOf(element))}><span>Curar</span></button>
             
-            <button class="buttons-acciones" onclick=pjI("${element.nombre}",retornaAQuienID(${parseInt(pjActivo.indexOf(element))})),refreshStats(pjActivo) ><span>Insultar</span></button>
+            <button class="buttons-acciones" id=btnI${parseInt(pjActivo.indexOf(element))}><span>Insultar</span></button>
             `;
         document.getElementById(`acc-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
         document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+        document.getElementById(`btnA${parseInt(pjActivo.indexOf(element))}`).addEventListener("click", () => {
+
+            if (document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).selectedIndex == 0) {
+                document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).focus()
+                return 0;
+            };
+
+            pjA(element.nombre,retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+
+            refreshStats(pjActivo);
+
+        });
+        document.getElementById(`btnC${parseInt(pjActivo.indexOf(element))}`).addEventListener("click", () => {
+
+            if (document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).selectedIndex == 0) {
+                document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).focus()
+                return 0;
+            };
+
+            pjC(element.nombre,retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+            
+            refreshStats(pjActivo);
+
+        });
+        document.getElementById(`btnI${parseInt(pjActivo.indexOf(element))}`).addEventListener("click", () => {
+
+            if (document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).selectedIndex == 0) {
+                document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).focus()
+                return 0;
+            };
+
+            pjI(element.nombre,retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+            
+            refreshStats(pjActivo);
+
+        });
 
     });
 
