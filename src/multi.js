@@ -3,14 +3,10 @@
 //Defino función auxiliar de busqueda para metodos
 function buscarNombres(origen, destino) {
     pjActivo.forEach(element => {
-        if (element.nombre.toLowerCase() == origen.toLowerCase()) {
-            nombreOrigen = element;
-        }
+        element.nombre.toLowerCase() == origen.toLowerCase() && (nombreOrigen = element);
     });
     pjActivo.forEach(element => {
-        if (element.nombre.toLowerCase() == destino.toLowerCase()) {
-            nombreDestino = element;
-        }
+        element.nombre.toLowerCase() == destino.toLowerCase() && (nombreDestino = element);
     });
 };
 
@@ -58,7 +54,7 @@ function retornaAQuienID(index) {
 };
 
 //Función que loguea de forma inversa, añadiendo siempre al principio el contenido
-function battleLog(mensaje){
+function battleLog(mensaje) {
     document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensaje);
 }
 
@@ -81,7 +77,7 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`<p>${origen} está muerto, los muertos no pueden atacar.. o si?</p>`)
+            battleLog(`<p>${origen} está muerto. Los muertos no pueden atacar.. o si?</p>`)
         } else if (nombreDestino.vida == 0) {
             battleLog(`<p>Ya dejalo, ${destino} está muerto.</p>`)
         } else {
@@ -113,7 +109,7 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`<p>${origen} está muerto, los muertos ya no pueden curarse</p>`)
+            battleLog(`<p>${origen} está muerto! Ya no puede curarse.</p>`)
         } else if (nombreDestino.vida == 0) {
             battleLog(`<p>Un vendaje no revivira a ${destino}.</p>`)
         } else if (nombreDestino.vida == nombreDestino.vidaMax) {
@@ -122,7 +118,8 @@ class Personajes {
             let luckyNumber = between(1, (nombreOrigen.vida / 10));
             let puntosASumar = 0;
             let esCrit = (Math.random() * 11)
-            console.log(esCrit);battleLog
+            console.log(esCrit);
+            battleLog
             if (esCrit > 7) {
                 puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
                 battleLog("<h5>El efecto ha sido critico!</h5>")
@@ -142,10 +139,15 @@ class Personajes {
 
     insultar(origen, destino) {
         buscarNombres(origen, destino);
-        battleLog(`<h5>${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado !</h5>`);
-        nombreDestino.exp -= Math.floor(Math.random() * 15);
-        if (nombreDestino.exp <= 0) {
-            nombreDestino.exp = 0;
+
+        if (nombreOrigen.vida == 0) {
+            battleLog(`<p>${origen} está muerto :C </p>`)
+        } else {
+            battleLog(`<p>${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado !</p>`);
+            nombreDestino.exp -= Math.floor(Math.random() * 15);
+            if (nombreDestino.exp <= 0) {
+                nombreDestino.exp = 0;
+            }
         }
     }
 
@@ -222,7 +224,6 @@ function statClase() {
 function newPJ() {
     let formNewPJID = document.getElementById("formNewPJ");
     let clasesDisponibles = ""
-    let arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero`, `picaro`];
     arrayClasesDisponibles.forEach(element => {
         clasesDisponibles += `<option>${element}</option> \n`;
     })
@@ -238,14 +239,11 @@ function newPJ() {
     `;
 
     //Oculto botones temporalmente
-    ocultarBtn("btnAP");
-    ocultarBtn("btnIniciar");
-    ocultarBtn("btnCP");
-    ocultarBtn("btnGP");
+    mostrarBtn("btnBP");
 
 
 
-    //Valido al clickear
+    //Valido al clickear y genero el pj. Luego oculto y muestro botones
     document.getElementById("newPJButton").addEventListener("click", () => {
 
         //Valido campo nombre
@@ -268,9 +266,11 @@ function newPJ() {
 
         formNewPJID.innerHTML = "";
 
-        mostrarBtn("btnAP");
+        ocultarBtn("btnAP");
+        ocultarBtn("btnBP");
+        mostrarBtn("btnEP");
         mostrarBtn("btnIniciar");
-        // LO OCULTO, DE MOMENTO NO LE VEO SENTIDO MOSTRARLO SI YA DECIDI CARGAR PERSONAJE mostrarBtn("btnCP");
+        mostrarBtn("btnCP");
 
     });
 };
@@ -360,10 +360,10 @@ function guardarPartida() {
 
 function cargarPartida() {
     //Si no hay partida guardada, no se ejecuta el resto
-    if (JSON.parse(localStorage.getItem(`partidaGuardada`)) == null ){
+    if (JSON.parse(localStorage.getItem(`partidaGuardada`)) == null) {
         return;
     }
-    
+
     objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
 
     pjActivo.splice(0, pjActivo.length);
@@ -441,7 +441,7 @@ function initG() {
                 return 0;
             };
 
-            pjA(element.nombre,retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+            pjA(element.nombre, retornaAQuienID(parseInt(pjActivo.indexOf(element))));
 
             refreshStats(pjActivo);
 
@@ -453,8 +453,8 @@ function initG() {
                 return 0;
             };
 
-            pjC(element.nombre,retornaAQuienID(parseInt(pjActivo.indexOf(element))));
-            
+            pjC(element.nombre, retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+
             refreshStats(pjActivo);
 
         });
@@ -465,8 +465,8 @@ function initG() {
                 return 0;
             };
 
-            pjI(element.nombre,retornaAQuienID(parseInt(pjActivo.indexOf(element))));
-            
+            pjI(element.nombre, retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+
             refreshStats(pjActivo);
 
         });
@@ -489,7 +489,7 @@ function initG() {
 function resetG() {
 
     //Restablezco clases de botones
-    mostrarBtn("btnAP");
+    mostrarBtn("btnEP");
     mostrarBtn("btnIniciar");
     mostrarBtn("btnCP");
     ocultarBtn("btnR");
@@ -533,6 +533,7 @@ function pjI(origen, destino) {
 
 //Armo el array donde irán los personajes activos
 const pjActivo = [];
+const arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero`, `picaro`];
 
 pjActivo.push(new Personajes("myle", "paladin"));
 pjActivo.push(new Personajes("brotana", "cazador"));
@@ -540,9 +541,67 @@ pjActivo.push(new Personajes("brotana", "cazador"));
 
 // ################### EVENTOS ###################
 
+//BOTON GESTIONAR PERSONAJES
+document.getElementById("btnEP").addEventListener("click", () => {
+    ocultarBtn("btnEP");
+    ocultarBtn("btnIniciar");
+    ocultarBtn("btnCP");
+    mostrarBtn("btnAP");
+    mostrarBtn("btnBP");
+})
+
+//BOTON BORRAR PERSONAJE
+document.getElementById("btnBP").addEventListener("click", () => {
+    let nombresDisponibles;
+    let arrayNombres = pjActivo.map(x => x.nombre)
+    arrayNombres.forEach(element => {
+        nombresDisponibles += `<option>${element}</option> \n`;
+    })
+
+    //Imprimo formulario temporal
+    let formNewPJID = document.getElementById("formNewPJ");
+    formNewPJID.innerHTML = `    
+    <select class="formNewPJ" type="text" id="nombreDelPJ" required>
+    <option value="" hidden disabled selected>Nombre</option>
+    ${nombresDisponibles}
+    </select>
+    <button class="buttons" id="delPJ"><span>Borrar</span></button>
+    `;
+
+
+    //Oculto botones temporalmente
+    mostrarBtn("btnAP");
+
+
+    document.getElementById("delPJ").addEventListener("click", () => {
+
+        //valido select
+        if (document.getElementById("nombreDelPJ").selectedIndex == 0) {
+            document.getElementById("nombreDelPJ").focus()
+            return 0;
+        }
+        let aBorrar = pjActivo.indexOf[document.getElementById("nombreDelPJ").value]
+        pjActivo.splice(aBorrar,1);
+
+        statClase();
+
+        printPJ(pjActivo);
+
+        formNewPJID.innerHTML = "";
+
+        ocultarBtn("btnAP");
+        ocultarBtn("btnBP");
+        mostrarBtn("btnEP");
+        mostrarBtn("btnIniciar");
+        mostrarBtn("btnCP");
+
+
+    })
+})
+
+
 //BOTON AÑADIR PERSONAJE
-let bntAP = document.getElementById("btnAP");
-bntAP.addEventListener("click", newPJ);
+document.getElementById("btnAP").addEventListener("click", newPJ);
 
 //BOTON INICIAR JUEGO
 let btnIniciar = document.getElementById("btnIniciar");
