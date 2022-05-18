@@ -211,6 +211,10 @@
         border-radius: 0.75em;
         background: map-get($colors, button);
 
+        option{
+            text-transform: capitalize;
+        }
+
     }
 
 

@@ -390,6 +390,9 @@
   border-radius: 0.75em;
   background: #e8e8e8;
 }
+.body-mp .formNewPJ option {
+  text-transform: capitalize;
+}
 .body-mp #battleLog {
   align-self: center;
   width: 50%;
