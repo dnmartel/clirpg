@@ -266,6 +266,15 @@ function newPJ() {
 
         formNewPJID.innerHTML = "";
 
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Agregado',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+
         ocultarBtn("btnAP");
         ocultarBtn("btnBP");
         mostrarBtn("btnEP");
@@ -591,6 +600,14 @@ document.getElementById("btnBP").addEventListener("click", () => {
         printPJ(pjActivo);
 
         formNewPJID.innerHTML = "";
+
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Eliminado',
+            showConfirmButton: false,
+            timer: 1500
+        })
 
         ocultarBtn("btnAP");
         ocultarBtn("btnBP");
