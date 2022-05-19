@@ -476,6 +476,7 @@ function initG() {
     ocultarBtn("btnAP");
     ocultarBtn("btnIniciar");
     ocultarBtn("btnCP");
+    ocultarBtn("btnEP");
     mostrarBtn("battleLog");
     mostrarBtn("btnGP");
     mostrarBtn("btnR");
@@ -580,8 +581,10 @@ document.getElementById("btnBP").addEventListener("click", () => {
             document.getElementById("nombreDelPJ").focus()
             return 0;
         }
-        let aBorrar = pjActivo.indexOf[document.getElementById("nombreDelPJ").value]
-        pjActivo.splice(aBorrar,1);
+
+        let aBorrar = (document.getElementById("nombreDelPJ").selectedIndex) - 1 ;
+        
+        pjActivo.splice(aBorrar, 1);
 
         statClase();
 
