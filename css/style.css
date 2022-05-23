@@ -79,7 +79,7 @@
 
 #btn-back-i {
   margin: 2em;
-  position: fixed;
+  position: absolute;
   top: 0.3em;
   left: 0.3em;
 }
@@ -390,7 +390,13 @@
   height: 70px;
   padding: 0 11px;
 }
-.body-mp .formNewPJ {
+.body-mp #formNewPJ {
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  justify-content: center;
+}
+.body-mp #formNewPJ .formNewPJ {
   margin: 1em 0;
   padding: 0.75em;
   font-size: 1em;
@@ -399,13 +405,25 @@
   border-radius: 0.75em;
   background: #e8e8e8;
 }
-.body-mp .formNewPJ option {
+.body-mp #formNewPJ .formNewPJ option {
   text-transform: capitalize;
+}
+.body-mp #formNewPJ #newPJButton {
+  margin: 1em 0 0 0;
+}
+.body-mp #formNewPJ #newPJButton span {
+  background-color: #F26444;
+}
+.body-mp #formNewPJ #delPJ {
+  margin: 1em 0 0 0;
+}
+.body-mp #formNewPJ #delPJ span {
+  background-color: #F26444;
 }
 .body-mp #battleLog {
   align-self: center;
-  width: 40%;
-  height: 100px;
+  width: 50%;
+  height: 120px;
   background-color: #ffffffce;
   margin: 1em;
   overflow-y: scroll;
@@ -414,9 +432,9 @@
   font-size: 1.1em;
 }
 .body-mp #battleLog h5 {
+  font-family: Kindly;
   color: #F26444;
-  font-weight: 800;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 @media screen and (max-width: 650px) {
   .body-mp #battleLog {

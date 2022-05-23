@@ -65,7 +65,7 @@ function battleLog(mensaje) {
     let horaFin = Date.now();
     let tiempoTranscurrido = Number(((horaFin - horaInicio) / 1000) / 60);
 
-    mensajeConHora += `<h6> TimeStamp - ${tiempoTranscurrido.toFixed(2)} </h6>  ${mensaje}`;
+    mensajeConHora += `<h6> TimeStamp - ${tiempoTranscurrido.toFixed(2)} </h6>  <p style="text-align: center"> ${mensaje} </p> <hr>`;
     document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensajeConHora);
 }
 
@@ -88,9 +88,9 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`<p>${origen} está muerto. Los muertos no pueden atacar.. o si?</p>`);
+            battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
         } else if (nombreDestino.vida == 0) {
-            battleLog(`<p>Ya dejalo, ${destino} está muerto.</p>`);
+            battleLog(`Ya dejalo, ${destino} está muerto.`);
         } else {
             let luckyNumber = between((nombreOrigen.ataque - nombreDestino.defensa), nombreOrigen.ataque);
             let puntosADescontar = 0;
@@ -107,7 +107,7 @@ class Personajes {
                 puntosADescontar = 0;
             }
             nombreDestino.vida -= puntosADescontar;
-            battleLog(`<p>${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !</p>`);
+            battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestino.vida <= 0) {
                 nombreDestino.vida = 0;
                 document.getElementById(`card-${pjActivo.indexOf(nombreDestino)}`).classList.add("cards-kill");
@@ -121,11 +121,11 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`<p>${origen} está muerto! Ya no puede curarse.</p>`)
+            battleLog(`${origen} está muerto! Ya no puede curarse.`);
         } else if (nombreDestino.vida == 0) {
-            battleLog(`<p>Un vendaje no revivira a ${destino}.</p>`)
+            battleLog(`Un vendaje no revivira a ${destino}.`);
         } else if (nombreDestino.vida == nombreDestino.vidaMax) {
-            battleLog(`<p>${destino} ya tiene la vida al máximo.</p>`)
+            battleLog(`${destino} ya tiene la vida al máximo.;`)
         } else {
             let luckyNumber = between(1, (nombreOrigen.vida / 10));
             let puntosASumar = 0;
@@ -138,7 +138,7 @@ class Personajes {
                 puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
             }
             nombreDestino.vida += puntosASumar;
-            battleLog(`<p>${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !</p>`);
+            battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
             nombreOrigen.exp += Math.floor(Math.random() * 15);
             expNivel(nombreOrigen);
 
@@ -152,9 +152,9 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`<p>${origen} está muerto :C </p>`)
+            battleLog(`${origen} está muerto :C `);
         } else {
-            battleLog(`<p>${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado !</p>`);
+            battleLog(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado !`);
             nombreDestino.exp -= Math.floor(Math.random() * 15);
             if (nombreDestino.exp <= 0) {
                 nombreDestino.exp = 0;
@@ -240,13 +240,14 @@ function newPJ() {
     })
 
     //Imprimo formulario temporal
-    formNewPJID.innerHTML = `<span>
-    <input class="formNewPJ" type="text" placeholder="Nombre" id="nombreNewPJ"required></span>
+    formNewPJID.innerHTML = `
+    <input class="formNewPJ" type="text" placeholder="Nombre" id="nombreNewPJ"required>
     <select class="formNewPJ" type="text" placeholder="Clase" id="claseNewPJ" required>
     <option value="" hidden disabled selected>Clase</option>
     ${clasesDisponibles}
     </select>
     <button class="buttons" id="newPJButton"><span>Crear</span></button>
+    <button class="buttons" id="cancelNewPJButton"><span>Cancelar</span></button>
     `;
 
     //Oculto botones temporalmente
@@ -285,6 +286,17 @@ function newPJ() {
             timer: 1500
         })
 
+
+        ocultarBtn("btnAP");
+        ocultarBtn("btnBP");
+        mostrarBtn("btnEP");
+        mostrarBtn("btnIniciar");
+        mostrarBtn("btnCP");
+
+    });
+    document.getElementById("cancelNewPJButton").addEventListener("click", () => {
+
+        formNewPJID.innerHTML = "";
 
         ocultarBtn("btnAP");
         ocultarBtn("btnBP");
@@ -603,6 +615,7 @@ document.getElementById("btnBP").addEventListener("click", () => {
     ${nombresDisponibles}
     </select>
     <button class="buttons" id="delPJ"><span>Borrar</span></button>
+    <button class="buttons" id="cancelNewPJButton"><span>Cancelar</span></button>
     `;
 
 
@@ -643,7 +656,19 @@ document.getElementById("btnBP").addEventListener("click", () => {
         mostrarBtn("btnCP");
 
 
-    })
+    });
+
+    document.getElementById("cancelNewPJButton").addEventListener("click", () => {
+
+        formNewPJID.innerHTML = "";
+
+        ocultarBtn("btnAP");
+        ocultarBtn("btnBP");
+        mostrarBtn("btnEP");
+        mostrarBtn("btnIniciar");
+        mostrarBtn("btnCP");
+
+    });
 })
 
 
