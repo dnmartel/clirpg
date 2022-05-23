@@ -125,7 +125,7 @@ class Personajes {
         } else if (nombreDestino.vida == 0) {
             battleLog(`Un vendaje no revivira a ${destino}.`);
         } else if (nombreDestino.vida == nombreDestino.vidaMax) {
-            battleLog(`${destino} ya tiene la vida al máximo.;`)
+            battleLog(`${destino} ya tiene la vida al máximo.`);
         } else {
             let luckyNumber = between(1, (nombreOrigen.vida / 10));
             let puntosASumar = 0;
@@ -133,7 +133,7 @@ class Personajes {
 
             if (esCrit > 7) {
                 puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
-                battleLog("<h5>El efecto ha sido critico!</h5>")
+                battleLog("<h5>El efecto ha sido critico!</h5>");
             } else {
                 puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
             }
@@ -143,7 +143,7 @@ class Personajes {
             expNivel(nombreOrigen);
 
             if (nombreDestino.vida > nombreDestino.vidaMax) {
-                nombreDestino.vida = nombreDestino.vidaMax
+                nombreDestino.vida = nombreDestino.vidaMax;
             }
         }
     }
