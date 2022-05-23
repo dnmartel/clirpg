@@ -110,6 +110,7 @@
                 color: map-get($colors, primary);
                 text-transform: capitalize;
                 font-weight: 600;
+
                 @media screen and (max-width: 650px) {
                     font-size: 1.1em;
                 }
@@ -122,6 +123,7 @@
                 color: map-get($colors, primary);
                 text-transform: capitalize;
                 font-weight: 600;
+
                 @media screen and (max-width: 650px) {
                     font-size: 1.1em;
                 }
@@ -162,6 +164,7 @@
                 strong {
                     font-size: 1.15em;
                     color: map-get($colors, primary);
+
                     @media screen and (max-width: 650px) {
                         font-size: 1.05em;
                     }
@@ -182,10 +185,12 @@
                 strong {
                     font-size: 1.15em;
                     color: map-get($colors, primary);
+
                     @media screen and (max-width: 650px) {
                         font-size: 1.05em;
                     }
                 }
+
                 @media screen and (max-width: 650px) {
                     font-size: 1em;
                 }
@@ -196,8 +201,19 @@
             background: rgba(2, 56, 89, 0.25);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
             border-radius: 10px;
+        }
+
+        .cards-kill {
+            background: #000000a0;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            filter: grayscale(100%);
+
+            img {
+                height: 70px;
+                padding: 0 11px;
+            }
         }
 
     }
@@ -211,7 +227,7 @@
         border-radius: 0.75em;
         background: map-get($colors, button);
 
-        option{
+        option {
             text-transform: capitalize;
         }
 
@@ -221,11 +237,21 @@
     #battleLog {
 
         align-self: center;
-        width: 50%;
+        width: 40%;
         height: 100px;
         background-color: map-get($colors, secondary);
         margin: 1em;
         overflow-y: scroll;
+
+        p {
+            font-size: 1.1em;
+        }
+
+        h5 {
+            color: map-get($colors, primary);
+            font-weight: 800;
+            font-size: 1em;
+        }
 
         @media screen and (max-width: 650px) {
             width: 95%;
@@ -235,8 +261,9 @@
         &::-webkit-scrollbar {
             width: 10px;
         }
+
         &::-webkit-scrollbar-thumb {
-            background: map-get($colors , primary );
+            background: map-get($colors, primary);
         }
 
     }
@@ -279,6 +306,11 @@
     .btn-principal {
         background: map-get($colors, primary);
         font-size: 1.01em;
+
+        @media screen and (max-width: 650px) {
+            font-size: 1.2em;
+
+        }
     }
 }
 

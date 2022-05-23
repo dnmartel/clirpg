@@ -378,8 +378,17 @@
   background: rgba(2, 56, 89, 0.25);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
+}
+.body-mp #seccion-principal .cards-kill {
+  background: #000000a0;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  filter: grayscale(100%);
+}
+.body-mp #seccion-principal .cards-kill img {
+  height: 70px;
+  padding: 0 11px;
 }
 .body-mp .formNewPJ {
   margin: 1em 0;
@@ -395,11 +404,19 @@
 }
 .body-mp #battleLog {
   align-self: center;
-  width: 50%;
+  width: 40%;
   height: 100px;
   background-color: #ffffffce;
   margin: 1em;
   overflow-y: scroll;
+}
+.body-mp #battleLog p {
+  font-size: 1.1em;
+}
+.body-mp #battleLog h5 {
+  color: #F26444;
+  font-weight: 800;
+  font-size: 1em;
 }
 @media screen and (max-width: 650px) {
   .body-mp #battleLog {
@@ -444,6 +461,11 @@
 .botones .btn-principal {
   background: #F26444;
   font-size: 1.01em;
+}
+@media screen and (max-width: 650px) {
+  .botones .btn-principal {
+    font-size: 1.2em;
+  }
 }
 
 .ocultar {

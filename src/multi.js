@@ -2,9 +2,14 @@
 
 //Defino función auxiliar de busqueda para metodos
 function buscarNombres(origen, destino) {
+
+    //Reemplazo IF por &&
     pjActivo.forEach(element => {
+        // IF ( element.nombre.toLowerCase() == origen.toLowerCase() ) { (nombreOrigen = element) }
         element.nombre.toLowerCase() == origen.toLowerCase() && (nombreOrigen = element);
     });
+
+    //Reemplazo IF por &&
     pjActivo.forEach(element => {
         element.nombre.toLowerCase() == destino.toLowerCase() && (nombreDestino = element);
     });
@@ -12,14 +17,15 @@ function buscarNombres(origen, destino) {
 
 //Función de experiencia y nivel
 function expNivel(nombreOrigen) {
+
     if (nombreOrigen.exp > 100) {
         nombreOrigen.exp -= 100;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.04);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.04);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.06);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.06);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.08);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.08);
     }
 };
 
@@ -55,7 +61,12 @@ function retornaAQuienID(index) {
 
 //Función que loguea de forma inversa, añadiendo siempre al principio el contenido
 function battleLog(mensaje) {
-    document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensaje);
+    let mensajeConHora = "";
+    let horaFin = Date.now();
+    let tiempoTranscurrido = Number(((horaFin - horaInicio) / 1000) / 60);
+
+    mensajeConHora += `<h6> TimeStamp - ${tiempoTranscurrido.toFixed(2)} </h6>  ${mensaje}`;
+    document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensajeConHora);
 }
 
 
@@ -77,14 +88,14 @@ class Personajes {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`<p>${origen} está muerto. Los muertos no pueden atacar.. o si?</p>`)
+            battleLog(`<p>${origen} está muerto. Los muertos no pueden atacar.. o si?</p>`);
         } else if (nombreDestino.vida == 0) {
-            battleLog(`<p>Ya dejalo, ${destino} está muerto.</p>`)
+            battleLog(`<p>Ya dejalo, ${destino} está muerto.</p>`);
         } else {
             let luckyNumber = between((nombreOrigen.ataque - nombreDestino.defensa), nombreOrigen.ataque);
             let puntosADescontar = 0;
-            let esCrit = (Math.random() * 11)
-            console.log(esCrit);
+            let esCrit = (Math.random() * 11);
+
             if (esCrit > 8) {
                 puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)) * luckyNumber);
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
@@ -95,10 +106,11 @@ class Personajes {
             if (puntosADescontar < 0) {
                 puntosADescontar = 0;
             }
-            nombreDestino.vida -= puntosADescontar
+            nombreDestino.vida -= puntosADescontar;
             battleLog(`<p>${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !</p>`);
-            if (nombreDestino.vida < 0) {
+            if (nombreDestino.vida <= 0) {
                 nombreDestino.vida = 0;
+                document.getElementById(`card-${pjActivo.indexOf(nombreDestino)}`).classList.add("cards-kill");
             }
             nombreOrigen.exp += Math.floor(Math.random() * 20);
             expNivel(nombreOrigen);
@@ -117,9 +129,8 @@ class Personajes {
         } else {
             let luckyNumber = between(1, (nombreOrigen.vida / 10));
             let puntosASumar = 0;
-            let esCrit = (Math.random() * 11)
-            console.log(esCrit);
-            battleLog
+            let esCrit = (Math.random() * 11);
+
             if (esCrit > 7) {
                 puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
                 battleLog("<h5>El efecto ha sido critico!</h5>")
@@ -164,7 +175,7 @@ function statClase() {
                 element.exp = 0;
                 element.vida = 170;
                 element.vidaMax = 170;
-                element.ataque = 9;
+                element.ataque = 10;
                 element.defensa = 8;
                 element.img = `./img/char/paladin.png`;
                 break;
@@ -291,33 +302,33 @@ function printPJ(array) {
     seccionPrincipalID.innerHTML = " ";
     array.forEach(element => {
         seccionPrincipalID.innerHTML += `
-        <div class="container cards">
-            <div class="avatar">
+        <div class="container cards" id="card-${pjActivo.indexOf(element)}">
+            <div class="avatar" id="img-${pjActivo.indexOf(element)}">
                 <img src="${element.img}">
             </div>
-            <div class="nombre-clase-nivel" id="ncn-${parseInt(pjActivo.indexOf(element))}">
+            <div class="nombre-clase-nivel" id="ncn-${pjActivo.indexOf(element)}">
                 <span class="nombre-card">${element.nombre}</span><br>
                 <span class="clase-card">${element.clase}</span><br>
                 <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>
             </div>
         
-            <div class="objetivo-label ocultar" id="obj-label-${parseInt(pjActivo.indexOf(element))}">
+            <div class="objetivo-label ocultar" id="obj-label-${pjActivo.indexOf(element)}">
                 <span>Objetivo</span>
             </div>
-            <div class="acciones-label ocultar" id="acc-label-${parseInt(pjActivo.indexOf(element))}">
+            <div class="acciones-label ocultar" id="acc-label-${pjActivo.indexOf(element)}">
                 <span>Acciones</span>
             </div>
-            <div class="objetivo-select ocultar" id="obj-${parseInt(pjActivo.indexOf(element))}">
+            <div class="objetivo-select ocultar" id="obj-${pjActivo.indexOf(element)}">
             </div>
-            <div class="acciones-botones ocultar" id="acc-${parseInt(pjActivo.indexOf(element))}">
+            <div class="acciones-botones ocultar" id="acc-${pjActivo.indexOf(element)}">
             </div>
-            <div class="exp-vida" id="ev-${parseInt(pjActivo.indexOf(element))}">
+            <div class="exp-vida" id="ev-${pjActivo.indexOf(element)}">
                 <span>
                     <strong>Exp.: </strong>${element.exp}<br>
                     <strong>Vida: </strong>${element.vida}<br>
                 </span>
             </div>
-            <div class="ata-def" id="atadef-${parseInt(pjActivo.indexOf(element))}">
+            <div class="ata-def" id="atadef-${pjActivo.indexOf(element)}">
                 <span>
                 <strong>Ataque: </strong>${element.ataque}<br>
                 <strong>Defensa: </strong>${element.defensa}<br>
@@ -325,7 +336,11 @@ function printPJ(array) {
             </div>
         </div>
         `
-
+        //Si tiene vida = 0, le aplico una clase
+        if (element.vida == 0) {
+            document.getElementById(`card-${pjActivo.indexOf(element)}`).classList.replace("cards", "cards-kill");
+            document.getElementById(`img-${pjActivo.indexOf(element)}`).innerHTML = `<img src="./img/char/rip.png">`;
+        }
 
     });
 };
@@ -333,6 +348,17 @@ function printPJ(array) {
 //Función que refresca la info de los pjs, asignado en botones que modifican valores de objetos en array
 function refreshStats(array) {
     array.forEach(element => {
+        //Si tiene vida = 0, le aplico una clase
+        if (element.vida == 0) {
+            document.getElementById(`card-${pjActivo.indexOf(element)}`).classList.replace("cards", "cards-kill");
+            document.getElementById(`img-${pjActivo.indexOf(element)}`).innerHTML = `<img src="./img/char/rip.png">`;
+        }
+
+        document.getElementById(`ncn-${parseInt(array.indexOf(element))}`).innerHTML = `
+        <span class="nombre-card">${element.nombre}</span><br>
+        <span class="clase-card">${element.clase}</span><br>
+        <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>`;
+
         document.getElementById(`ncn-${parseInt(array.indexOf(element))}`).innerHTML = `
         <span class="nombre-card">${element.nombre}</span><br>
         <span class="clase-card">${element.clase}</span><br>
@@ -418,63 +444,63 @@ function initG() {
     })
 
     pjActivo.forEach(element => {
-        inputAccionesID = document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`);
+        inputAccionesID = document.getElementById(`obj-${pjActivo.indexOf(element)}`);
         inputAccionesID.innerHTML = `
 
         <form>
-        <select id="aQuien${parseInt(pjActivo.indexOf(element))}">
+        <select id="aQuien${pjActivo.indexOf(element)}">
         <option value="" selected hidden disabled>Seleccione un objetivo</option>
         ${opcionesSelect}
         </select>
         </form>
         `;
-        document.getElementById(`obj-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
-        document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
+        document.getElementById(`obj-label-${pjActivo.indexOf(element)}`).classList.remove("ocultar");
+        document.getElementById(`obj-${pjActivo.indexOf(element)}`).classList.remove("ocultar");
     });
 
     pjActivo.forEach(element => {
-        accionesID = document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`);
+        accionesID = document.getElementById(`acc-${pjActivo.indexOf(element)}`);
         accionesID.innerHTML = `
-            <button class="buttons-acciones" id=btnA${parseInt(pjActivo.indexOf(element))}><span>Atacar</span></button>
+            <button class="buttons-acciones" id=btnA${pjActivo.indexOf(element)}><span>Atacar</span></button>
             
-            <button class="buttons-acciones" id=btnC${parseInt(pjActivo.indexOf(element))}><span>Curar</span></button>
+            <button class="buttons-acciones" id=btnC${pjActivo.indexOf(element)}><span>Curar</span></button>
             
-            <button class="buttons-acciones" id=btnI${parseInt(pjActivo.indexOf(element))}><span>Insultar</span></button>
+            <button class="buttons-acciones" id=btnI${pjActivo.indexOf(element)}><span>Insultar</span></button>
             `;
-        document.getElementById(`acc-label-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
-        document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).classList.remove("ocultar");
-        document.getElementById(`btnA${parseInt(pjActivo.indexOf(element))}`).addEventListener("click", () => {
+        document.getElementById(`acc-label-${pjActivo.indexOf(element)}`).classList.remove("ocultar");
+        document.getElementById(`acc-${pjActivo.indexOf(element)}`).classList.remove("ocultar");
+        document.getElementById(`btnA${pjActivo.indexOf(element)}`).addEventListener("click", () => {
 
-            if (document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).selectedIndex == 0) {
-                document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).focus()
+            if (document.getElementById(`aQuien${pjActivo.indexOf(element)}`).selectedIndex == 0) {
+                document.getElementById(`aQuien${pjActivo.indexOf(element)}`).focus()
                 return 0;
             };
 
-            pjA(element.nombre, retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+            pjA(element.nombre, retornaAQuienID(pjActivo.indexOf(element)));
 
             refreshStats(pjActivo);
 
         });
-        document.getElementById(`btnC${parseInt(pjActivo.indexOf(element))}`).addEventListener("click", () => {
+        document.getElementById(`btnC${pjActivo.indexOf(element)}`).addEventListener("click", () => {
 
-            if (document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).selectedIndex == 0) {
-                document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).focus()
+            if (document.getElementById(`aQuien${pjActivo.indexOf(element)}`).selectedIndex == 0) {
+                document.getElementById(`aQuien${pjActivo.indexOf(element)}`).focus()
                 return 0;
             };
 
-            pjC(element.nombre, retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+            pjC(element.nombre, retornaAQuienID(pjActivo.indexOf(element)));
 
             refreshStats(pjActivo);
 
         });
-        document.getElementById(`btnI${parseInt(pjActivo.indexOf(element))}`).addEventListener("click", () => {
+        document.getElementById(`btnI${pjActivo.indexOf(element)}`).addEventListener("click", () => {
 
-            if (document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).selectedIndex == 0) {
-                document.getElementById(`aQuien${parseInt(pjActivo.indexOf(element))}`).focus()
+            if (document.getElementById(`aQuien${pjActivo.indexOf(element)}`).selectedIndex == 0) {
+                document.getElementById(`aQuien${pjActivo.indexOf(element)}`).focus()
                 return 0;
             };
 
-            pjI(element.nombre, retornaAQuienID(parseInt(pjActivo.indexOf(element))));
+            pjI(element.nombre, retornaAQuienID(pjActivo.indexOf(element)));
 
             refreshStats(pjActivo);
 
@@ -493,6 +519,7 @@ function initG() {
 
     document.getElementById("battleLog").innerHTML = " ";
 
+
 }
 
 //Funcion que reinicia el juego
@@ -508,10 +535,10 @@ function resetG() {
     //Vacio htmls
 
     pjActivo.forEach(element => {
-        document.getElementById(`obj-${parseInt(pjActivo.indexOf(element))}`).innerHTML = ``;
+        document.getElementById(`obj-${pjActivo.indexOf(element)}`).innerHTML = ``;
     });
     pjActivo.forEach(element => {
-        document.getElementById(`acc-${parseInt(pjActivo.indexOf(element))}`).innerHTML = ``;
+        document.getElementById(`acc-${pjActivo.indexOf(element)}`).innerHTML = ``;
     });
 
 
@@ -591,8 +618,8 @@ document.getElementById("btnBP").addEventListener("click", () => {
             return 0;
         }
 
-        let aBorrar = (document.getElementById("nombreDelPJ").selectedIndex) - 1 ;
-        
+        let aBorrar = (document.getElementById("nombreDelPJ").selectedIndex) - 1;
+
         pjActivo.splice(aBorrar, 1);
 
         statClase();
@@ -693,3 +720,6 @@ btnCP.addEventListener("click", cargarPartida);
 // ################### INICIALIZO E IMPRIMO ###################
 statClase();
 printPJ(pjActivo);
+
+//Inicia el contador para el battle log
+let horaInicio = Date.now();
