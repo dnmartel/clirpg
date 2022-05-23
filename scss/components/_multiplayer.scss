@@ -54,6 +54,23 @@
         justify-content: center;
         align-items: center;
 
+        #gifPJ {
+            display: flex;
+            flex-flow: column nowrap;
+            height: 100px;
+            padding: 2em;
+
+            img {
+                margin: 1em 0;
+            }
+
+            p {
+                font-family: Kindly;
+                font-size: 1em;
+                padding-bottom: 1em;
+            }
+        }
+
         .container {
             margin: .5em;
             padding: 1.5em;

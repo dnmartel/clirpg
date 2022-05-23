@@ -252,6 +252,20 @@
   justify-content: center;
   align-items: center;
 }
+.body-mp #seccion-principal #gifPJ {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100px;
+  padding: 2em;
+}
+.body-mp #seccion-principal #gifPJ img {
+  margin: 1em 0;
+}
+.body-mp #seccion-principal #gifPJ p {
+  font-family: Kindly;
+  font-size: 1em;
+  padding-bottom: 1em;
+}
 .body-mp #seccion-principal .container {
   margin: 0.5em;
   padding: 1.5em;

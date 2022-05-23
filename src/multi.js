@@ -584,8 +584,9 @@ function pjI(origen, destino) {
 const pjActivo = [];
 const arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero`, `picaro`];
 
-pjActivo.push(new Personajes("myle", "paladin"));
+/* pjActivo.push(new Personajes("myle", "paladin"));
 pjActivo.push(new Personajes("brotana", "cazador"));
+pjActivo.push(new Personajes("kabaz", "cazador")); */
 
 
 // ################### EVENTOS ###################
@@ -743,8 +744,15 @@ btnCP.addEventListener("click", cargarPartida);
 
 
 // ################### INICIALIZO E IMPRIMO ###################
-statClase();
-printPJ(pjActivo);
+
+if (pjActivo.length == 0) {
+
+    document.getElementById("seccion-principal").innerHTML = `
+        <div class="flex-center cards" id="gifPJ">
+        <img src="./img/pjs.gif">
+        <p>Todavia no has creado ningun personaje</p>
+        </div>`
+};
 
 //Inicia el contador para el battle log
 let horaInicio = Date.now();
