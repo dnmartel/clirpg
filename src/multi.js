@@ -448,6 +448,7 @@ function cargarPartida() {
 //Funcion que inicia el juego
 function initG() {
 
+
     let inputAccionesID = "";
 
     let opcionesSelect;
@@ -530,9 +531,9 @@ function initG() {
 
 
     document.getElementById("battleLog").innerHTML = " ";
-
-
 }
+
+
 
 //Funcion que reinicia el juego
 function resetG() {
@@ -680,31 +681,46 @@ document.getElementById("btnAP").addEventListener("click", newPJ);
 let btnIniciar = document.getElementById("btnIniciar");
 btnIniciar.addEventListener("click", () => {
 
-    //SWEET ALERT
-    let timerInterval
-    Swal.fire({
-        title: 'Preparando todo!',
-        html: 'Listos en <b></b>...',
-        timer: 500,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
-            timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft()
-            }, 100)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('Inicio del juego');
-        }
-    })
 
-    //INICIA
-    initG();
+    if (pjActivo.length == 0) {
+
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Debes agregar un personaje para jugar',
+            timer: 1500,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
+
+    } else {
+
+        //SWEET ALERT
+        let timerInterval
+        Swal.fire({
+            title: 'Preparando todo!',
+            html: 'Listos en <b></b>...',
+            timer: 500,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('Inicio del juego');
+            }
+        })
+
+        //INICIA
+        initG();
+    }
 });
 
 //BOTON RESET
