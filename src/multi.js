@@ -97,7 +97,7 @@ class Personajes {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 8) {
-                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)) * luckyNumber);
+                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)) * (luckyNumber - 1));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
                 puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)));
@@ -132,10 +132,10 @@ class Personajes {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 7) {
-                puntosASumar = (Math.ceil((nombreOrigen.vida + 10) * 0.1)) * luckyNumber;
+                puntosASumar = (Math.ceil((nombreOrigen.vida + 30) * 0.15)) * luckyNumber;
                 battleLog("<h5>El efecto ha sido critico!</h5>");
             } else {
-                puntosASumar = Math.ceil((nombreOrigen.vida + 1) * 0.1);
+                puntosASumar = Math.ceil((nombreOrigen.vida + 10) * 0.2);
             }
             nombreDestino.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
