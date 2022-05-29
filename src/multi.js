@@ -5,7 +5,6 @@ function buscarNombres(origen, destino) {
 
     //Reemplazo IF por &&
     pjActivo.forEach(element => {
-        // IF ( element.nombre.toLowerCase() == origen.toLowerCase() ) { (nombreOrigen = element) }
         element.nombre.toLowerCase() == origen.toLowerCase() && (nombreOrigen = element);
     });
 
@@ -82,6 +81,8 @@ class Personajes {
         this.defensa;
         this.nivel;
         this.exp;
+        this.magicPower;
+        this.magicDefense;
     }
 
     atacar(origen, destino) {
@@ -91,16 +92,18 @@ class Personajes {
             battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
         } else if (nombreDestino.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
+        } else if (nombreOrigen === nombreDestino) {
+            battleLog(`No puedes atacarte a ti mismo.`);
         } else {
             let luckyNumber = between((nombreOrigen.ataque - nombreDestino.defensa), nombreOrigen.ataque);
             let puntosADescontar = 0;
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 8) {
-                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)) * (luckyNumber - 1));
+                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / (luckyNumber - 2))) * (luckyNumber - 2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / luckyNumber)));
+                puntosADescontar = Math.round((nombreOrigen.ataque - (nombreDestino.defensa / (luckyNumber - 2))));
             }
 
             if (puntosADescontar < 0) {
@@ -131,11 +134,11 @@ class Personajes {
             let puntosASumar = 0;
             let esCrit = (Math.random() * 11);
 
-            if (esCrit > 7) {
-                puntosASumar = (Math.ceil((nombreOrigen.vida + 30) * 0.15)) * luckyNumber;
+            if (esCrit > 8) {
+                puntosASumar = (Math.ceil((nombreOrigen.vida + 20) * 0.15)) * (luckyNumber);
                 battleLog("<h5>El efecto ha sido critico!</h5>");
             } else {
-                puntosASumar = Math.ceil((nombreOrigen.vida + 10) * 0.2);
+                puntosASumar = Math.ceil((nombreOrigen.vida + 10) * 0.10);
             }
             nombreDestino.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
@@ -148,23 +151,70 @@ class Personajes {
         }
     }
 
-    insultar(origen, destino) {
+    spell(origen, destino) {
         buscarNombres(origen, destino);
 
         if (nombreOrigen.vida == 0) {
-            battleLog(`${origen} está muerto :C `);
+            battleLog(`Los muertos no pueden lanzar hechizos!`);
+        } else if (nombreDestino.vida == 0) {
+            battleLog(`Ya dejalo, ${destino} está muerto.`);
+        } else if (nombreOrigen === nombreDestino) {
+            battleLog(`No puedes atacarte a ti mismo.`);
         } else {
-            battleLog(`${nombreOrigen.nombre} ha insultado a ${nombreDestino.nombre}! Su moral y experiencia han bajado !`);
-            nombreDestino.exp -= Math.floor(Math.random() * 15);
-            if (nombreDestino.exp <= 0) {
-                nombreDestino.exp = 0;
+            let luckyNumber = Math.round(between(0, nombreOrigen.magicPower));
+            let puntosADescontar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 9) {
+                puntosADescontar = Math.round((nombreOrigen.magicPower - (nombreDestino.magicDefense / (luckyNumber - 4))) * (luckyNumber - 5));
+                battleLog(`<h5>El ataque ha sido critico!</h5>`);
+            } else {
+                puntosADescontar = Math.round((nombreOrigen.magicPower - (nombreDestino.magicDefense / (luckyNumber - 2))));
             }
+            
+            /* OPTIMIZADO
+            if (puntosADescontar < 0) {
+                puntosADescontar = 0;
+            } */
+
+            (puntosADescontar < 0) && (puntosADescontar = 0);
+
+            nombreDestino.vida -= puntosADescontar;
+
+
+            //FUNCIÓN ASINCRONICA - CAPTURA LOS DATOS DE LA API DE FORMA ALEATORIA Y LOS DEVUELVE DENTRO DEL BATTLE LOG COMO VARIABLE
+            async function nombreSpell() {
+                let response = await fetch(`https://www.dnd5eapi.co/api/spells/`);
+                let resAPI = await response.json();
+                let rand = Math.round(Math.random() * 320)
+                await battleLog(`${origen} ha utlizado ${resAPI.results[rand].name} sobre ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+            };
+
+            nombreSpell();
+
+            if (nombreDestino.vida <= 0) {
+                nombreDestino.vida = 0;
+                document.getElementById(`card-${pjActivo.indexOf(nombreDestino)}`).classList.add("cards-kill");
+            }
+            nombreOrigen.exp += Math.floor(Math.random() * 20);
+            expNivel(nombreOrigen);
         }
     }
-
 };
 
 // ################### FUNCIONES PRINCIPALES ###################
+
+//Primer inicio de la pantalla de multiplayer
+function initMulti() {
+    if (pjActivo.length == 0) {
+        document.getElementById("seccion-principal").innerHTML = `
+            <div class="flex-center cards" id="gifPJ">
+            <img src="./img/pjs.gif">
+            <p>Todavia no has creado ningun personaje</p>
+            </div>`
+    };
+}
+
 // Funcion que agregar stats segun clase   ---- Acá también las defino
 function statClase() {
 
@@ -176,44 +226,54 @@ function statClase() {
                 element.vida = 170;
                 element.vidaMax = 170;
                 element.ataque = 10;
-                element.defensa = 8;
+                element.defensa = 6;
                 element.img = `./img/char/paladin.png`;
+                element.magicPower = 9;
+                element.magicDefense = 6;
                 break;
             case `cazador`:
                 element.nivel = 1;
                 element.exp = 0;
                 element.vida = 150;
                 element.vidaMax = 150;
-                element.ataque = 11;
-                element.defensa = 5;
+                element.ataque = 13;
+                element.defensa = 6;
                 element.img = `./img/char/cazador.png`;
+                element.magicPower = 5;
+                element.magicDefense = 6;
                 break;
             case `mago`:
                 element.nivel = 1;
                 element.exp = 0;
                 element.vida = 120;
                 element.vidaMax = 120;
-                element.ataque = 13;
-                element.defensa = 4;
+                element.ataque = 5;
+                element.defensa = 3;
                 element.img = `./img/char/mago.png`;
+                element.magicPower = 16;
+                element.magicDefense = 12;
                 break;
             case `guerrero`:
                 element.nivel = 1;
                 element.exp = 0;
                 element.vida = 200;
                 element.vidaMax = 200;
-                element.ataque = 12;
+                element.ataque = 14;
                 element.defensa = 10;
                 element.img = `./img/char/guerrero.png`;
+                element.magicPower = 3;
+                element.magicDefense = 3;
                 break;
             case `brujo`:
                 element.nivel = 1;
                 element.exp = 0;
                 element.vida = 120;
                 element.vidaMax = 120;
-                element.ataque = 13;
-                element.defensa = 4;
+                element.ataque = 6;
+                element.defensa = 2;
                 element.img = `./img/char/brujo.png`;
+                element.magicPower = 17;
+                element.magicDefense = 11;
                 break;
 
             case `picaro`:
@@ -221,9 +281,11 @@ function statClase() {
                 element.exp = 0;
                 element.vida = 110;
                 element.vidaMax = 110;
-                element.ataque = 14;
+                element.ataque = 15;
                 element.defensa = 2;
                 element.img = `./img/char/picaro.png`;
+                element.magicPower = 2;
+                element.magicDefense = 7;
                 break;
             default:
                 break;
@@ -252,8 +314,6 @@ function newPJ() {
 
     //Oculto botones temporalmente
     mostrarBtn("btnBP");
-
-
 
     //Valido al clickear y genero el pj. Luego oculto y muestro botones
     document.getElementById("newPJButton").addEventListener("click", () => {
@@ -426,6 +486,8 @@ function cargarPartida() {
         pjActivo[indexRec].exp = element.exp;
         pjActivo[indexRec].vidaMax = element.vidaMax;
         pjActivo[indexRec].img = element.img;
+        pjActivo[indexRec].magicPower = element.magicPower;
+        pjActivo[indexRec].magicDefense = element.magicDefense;
 
         indexRec += 1;
     });
@@ -478,7 +540,7 @@ function initG() {
             
             <button class="buttons-acciones" id=btnC${pjActivo.indexOf(element)}><span>Curar</span></button>
             
-            <button class="buttons-acciones" id=btnI${pjActivo.indexOf(element)}><span>Insultar</span></button>
+            <button class="buttons-acciones" id=btnS${pjActivo.indexOf(element)}><span>Hechizo</span></button>
             `;
         document.getElementById(`acc-label-${pjActivo.indexOf(element)}`).classList.remove("ocultar");
         document.getElementById(`acc-${pjActivo.indexOf(element)}`).classList.remove("ocultar");
@@ -506,14 +568,14 @@ function initG() {
             refreshStats(pjActivo);
 
         });
-        document.getElementById(`btnI${pjActivo.indexOf(element)}`).addEventListener("click", () => {
+        document.getElementById(`btnS${pjActivo.indexOf(element)}`).addEventListener("click", () => {
 
             if (document.getElementById(`aQuien${pjActivo.indexOf(element)}`).selectedIndex == 0) {
                 document.getElementById(`aQuien${pjActivo.indexOf(element)}`).focus()
                 return 0;
             };
 
-            pjI(element.nombre, retornaAQuienID(pjActivo.indexOf(element)));
+            pjS(element.nombre, retornaAQuienID(pjActivo.indexOf(element)));
 
             refreshStats(pjActivo);
 
@@ -532,8 +594,6 @@ function initG() {
 
     document.getElementById("battleLog").innerHTML = " ";
 }
-
-
 
 //Funcion que reinicia el juego
 function resetG() {
@@ -557,11 +617,7 @@ function resetG() {
 
     // Elimino personajes agregados
     pjActivo.splice(0, pjActivo.length);
-    pjActivo.push(new Personajes("myle", "paladin"));
-    pjActivo.push(new Personajes("brotana", "cazador"));
-    statClase();
-    printPJ(pjActivo);
-
+    initMulti();
 };
 
 //Abreviación del metodo para atacar
@@ -574,9 +630,9 @@ function pjC(origen, destino) {
     pjActivo[0].curar(origen, destino)
 };
 
-//Abreviación del metodo para insultar
-function pjI(origen, destino) {
-    pjActivo[0].insultar(origen, destino)
+//Abreviación del metodo para Lanzar hechizo
+function pjS(origen, destino) {
+    pjActivo[0].spell(origen, destino)
 };
 
 // ################### ARRAYS ###################
@@ -673,7 +729,6 @@ document.getElementById("btnBP").addEventListener("click", () => {
     });
 })
 
-
 //BOTON AÑADIR PERSONAJE
 document.getElementById("btnAP").addEventListener("click", newPJ);
 
@@ -761,14 +816,7 @@ btnCP.addEventListener("click", cargarPartida);
 
 // ################### INICIALIZO E IMPRIMO ###################
 
-if (pjActivo.length == 0) {
-
-    document.getElementById("seccion-principal").innerHTML = `
-        <div class="flex-center cards" id="gifPJ">
-        <img src="./img/pjs.gif">
-        <p>Todavia no has creado ningun personaje</p>
-        </div>`
-};
+initMulti();
 
 //Inicia el contador para el battle log
 let horaInicio = Date.now();
