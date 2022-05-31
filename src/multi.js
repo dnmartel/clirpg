@@ -171,7 +171,7 @@ class Personajes {
             } else {
                 puntosADescontar = Math.round((nombreOrigen.magicPower - (nombreDestino.magicDefense / (luckyNumber - 2))));
             }
-            
+
             /* OPTIMIZADO
             if (puntosADescontar < 0) {
                 puntosADescontar = 0;
@@ -213,6 +213,141 @@ function initMulti() {
             <p>Todavia no has creado ningun personaje</p>
             </div>`
     };
+
+    //BOTON GESTIONAR PERSONAJES
+    document.getElementById("btnEP").addEventListener("click", () => {
+        ocultarBtn("btnEP");
+        ocultarBtn("btnIniciar");
+        ocultarBtn("btnCP");
+        mostrarBtn("btnAP");
+        mostrarBtn("btnBP");
+    })
+
+    //BOTON BORRAR PERSONAJE
+    document.getElementById("btnBP").addEventListener("click", () => {
+        let nombresDisponibles;
+        let arrayNombres = pjActivo.map(x => x.nombre)
+        arrayNombres.forEach(element => {
+            nombresDisponibles += `<option>${element}</option> \n`;
+        })
+
+        //Imprimo formulario temporal
+        let formNewPJID = document.getElementById("formNewPJ");
+        formNewPJID.innerHTML = `    
+    <select class="formNewPJ" type="text" id="nombreDelPJ" required>
+    <option value="" hidden disabled selected>Nombre</option>
+    ${nombresDisponibles}
+    </select>
+    <button class="buttons" id="delPJ"><span>Borrar</span></button>
+    <button class="buttons" id="cancelNewPJButton"><span>Cancelar</span></button>
+    `;
+
+
+        //Oculto botones temporalmente
+        mostrarBtn("btnAP");
+
+
+        document.getElementById("delPJ").addEventListener("click", () => {
+
+            //valido select
+            if (document.getElementById("nombreDelPJ").selectedIndex == 0) {
+                document.getElementById("nombreDelPJ").focus()
+                return 0;
+            }
+
+            let aBorrar = (document.getElementById("nombreDelPJ").selectedIndex) - 1;
+
+            pjActivo.splice(aBorrar, 1);
+
+            statClase();
+
+            printPJ(pjActivo);
+
+            formNewPJID.innerHTML = "";
+
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Eliminado',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            ocultarBtn("btnAP");
+            ocultarBtn("btnBP");
+            mostrarBtn("btnEP");
+            mostrarBtn("btnIniciar");
+            mostrarBtn("btnCP");
+
+
+        });
+
+        document.getElementById("cancelNewPJButton").addEventListener("click", () => {
+
+            formNewPJID.innerHTML = "";
+
+            ocultarBtn("btnAP");
+            ocultarBtn("btnBP");
+            mostrarBtn("btnEP");
+            mostrarBtn("btnIniciar");
+            mostrarBtn("btnCP");
+
+        });
+    })
+
+    //BOTON AÑADIR PERSONAJE
+    document.getElementById("btnAP").addEventListener("click", newPJ);
+
+    //BOTON INICIAR JUEGO
+    let btnIniciar = document.getElementById("btnIniciar");
+    btnIniciar.addEventListener("click", () => {
+
+
+        if (pjActivo.length == 0) {
+
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Debes agregar un personaje para jugar',
+                timer: 1500,
+                timerProgressBar: true,
+                showConfirmButton: false
+            });
+
+        } else {
+
+            //SWEET ALERT
+            let timerInterval
+            Swal.fire({
+                title: 'Preparando todo!',
+                html: 'Listos en <b></b>...',
+                timer: 500,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('Inicio del juego');
+                }
+            })
+
+            //INICIA
+            initG();
+        }
+    });
+
+    //BOTON CARGAR PARTIDA
+    let btnCP = document.getElementById("btnCP");
+    btnCP.addEventListener("click", cargarPartida);
+
 }
 
 // Funcion que agregar stats segun clase   ---- Acá también las defino
@@ -591,6 +726,35 @@ function initG() {
     mostrarBtn("btnGP");
     mostrarBtn("btnR");
 
+    //BOTON RESET
+    let btnR = document.getElementById("btnR");
+    btnR.addEventListener("click", () => {
+        Swal.fire({
+            title: 'Estás seguro?',
+            text: "Si no has guardado la partida, se perderá el progreso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#023859',
+            cancelButtonColor: '#F26444',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    text: 'Progreso reiniciado!',
+                    confirmButtonColor: '#023859',
+                })
+                resetG()
+            }
+
+        })
+
+
+    });
+
+    //BOTON GUARDAR PARTIDA
+    let btnGP = document.getElementById("btnGP");
+    btnGP.addEventListener("click", guardarPartida);
 
     document.getElementById("battleLog").innerHTML = " ";
 }
@@ -644,175 +808,6 @@ const arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero
 /* pjActivo.push(new Personajes("myle", "paladin"));
 pjActivo.push(new Personajes("brotana", "cazador"));
 pjActivo.push(new Personajes("kabaz", "cazador")); */
-
-
-// ################### EVENTOS ###################
-
-//BOTON GESTIONAR PERSONAJES
-document.getElementById("btnEP").addEventListener("click", () => {
-    ocultarBtn("btnEP");
-    ocultarBtn("btnIniciar");
-    ocultarBtn("btnCP");
-    mostrarBtn("btnAP");
-    mostrarBtn("btnBP");
-})
-
-//BOTON BORRAR PERSONAJE
-document.getElementById("btnBP").addEventListener("click", () => {
-    let nombresDisponibles;
-    let arrayNombres = pjActivo.map(x => x.nombre)
-    arrayNombres.forEach(element => {
-        nombresDisponibles += `<option>${element}</option> \n`;
-    })
-
-    //Imprimo formulario temporal
-    let formNewPJID = document.getElementById("formNewPJ");
-    formNewPJID.innerHTML = `    
-    <select class="formNewPJ" type="text" id="nombreDelPJ" required>
-    <option value="" hidden disabled selected>Nombre</option>
-    ${nombresDisponibles}
-    </select>
-    <button class="buttons" id="delPJ"><span>Borrar</span></button>
-    <button class="buttons" id="cancelNewPJButton"><span>Cancelar</span></button>
-    `;
-
-
-    //Oculto botones temporalmente
-    mostrarBtn("btnAP");
-
-
-    document.getElementById("delPJ").addEventListener("click", () => {
-
-        //valido select
-        if (document.getElementById("nombreDelPJ").selectedIndex == 0) {
-            document.getElementById("nombreDelPJ").focus()
-            return 0;
-        }
-
-        let aBorrar = (document.getElementById("nombreDelPJ").selectedIndex) - 1;
-
-        pjActivo.splice(aBorrar, 1);
-
-        statClase();
-
-        printPJ(pjActivo);
-
-        formNewPJID.innerHTML = "";
-
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Eliminado',
-            showConfirmButton: false,
-            timer: 1500
-        })
-
-        ocultarBtn("btnAP");
-        ocultarBtn("btnBP");
-        mostrarBtn("btnEP");
-        mostrarBtn("btnIniciar");
-        mostrarBtn("btnCP");
-
-
-    });
-
-    document.getElementById("cancelNewPJButton").addEventListener("click", () => {
-
-        formNewPJID.innerHTML = "";
-
-        ocultarBtn("btnAP");
-        ocultarBtn("btnBP");
-        mostrarBtn("btnEP");
-        mostrarBtn("btnIniciar");
-        mostrarBtn("btnCP");
-
-    });
-})
-
-//BOTON AÑADIR PERSONAJE
-document.getElementById("btnAP").addEventListener("click", newPJ);
-
-//BOTON INICIAR JUEGO
-let btnIniciar = document.getElementById("btnIniciar");
-btnIniciar.addEventListener("click", () => {
-
-
-    if (pjActivo.length == 0) {
-
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Debes agregar un personaje para jugar',
-            timer: 1500,
-            timerProgressBar: true,
-            showConfirmButton: false
-        });
-
-    } else {
-
-        //SWEET ALERT
-        let timerInterval
-        Swal.fire({
-            title: 'Preparando todo!',
-            html: 'Listos en <b></b>...',
-            timer: 500,
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading()
-                const b = Swal.getHtmlContainer().querySelector('b')
-                timerInterval = setInterval(() => {
-                    b.textContent = Swal.getTimerLeft()
-                }, 100)
-            },
-            willClose: () => {
-                clearInterval(timerInterval)
-            }
-        }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('Inicio del juego');
-            }
-        })
-
-        //INICIA
-        initG();
-    }
-});
-
-//BOTON RESET
-let btnR = document.getElementById("btnR");
-btnR.addEventListener("click", () => {
-    Swal.fire({
-        title: 'Estás seguro?',
-        text: "Si no has guardado la partida, se perderá el progreso!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#023859',
-        cancelButtonColor: '#F26444',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                text: 'Progreso reiniciado!',
-                confirmButtonColor: '#023859',
-            })
-            resetG()
-        }
-
-    })
-
-
-});
-
-//BOTON GUARDAR PARTIDA
-let btnGP = document.getElementById("btnGP");
-btnGP.addEventListener("click", guardarPartida);
-
-//BOTON CARGAR PARTIDA
-let btnCP = document.getElementById("btnCP");
-btnCP.addEventListener("click", cargarPartida);
-
-
 
 // ################### INICIALIZO E IMPRIMO ###################
 
