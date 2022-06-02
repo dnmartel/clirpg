@@ -9,7 +9,7 @@
 /* Extends */
 .buttons {
   margin: 1em 0;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   border: none;
   border-radius: 0.75em;
@@ -28,6 +28,11 @@
   -o-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
+}
+@media screen and (max-width: 650px) {
+  .buttons {
+    font-size: 1.2em;
+  }
 }
 
 @font-face {
@@ -78,6 +83,7 @@
 }
 
 #btn-back-i {
+  font-size: 1em;
   margin: 2em;
   position: absolute;
   top: 0.3em;
@@ -98,7 +104,7 @@
 /* Extends */
 .buttons {
   margin: 1em 0;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   border: none;
   border-radius: 0.75em;
@@ -117,6 +123,11 @@
   -o-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
+}
+@media screen and (max-width: 650px) {
+  .buttons {
+    font-size: 1.2em;
+  }
 }
 
 /* Mixins */
@@ -129,7 +140,7 @@
 /* Extends */
 .buttons {
   margin: 1em 0;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   border: none;
   border-radius: 0.75em;
@@ -149,11 +160,17 @@
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
 }
+@media screen and (max-width: 650px) {
+  .buttons {
+    font-size: 1.2em;
+  }
+}
 
 .body-i {
   background-color: #023859;
 }
 .body-i #section-index {
+  min-width: 350px;
   flex-flow: column nowrap;
 }
 .body-i #section-index #centro {
@@ -170,17 +187,23 @@
     width: 350px;
   }
 }
-.body-i #game-mode {
-  background-color: #023859;
-  flex-flow: column;
+.body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+  text-align: center;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
 }
-.body-i #pop-up {
-  height: 10%;
-  width: 20%;
-  position: fixed;
-  top: 25%;
-  z-index: 1;
-  background-color: blanchedalmond;
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Mixins */
@@ -191,7 +214,7 @@
 /* Extends */
 .buttons {
   margin: 1em 0;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   border: none;
   border-radius: 0.75em;
@@ -210,6 +233,11 @@
   -o-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
+}
+@media screen and (max-width: 650px) {
+  .buttons {
+    font-size: 1.2em;
+  }
 }
 
 .body-mp {
@@ -519,7 +547,7 @@
 /* Extends */
 .buttons {
   margin: 1em 0;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   border: none;
   border-radius: 0.75em;
@@ -538,6 +566,11 @@
   -o-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
+}
+@media screen and (max-width: 650px) {
+  .buttons {
+    font-size: 1.2em;
+  }
 }
 
 #body-sp {

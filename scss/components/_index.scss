@@ -6,7 +6,7 @@
     background-color: map-get($colors, backgrounds);
 
     #section-index {
-
+        min-width: 350px;
         flex-flow: column nowrap;
 
         #centro {
@@ -28,19 +28,25 @@
 
     }
 
-    #game-mode {
-        background-color: map-get($colors, backgrounds);
-        flex-flow: column;
-
+    #div-btn-index, #btn-index, #btnToSingle, #btnToMulti, #btn-back-i {
+        text-align: center;
+        animation: fadein 2s;
+        -moz-animation: fadein 2s;
+        /* Firefox */
+        -webkit-animation: fadein 2s;
+        /* Safari and Chrome */
+        -o-animation: fadein 2s;
+        /* Opera */
     }
 
-    #pop-up {
-        height: 10%;
-        width: 20%;
-        position: fixed;
-        top: 25%;
-        z-index: 1;
-        background-color: blanchedalmond;
+    @keyframes fadein {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 
 }

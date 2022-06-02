@@ -1,19 +1,31 @@
-document.getElementById("btn-index").addEventListener( "click", ()=>{
-    document.getElementById("section-index").classList.remove("height-100");
-    document.getElementById("section-index").classList.add("height-0", "d-none");
-    document.getElementById("game-mode").classList.add("height-100", "translate-anim");
-    document.getElementById("game-mode").classList.remove("d-none","height-0");
-    document.getElementById("btn-back-i").classList.remove("d-none");
-})
+//Funcion recursiva que vuelve a ejecutarse cuando se toca el botón "volver"
+function botonRecursivo(btn) {
+    // Le doy acción al boton "iniciar"
+    document.getElementById(btn).addEventListener("click", () => {
+        document.getElementById("div-btn-index").innerHTML = `
+            <button class="buttons" id="btnToSingle"><span>Single Player</span></button>
+            <button class="buttons" id="btnToMulti"><span>Multiplayer</span></button>
+            <button class="buttons" id="btn-back-i"><span>&#8592; volver</span></button>
+            `;
 
-document.getElementById("btn-back-i").addEventListener( "click", ()=>{
-    document.getElementById("section-index").classList.add("height-100");
-    document.getElementById("section-index").classList.remove("height-0", "d-none");
-    document.getElementById("game-mode").classList.add("d-none","height-0");
-    document.getElementById("game-mode").classList.remove("height-100");
-    document.getElementById("btn-back-i").classList.add("d-none");
-})
+        //Pruebo redirecciones evitando mostrar <a> en el html
+        document.getElementById("btnToSingle").addEventListener("click", () => {
+            location.pathname = '/single.html';
+        })
 
-/* document.getElementById("btn-singleplayer").addEventListener( "click", ()=>{
-    document.getElementById("pop-up").classList.toggle("d-none");
-}) */
+        //Pruebo redirecciones evitando mostrar <a> en el html
+        document.getElementById("btnToMulti").addEventListener("click", () => {
+            location.pathname = '/multiplayer.html';
+        })
+
+        //Le doy acción al botón "volver"
+        document.getElementById("btn-back-i").addEventListener("click", () => {
+            document.getElementById("div-btn-index").innerHTML = `    <button class="buttons"
+            id="btn-index"> <span> Iniciar </span></button >`;
+            //Antes de cerrar, vuelvo a darle acción al botón "Iniciar", llamando a la función nuevamente para que reimprima las acciones
+            botonRecursivo(btn);
+        })
+    })
+}
+
+botonRecursivo("btn-index");
