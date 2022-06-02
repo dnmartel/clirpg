@@ -1,4 +1,4 @@
-// ################### FUNCIONES AUXILIARES ###################
+// ################### FUNCIONES AUXILIARES Y SECUNDARIAS ###################
 
 //Defino función auxiliar de busqueda para metodos
 function buscarNombres(origen, destino) {
@@ -28,23 +28,6 @@ function expNivel(nombreOrigen) {
     }
 };
 
-
-//Funciones para ocultar y mostrar botones segun ID
-function ocultarBtn(ID) {
-    let ocultarBtn = document.getElementById(`${ID}`);
-    ocultarBtn.classList.add("ocultar");
-}
-
-function mostrarBtn(ID) {
-    let mostrarBtn = document.getElementById(`${ID}`);
-    mostrarBtn.classList.add("mostrar-margin");
-    mostrarBtn.classList.remove("ocultar")
-}
-
-
-//Defino variables globales
-let nombreOrigen, nombreDestino;
-
 //Funcion numero aleatorio
 function between(min, max) {
     return Math.floor(
@@ -67,6 +50,29 @@ function battleLog(mensaje) {
     mensajeConHora += `<h6> TimeStamp - ${tiempoTranscurrido.toFixed(2)} </h6>  <p style="text-align: center"> ${mensaje} </p> <hr>`;
     document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensajeConHora);
 }
+
+//Funciones para ocultar y mostrar botones segun ID
+function ocultarBtn(ID) {
+    let ocultarBtn = document.getElementById(`${ID}`);
+    ocultarBtn.classList.add("ocultar");
+}
+
+function mostrarBtn(ID) {
+    let mostrarBtn = document.getElementById(`${ID}`);
+    mostrarBtn.classList.add("mostrar-margin");
+    mostrarBtn.classList.remove("ocultar")
+}
+// ################### ARRAYS ###################
+
+//Armo el array donde irán los personajes activos
+const pjActivo = [];
+//Este array se usa para listar en creación de personajes
+const arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero`, `picaro`];
+
+
+// ################### variables globales ###################
+//Defino variables globales
+let nombreOrigen, nombreDestino;
 
 
 // ################### CLASES ###################
@@ -588,7 +594,10 @@ function refreshStats(array) {
 
 //Función que guarda la partida en localStorage
 function guardarPartida() {
-    localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo));
+
+    //Guardo según titlePage
+    (document.title == "RPG CLI - MP") ? localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo)): localStorage.setItem(`partidaGuardadaSP`, JSON.stringify(pjActivoSP));
+
     Swal.fire({
         position: 'center',
         icon: 'success',
@@ -602,46 +611,74 @@ function guardarPartida() {
 
 function cargarPartida() {
     //Si no hay partida guardada, no se ejecuta el resto
-    if (JSON.parse(localStorage.getItem(`partidaGuardada`)) == null) {
+    if ((JSON.parse(localStorage.getItem(`partidaGuardada`)) != null && (document.title == "RPG CLI - MP"))) {
+        let objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
+
+        pjActivo.splice(0, pjActivo.length);
+        let indexRec = 0;
+
+        objetoRecuperado.forEach(element => {
+            pjActivo.push(new Personajes(element.nombre, element.clase));
+
+            pjActivo[indexRec].vida = element.vida;
+            pjActivo[indexRec].ataque = element.ataque;
+            pjActivo[indexRec].defensa = element.defensa;
+            pjActivo[indexRec].nivel = element.nivel;
+            pjActivo[indexRec].exp = element.exp;
+            pjActivo[indexRec].vidaMax = element.vidaMax;
+            pjActivo[indexRec].img = element.img;
+            pjActivo[indexRec].magicPower = element.magicPower;
+            pjActivo[indexRec].magicDefense = element.magicDefense;
+
+            indexRec += 1;
+        });
+
+        printPJ(pjActivo);
+
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Partida cargada',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+        initG();
+    } else if (JSON.parse(localStorage.getItem(`partidaGuardadaSP`)) == null && (document.title == "RPG CLI - SP")) {
+        /* let objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardadaSP`));
+
+        pjActivo.splice(0, pjActivo.length);
+        let indexRec = 0;
+
+        objetoRecuperado.forEach(element => {
+            pjActivo.push(new Personajes(element.nombre, element.clase));
+
+            pjActivo[indexRec].vida = element.vida;
+            pjActivo[indexRec].ataque = element.ataque;
+            pjActivo[indexRec].defensa = element.defensa;
+            pjActivo[indexRec].nivel = element.nivel;
+            pjActivo[indexRec].exp = element.exp;
+            pjActivo[indexRec].vidaMax = element.vidaMax;
+            pjActivo[indexRec].img = element.img;
+            pjActivo[indexRec].magicPower = element.magicPower;
+            pjActivo[indexRec].magicDefense = element.magicDefense;
+
+            indexRec += 1;
+        });
+
+        printPJ(pjActivo); */
+
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Partida cargada',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    } else {
         return;
     }
-
-    objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardada`));
-
-    pjActivo.splice(0, pjActivo.length);
-    let indexRec = 0;
-
-    objetoRecuperado.forEach(element => {
-        pjActivo.push(new Personajes(element.nombre, element.clase));
-
-        pjActivo[indexRec].vida = element.vida;
-        pjActivo[indexRec].ataque = element.ataque;
-        pjActivo[indexRec].defensa = element.defensa;
-        pjActivo[indexRec].nivel = element.nivel;
-        pjActivo[indexRec].exp = element.exp;
-        pjActivo[indexRec].vidaMax = element.vidaMax;
-        pjActivo[indexRec].img = element.img;
-        pjActivo[indexRec].magicPower = element.magicPower;
-        pjActivo[indexRec].magicDefense = element.magicDefense;
-
-        indexRec += 1;
-    });
-
-    printPJ(pjActivo);
-
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Partida cargada',
-        showConfirmButton: false,
-        timer: 1500
-    })
-
-    initG();
-
-
 }
-
 //Funcion que inicia el juego
 function initG() {
 
@@ -799,19 +836,30 @@ function pjS(origen, destino) {
     pjActivo[0].spell(origen, destino)
 };
 
-// ################### ARRAYS ###################
-
-//Armo el array donde irán los personajes activos
-const pjActivo = [];
-const arrayClasesDisponibles = [`paladin`, `cazador`, `mago`, `brujo`, `guerrero`, `picaro`];
-
-/* pjActivo.push(new Personajes("myle", "paladin"));
+/* Push de personajes de prueba, descomentar para habilitar
+pjActivo.push(new Personajes("myle", "paladin"));
 pjActivo.push(new Personajes("brotana", "cazador"));
 pjActivo.push(new Personajes("kabaz", "cazador")); */
 
 // ################### INICIALIZO E IMPRIMO ###################
-
-initMulti();
+//Válido que se inicie solo en Multiplayer
+(document.title == 'RPG CLI - MP') && initMulti();
 
 //Inicia el contador para el battle log
 let horaInicio = Date.now();
+
+
+export {
+    Personajes,
+    pjA,
+    pjC,
+    pjS,
+    buscarNombres,
+    expNivel,
+    between,
+    retornaAQuienID,
+    battleLog,
+    ocultarBtn,
+    mostrarBtn,
+    cargarPartida
+}

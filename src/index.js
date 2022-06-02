@@ -14,6 +14,6 @@ document.getElementById("btn-back-i").addEventListener( "click", ()=>{
     document.getElementById("btn-back-i").classList.add("d-none");
 })
 
-document.getElementById("btn-singleplayer").addEventListener( "click", ()=>{
+/* document.getElementById("btn-singleplayer").addEventListener( "click", ()=>{
     document.getElementById("pop-up").classList.toggle("d-none");
-})
+}) */

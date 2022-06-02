@@ -84,6 +84,13 @@
   left: 0.3em;
 }
 
+.btn-next {
+  margin: 2em !important;
+  position: absolute;
+  bottom: 0.3em;
+  right: 0.3em;
+}
+
 /* Mapas */
 /* Mixins */
 /* Mixins */
@@ -502,6 +509,220 @@
 
 .ocultar {
   display: none;
+}
+
+/* Mixins */
+/* Mapas */
+/* Mixins */
+/* Mixins */
+/* Mapas */
+/* Extends */
+.buttons {
+  margin: 1em 0;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.75em;
+  background: #161616;
+}
+.buttons:hover span {
+  transform: translateY(-0.33em);
+  -webkit-transform: translateY(-0.33em);
+  -o-transform: translateY(-0.33em);
+  -moz-transform: translateY(-0.33em);
+  -ms-transform: translateY(-0.33em);
+}
+.buttons:active span {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -o-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+}
+
+#body-sp {
+  background-color: #023859;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+#body-sp .div-title {
+  margin: 5em 2em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp .div-title {
+    margin: 8em 0 1em 0;
+  }
+}
+#body-sp .div-title h1 {
+  font-family: Kindly;
+  color: #F26444;
+  text-align: center;
+  font-size: 2.5em;
+}
+#body-sp .div-title .p-bajada {
+  color: #ffffffce;
+  text-align: center;
+  font-size: 1.1em;
+}
+#body-sp #title-SP {
+  margin: 5em 2em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #title-SP {
+    margin: 8em 0 1em 0;
+  }
+}
+#body-sp #title-SP h2 {
+  font-family: Kindly;
+  color: #F26444;
+  text-align: center;
+  font-size: 2em;
+}
+#body-sp #title-SP .p-bajada {
+  color: #ffffffce;
+  text-align: center;
+  font-size: 1.1em;
+}
+#body-sp #seccion-principal-SP {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+}
+#body-sp #seccion-principal-SP.SPbody {
+  overflow: hidden;
+  font-family: "Roboto";
+}
+#body-sp #seccion-principal-SP .wrapper {
+  display: flex;
+  height: 100%;
+  width: 60%;
+  margin: 0 auto;
+  /* perspective gives us a 3d space within the element to work with*/
+  /* perspective also has the effect of pushing the content "down" */
+  perspective: 350px;
+}
+#body-sp #seccion-principal-SP .scroll-text {
+  color: #F26444;
+  font-size: 2.5vw;
+  line-height: 1.3em;
+  text-align: justify;
+  position: relative;
+  animation: scroll 60s linear forwards;
+}
+#body-sp #seccion-principal-SP h1,
+#body-sp #seccion-principal-SP h2 {
+  text-align: center;
+}
+@keyframes scroll {
+  from {
+    top: 0;
+    transform: translateZ(0) rotateX(20deg);
+  }
+  to {
+    top: -7500px;
+    transform: translateZ(-3500px) rotateX(2deg);
+  }
+}
+#body-sp #seccion-principal-SP #battleLog {
+  align-self: center;
+  width: 50%;
+  height: 120px;
+  background-color: #ffffffce;
+  margin: 1em;
+  overflow-y: scroll;
+}
+#body-sp #seccion-principal-SP #battleLog p {
+  font-size: 1.1em;
+}
+#body-sp #seccion-principal-SP #battleLog h5 {
+  font-family: Kindly;
+  color: #F26444;
+  font-size: 0.9em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP #battleLog {
+    width: 95%;
+    height: 150px;
+  }
+}
+#body-sp #seccion-principal-SP #battleLog::-webkit-scrollbar {
+  width: 10px;
+}
+#body-sp #seccion-principal-SP #battleLog::-webkit-scrollbar-thumb {
+  background: #F26444;
+}
+#body-sp .botones {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+#body-sp .botones button {
+  align-self: center;
+  width: 180px;
+  margin: 2em 1em;
+}
+#body-sp .botones .mostrar-margin {
+  margin-top: 5em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp .botones .botones-container {
+    margin-top: 2em;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  #body-sp .botones .botones-container button {
+    width: 180px;
+    margin-top: 0.1em;
+  }
+}
+#body-sp .botones .btn-principal {
+  background: #F26444;
+  font-size: 1.01em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp .botones .btn-principal {
+    font-size: 1.2em;
+  }
+}
+#body-sp .ocultar {
+  display: none;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  height: 100vh;
+}
+.loader .lds-dual-ring {
+  width: 80px;
+  height: 80px;
+}
+.loader .lds-dual-ring:after {
+  display: flex;
+  content: " ";
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

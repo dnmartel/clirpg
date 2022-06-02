@@ -1,0 +1,224 @@
+@import '../base/mixins';
+@import '../base/mapas';
+@import '../base/extends';
+
+#body-sp {
+
+    background-color: map-get($colors, backgrounds);
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+
+    .div-title {
+        margin: 5em 2em;
+
+        @media screen and (max-width: 650px) {
+            margin: 8em 0 1em 0;
+        }
+
+        h1 {
+            font-family: Kindly;
+            color: map-get($colors, primary);
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        .p-bajada {
+            color: map-get($colors, secondary);
+            text-align: center;
+            font-size: 1.1em;
+        }
+    }
+
+    #title-SP {
+        margin: 5em 2em;
+
+        @media screen and (max-width: 650px) {
+            margin: 8em 0 1em 0;
+        }
+
+        h2 {
+            font-family: Kindly;
+            color: map-get($colors, primary);
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .p-bajada {
+            color: map-get($colors, secondary);
+            text-align: center;
+            font-size: 1.1em;
+        }
+    }
+
+    #seccion-principal-SP {
+
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        height: 65vh;
+
+        &.SPbody {
+            overflow: hidden;
+            font-family: 'Roboto';
+        }
+
+        .wrapper {
+            display: flex;
+            height: 100%;
+            width: 60%;
+            margin: 0 auto;
+            /* perspective gives us a 3d space within the element to work with*/
+            /* perspective also has the effect of pushing the content "down" */
+            perspective: 350px;
+        }
+
+        .scroll-text {
+            color: map-get($colors, primary);
+            font-size: 2.5vw;
+            line-height: 1.3em;
+            text-align: justify;
+            position: relative;
+            animation: scroll 60s linear forwards;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        @keyframes scroll {
+            from {
+                top: 0;
+                transform: translateZ(0) rotateX(20deg);
+            }
+
+            to {
+                top: -7500px;
+                transform: translateZ(-3500px) rotateX(2deg);
+            }
+        }
+
+        #battleLog {
+
+            align-self: center;
+            width: 50%;
+            height: 120px;
+            background-color: map-get($colors, secondary);
+            margin: 1em;
+            overflow-y: scroll;
+
+
+            p {
+                font-size: 1.1em;
+            }
+
+            h5 {
+                font-family: Kindly;
+                color: map-get($colors, primary);
+                font-size: .9em;
+            }
+
+            @media screen and (max-width: 650px) {
+                width: 95%;
+                height: 150px;
+            }
+
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: map-get($colors, primary);
+            }
+
+        }
+    }
+
+
+
+    .botones {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            align-self: center;
+            width: 180px;
+            margin: 2em 1em;
+        }
+
+        .mostrar-margin {
+            margin-top: 5em;
+        }
+
+        @media screen and (max-width: 650px) {
+
+            .botones-container {
+                margin-top: 2em;
+                display: flex;
+                flex-flow: column wrap;
+                justify-content: center;
+                align-items: center;
+
+                button {
+                    width: 180px;
+                    margin-top: .1em;
+                }
+            }
+        }
+
+        .btn-principal {
+            background: map-get($colors, primary);
+            font-size: 1.01em;
+
+            @media screen and (max-width: 650px) {
+                font-size: 1.2em;
+
+            }
+        }
+    }
+
+    .ocultar {
+        display: none;
+    }
+}
+
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    height: 100vh;
+
+    .lds-dual-ring {
+        width: 80px;
+        height: 80px;
+    }
+
+    .lds-dual-ring:after {
+        display: flex;
+        content: " ";
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+}
