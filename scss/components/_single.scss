@@ -4,10 +4,15 @@
 
 #body-sp {
 
+    @extend %fadein;
+
     background-color: map-get($colors, backgrounds);
     display: flex;
     flex-flow: column nowrap;
-    height: 100%;
+    height: 100vh;
+    @media screen and (max-width: 650px) {
+        height: 95vh;
+    }
 
     .div-title {
         margin: 5em 2em;
@@ -57,11 +62,17 @@
         flex-flow: row wrap;
         justify-content: center;
         align-items: center;
-        height: 65vh;
+        height: 65%;
 
         &.SPbody {
             overflow: hidden;
-            font-family: 'Roboto';
+        }
+        .img-SP{
+            text-align: center;
+            img {
+                width: 150px;
+                height: 150px;
+            }
         }
 
         .wrapper {
@@ -69,18 +80,42 @@
             height: 100%;
             width: 60%;
             margin: 0 auto;
-            /* perspective gives us a 3d space within the element to work with*/
-            /* perspective also has the effect of pushing the content "down" */
             perspective: 350px;
+            @media screen and (max-width: 650px) {
+                perspective: 250px;
+                width: 80%;
+            }
         }
 
         .scroll-text {
             color: map-get($colors, primary);
-            font-size: 2.5vw;
+            font-size: 2.5em;
             line-height: 1.3em;
             text-align: justify;
             position: relative;
-            animation: scroll 60s linear forwards;
+            animation: scroll 90s linear forwards;
+
+            @media screen and (max-width: 650px) {
+                font-size: 1.8em;
+            }
+        }
+
+        .fixed-text {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            margin: 0 auto;
+            height: 100%;
+            width: 60%;
+            color: map-get($colors, primary);
+            font-size: 2vw;
+            line-height: 1.5em;
+            text-align: center;
+
+            @media screen and (max-width: 650px) {
+                width: 85%; 
+                font-size: 1em;
+            }
         }
 
         h1,
@@ -221,4 +256,8 @@
         }
     }
 
+}
+
+.fadein {
+    @extend %fadein;
 }

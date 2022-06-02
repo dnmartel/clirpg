@@ -1,7 +1,8 @@
 import {
     Personajes,
     cargarPartida,
-    ocultarBtn
+    ocultarBtn,
+    between
 } from "./multi.js";
 
 //############### CLASES #####################
@@ -17,11 +18,19 @@ let arrEnemigos = [];
 
 //Da funcionalidad a los botones de Nueva Partida y Cargar Partida
 function initSingle() {
+    let number = between(1, 4);
+    document.getElementById("seccion-principal-SP").innerHTML += `
+    <div class="img-SP">
+    <img src="./img/gifs/paladin_0${number}.gif"><img src="./img/gifs/pirata_0${number}.gif"><img src="./img/gifs/mago_0${number}.gif" ><img src="./img/gifs/caballero_0${number}.gif">
+    </div>
+    `;
 
     //BOTON INICIAR JUEGO
     let btnIniciar = document.getElementById("btnIniciar-SP");
     btnIniciar.addEventListener("click", () => {
-
+        document.getElementById("seccion-principal-SP").innerHTML = "";
+        ocultarBtn("btnIniciar-SP");
+        ocultarBtn("btnCP");
         //SWEET ALERT
         let timerInterval
         Swal.fire({
@@ -54,21 +63,45 @@ function initSingle() {
 
     //BOTON CARGAR PARTIDA
     let btnCP = document.getElementById("btnCP");
-    btnCP.addEventListener("click", cargarPartida);
+    btnCP.addEventListener("click", () => {
+        document.getElementById("seccion-principal-SP").innerHTML = "";
+        ocultarBtn("btnIniciar-SP");
+        ocultarBtn("btnCP");
+        cargarPartida()
+        toLoader()
+    })
 
+}
+
+function toLoader() {
+    setTimeout(() => {
+        document.getElementById("body-sp").innerHTML = `
+        <div class="loader">
+        <div class="lds-dual-ring"></div>
+        </div>
+        `
+        setTimeout(() => {
+            document.getElementById("body-sp").innerHTML = `
+    <div class="div-title" id="title-SP">
+        <h1>LALALA</h1>
+    </div>
+    <section id="seccion-principal-SP">
+    a
+    </section>
+    <a href="./index.html"><button class="buttons" id="opciones"><span>Opciones</span></button></a>
+    `
+        }, 2000);
+    }, 1500);
 }
 
 //Renueva la pantalla y Muestra texto introductorio
 function toIntro() {
-    ocultarBtn("btnIniciar-SP");
-    ocultarBtn("btnCP");
-
     document.getElementById("title-SP").innerHTML = `
     <h2>Intro</h2>`
     document.getElementById("seccion-principal-SP").classList.add("SPbody");
     document.getElementById("seccion-principal-SP").innerHTML = `
     <div class="wrapper">
-    <div class="scroll-text">
+    <div class="fadein scroll-text">
     <p>
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
     <p>
@@ -80,62 +113,41 @@ function toIntro() {
 
     setTimeout(() => {
         let buttonNext = document.createElement("div");
-        buttonNext.innerHTML = `<button class="buttons btn-next" id="btn-next-Crear-PJ"><span>Siguiente &#8594;</span></button>`;
+        buttonNext.innerHTML = `<button class="buttons fadein btn-next" id="btn-next-Crear-PJ"><span>Siguiente &#8594;</span></button>`;
         document.getElementById("body-sp").appendChild(buttonNext);
         document.getElementById("btn-next-Crear-PJ").addEventListener("click", toCrearPJ)
     }, 3000);
 
     setTimeout(() => {
-        alert("Redirect");
-    }, 20000)
+        document.getElementById("seccion-principal-SP").innerHTML = `
+
+        <div class="fadein fixed-text">
+        <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
+        <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
+        <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
+        </div>
+    `
+    }, 10000)
 }
 
 function toCrearPJ() {
-    alert("Funciona");
     document.getElementById("body-sp").innerHTML = `
-        <div class="div-title" id="title-SP">
+        <div class="div-title fadein" id="title-SP">
             <h1>Crear PJ</h1>
         </div>
-        <section id="seccion-principal-SP">
+        <section class="fadein" id="seccion-principal-SP">
         
         </section>
-        <a href="./index.html"><button class="buttons" id="btn-back-i"><span>&#8592; volver</span></button></a>
+        <a href="./index.html"><button class="buttons fadein" id="btn-back-i"><span>&#8592; volver</span></button></a>
         `
     let buttonNext = document.createElement("div");
     buttonNext.innerHTML = `<button class="buttons btn-next" id="btn-next-loader"><span>Siguiente &#8594;</span></button>`;
     document.getElementById("body-sp").appendChild(buttonNext);
     document.getElementById("btn-next-loader").addEventListener("click", toLoader)
 }
-
-function toLoader() {
-    document.getElementById("body-sp").innerHTML = `
-        <div class="loader">
-        <div class="lds-dual-ring"></div>
-        </div>
-        `
-    setTimeout(() => {
-        document.getElementById("body-sp").innerHTML = `
-    <div class="div-title" id="title-SP">
-        <h1>LALALA</h1>
-    </div>
-    <section id="seccion-principal-SP">
-    
-    </section>
-    <a href="./index.html"><button class="buttons" id="opciones"><span>Opciones</span></button></a>
-    `
-    }, 5000)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ################### INICIALIZO E IMPRIMO ###################

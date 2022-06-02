@@ -35,6 +35,16 @@
   }
 }
 
+.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
+}
+
 @font-face {
   font-family: "Kindly";
   src: url("https://dnmartel.github.io/clirpg/KindlyRewind-BOon.ttf") format("truetype");
@@ -97,6 +107,14 @@
   right: 0.3em;
 }
 
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /* Mapas */
 /* Mixins */
 /* Mixins */
@@ -128,6 +146,16 @@
   .buttons {
     font-size: 1.2em;
   }
+}
+
+.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
 }
 
 /* Mixins */
@@ -166,6 +194,16 @@
   }
 }
 
+.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
+}
+
 .body-i {
   background-color: #023859;
 }
@@ -189,21 +227,6 @@
 }
 .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
   text-align: center;
-  animation: fadein 2s;
-  -moz-animation: fadein 2s;
-  /* Firefox */
-  -webkit-animation: fadein 2s;
-  /* Safari and Chrome */
-  -o-animation: fadein 2s;
-  /* Opera */
-}
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* Mixins */
@@ -240,11 +263,26 @@
   }
 }
 
+.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
+}
+
 .body-mp {
   background-color: #023859;
   display: flex;
   flex-flow: column nowrap;
-  height: 100%;
+  height: 100vh;
+}
+@media screen and (max-width: 650px) {
+  .body-mp {
+    height: 95vh;
+  }
 }
 .body-mp .div-title {
   margin: 5em 2em;
@@ -286,6 +324,7 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  height: 65%;
 }
 .body-mp #seccion-principal #gifPJ {
   display: flex;
@@ -573,11 +612,26 @@
   }
 }
 
+.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
+}
+
 #body-sp {
   background-color: #023859;
   display: flex;
   flex-flow: column nowrap;
-  height: 100%;
+  height: 100vh;
+}
+@media screen and (max-width: 650px) {
+  #body-sp {
+    height: 95vh;
+  }
 }
 #body-sp .div-title {
   margin: 5em 2em;
@@ -622,28 +676,61 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  height: 65vh;
+  height: 65%;
 }
 #body-sp #seccion-principal-SP.SPbody {
   overflow: hidden;
-  font-family: "Roboto";
+}
+#body-sp #seccion-principal-SP .img-SP {
+  text-align: center;
+}
+#body-sp #seccion-principal-SP .img-SP img {
+  width: 150px;
+  height: 150px;
 }
 #body-sp #seccion-principal-SP .wrapper {
   display: flex;
   height: 100%;
   width: 60%;
   margin: 0 auto;
-  /* perspective gives us a 3d space within the element to work with*/
-  /* perspective also has the effect of pushing the content "down" */
   perspective: 350px;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP .wrapper {
+    perspective: 250px;
+    width: 80%;
+  }
 }
 #body-sp #seccion-principal-SP .scroll-text {
   color: #F26444;
-  font-size: 2.5vw;
+  font-size: 2.5em;
   line-height: 1.3em;
   text-align: justify;
   position: relative;
-  animation: scroll 60s linear forwards;
+  animation: scroll 90s linear forwards;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP .scroll-text {
+    font-size: 1.8em;
+  }
+}
+#body-sp #seccion-principal-SP .fixed-text {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100%;
+  width: 60%;
+  color: #F26444;
+  font-size: 2vw;
+  line-height: 1.5em;
+  text-align: center;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP .fixed-text {
+    width: 85%;
+    font-size: 1em;
+  }
 }
 #body-sp #seccion-principal-SP h1,
 #body-sp #seccion-principal-SP h2 {

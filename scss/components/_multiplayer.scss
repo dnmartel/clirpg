@@ -7,7 +7,10 @@
     background-color: map-get($colors, backgrounds);
     display: flex;
     flex-flow: column nowrap;
-    height: 100%;
+    height: 100vh;
+    @media screen and (max-width: 650px) {
+        height: 95vh;
+    }
 
     .div-title {
         margin: 5em 2em;
@@ -53,6 +56,7 @@
         flex-flow: row wrap;
         justify-content: center;
         align-items: center;
+        height: 65%;
 
         #gifPJ {
             display: flex;

@@ -7,6 +7,7 @@ function botonRecursivo(btn) {
             <button class="buttons" id="btnToMulti"><span>Multiplayer</span></button>
             <button class="buttons" id="btn-back-i"><span>&#8592; volver</span></button>
             `;
+        document.getElementById("btnToMulti").focus();
 
         //Pruebo redirecciones evitando mostrar <a> en el html
         document.getElementById("btnToSingle").addEventListener("click", () => {

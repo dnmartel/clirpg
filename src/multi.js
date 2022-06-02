@@ -62,6 +62,7 @@ function mostrarBtn(ID) {
     mostrarBtn.classList.add("mostrar-margin");
     mostrarBtn.classList.remove("ocultar")
 }
+
 // ################### ARRAYS ###################
 
 //Armo el array donde irán los personajes activos

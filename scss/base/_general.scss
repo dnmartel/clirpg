@@ -64,3 +64,13 @@
     bottom: .3em;
     right: .3em;
 }
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
