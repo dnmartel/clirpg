@@ -267,7 +267,15 @@ function initMulti() {
 
             statClase();
 
-            printPJ(pjActivo);
+            if (pjActivo.length == 0) {
+                document.getElementById("seccion-principal").innerHTML = `
+                    <div class="flex-center cards" id="gifPJ">
+                    <img src="./img/pjs.gif">
+                    <p>Todavia no has creado ningun personaje</p>
+                    </div>`
+            } else {
+                printPJ(pjActivo);
+            }
 
             formNewPJID.innerHTML = "";
 
@@ -706,7 +714,7 @@ function initG() {
     });
 
     pjActivo.forEach(element => {
-        accionesID = document.getElementById(`acc-${pjActivo.indexOf(element)}`);
+        let accionesID = document.getElementById(`acc-${pjActivo.indexOf(element)}`);
         accionesID.innerHTML = `
             <button class="buttons-acciones" id=btnA${pjActivo.indexOf(element)}><span>Atacar</span></button>
             
