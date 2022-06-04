@@ -644,6 +644,9 @@ function cargarPartida() {
 
         printPJ(pjActivo);
 
+        //quito clase para acomodar la página
+        document.getElementById("seccion-principal").classList.remove("h65")
+
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -803,6 +806,9 @@ function initG() {
     btnGP.addEventListener("click", guardarPartida);
 
     document.getElementById("battleLog").innerHTML = " ";
+
+    //quito clase para acomodar la página
+    document.getElementById("seccion-principal").classList.remove("h65")
 }
 
 //Funcion que reinicia el juego
@@ -827,6 +833,8 @@ function resetG() {
 
     // Elimino personajes agregados
     pjActivo.splice(0, pjActivo.length);
+    //agrego clase para acomodar la pág
+    document.getElementById("seccion-principal").classList.add("h65")
     initMulti();
 };
 

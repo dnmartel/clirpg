@@ -15,6 +15,17 @@ class Enemigos {
 
 //############### ARRAYS ####################
 let pjActivoSP = [];
+
+let pjBaseSP = new Array(6);
+pjBaseSP = [
+    {clase: "paladin", vida: 170, ataque: 10, defensa: 6, magicPower:9, magicDefense: 6},
+    {clase: "cazador", vida: 150, ataque: 13, defensa: 6, magicPower:5, magicDefense: 6},
+    {clase: "mago", vida: 120, ataque: 5, defensa: 3, magicPower:16, magicDefense: 12},
+    {clase: "guerrero", vida: 200, ataque: 14, defensa: 10, magicPower:3, magicDefense: 3},
+    {clase: "brujo", vida: 120, ataque: 6, defensa: 2, magicPower:17, magicDefense: 11},
+    {clase: "picaro", vida: 110, ataque: 15, defensa: 2, magicPower:2, magicDefense: 7}
+];
+
 let arrEnemigos = [];
 
 //Da funcionalidad a los botones de Nueva Partida y Cargar Partida
@@ -142,12 +153,12 @@ function toCrearPJ() {
         <section class="fadein crearPJ-container cards" id="seccion-principal-SP">
         <div class="div1-crearPJ"> 
             <form id="form-clasePJ">
-            <input class="formNewPJ" type="radio" placeholder="paladin" name="clase" value="paladin" checked><span>Paladin</span><br>
-            <input class="formNewPJ" type="radio" placeholder="cazador" name="clase" value="cazador"><span>Cazador</span><br>
-            <input class="formNewPJ" type="radio" placeholder="mago" name="clase" value="mago"><span>Mago</span><br>
-            <input class="formNewPJ" type="radio" placeholder="guerrero" name="clase" value="guerrero"><span>Guerrero</span><br>
-            <input class="formNewPJ" type="radio" placeholder="brujo" name="clase" value="brujo"><span>Brujo</span><br>
-            <input class="formNewPJ" type="radio" placeholder="picaro" name="clase" value="picaro"><span>Picaro</span><br>
+            <input class="formNewPJ" type="radio" placeholder="paladin" name="clase" value="0" checked><span>Paladin</span><br>
+            <input class="formNewPJ" type="radio" placeholder="cazador" name="clase" value="1"><span>Cazador</span><br>
+            <input class="formNewPJ" type="radio" placeholder="mago" name="clase" value="2"><span>Mago</span><br>
+            <input class="formNewPJ" type="radio" placeholder="guerrero" name="clase" value="3"><span>Guerrero</span><br>
+            <input class="formNewPJ" type="radio" placeholder="brujo" name="clase" value="4"><span>Brujo</span><br>
+            <input class="formNewPJ" type="radio" placeholder="picaro" name="clase" value="5"><span>Picaro</span><br>
             </form>
         </div>
         <div class="div2-crearPJ">
@@ -157,14 +168,30 @@ function toCrearPJ() {
         </form>
         </div>
         <div class="div3-crearPJ" id="stats-crearPJ">
-        <img src="./img/char/paladin.png" id="img-crearPJ">
+
+        <p>Vida: ${pjBaseSP[0].vida}</p>
+        <p>Ataque: ${pjBaseSP[0].ataque}</p>
+        <p>Defensa: ${pjBaseSP[0].defensa}</p>
+        <p>Ataque mágico: ${pjBaseSP[0].magicPower}</p>
+        <p>Defensa mágica: ${pjBaseSP[0].magicDefense}</p>
+
         </div>
         </section>
         <a href="./index.html"><button class="buttons fadein" id="btn-back-i"><span>&#8592; volver</span></button></a>
         `;
 
     document.getElementById(`form-clasePJ`).addEventListener("click", () => {
-        document.getElementById(`img-crearPJ`).src = `/img/char/${document.querySelector('input[name=clase]:checked').value}.png`
+        document.getElementById(`img-crearPJ`).src = `/img/char/${document.querySelector('input[name=clase]:checked').placeholder}.png`;
+
+        //Extraigo el valor (que indica la pos en el array)
+        let selected = document.querySelector('input[name=clase]:checked').value;
+        document.getElementById(`stats-crearPJ`).innerHTML= `        
+        
+        <p>Vida: ${pjBaseSP[selected].vida}</p>
+        <p>Ataque: ${pjBaseSP[selected].ataque}</p>
+        <p>Defensa: ${pjBaseSP[selected].defensa}</p>
+        <p>Ataque mágico: ${pjBaseSP[selected].magicPower}</p>
+        <p>Defensa mágica: ${pjBaseSP[selected].magicDefense}</p>`;
 
 
     })
@@ -182,7 +209,7 @@ function toCrearPJ() {
 
         //Obtengo Nombre y Clase del formulario
         let nombrePJ = document.getElementById(`nombre-crearPJ`).value;
-        let clasePJ = document.querySelector('input[name=clase]:checked').value;
+        let clasePJ = document.querySelector('input[name=clase]:checked').placeholder;
         pjActivoSP.push(new Personajes(`${nombrePJ}`, `${clasePJ}`));
         statClase(pjActivoSP);
         /* toLoader(); DESCOMENTAR AL TERMINAR*/
@@ -195,7 +222,8 @@ function toCrearPJ() {
 (document.title == 'RPG CLI - SP') && initSingle();
 
 // TESTS
-/* 
+
 arrEnemigos.push(new Enemigos("a"));
 console.log(pjActivoSP);
-console.log(arrEnemigos); */
+console.log(pjBaseSP);
+console.log(arrEnemigos);

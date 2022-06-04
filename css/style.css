@@ -730,17 +730,21 @@
 }
 #body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form img {
   margin-bottom: 2em;
-  width: 25%;
+  width: 65%;
 }
 @media screen and (max-width: 1200px) {
   #body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form img {
-    width: 50%;
+    width: 70%;
   }
 }
 @media screen and (max-width: 650px) {
   #body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form img {
     width: 100%;
   }
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ p {
+  color: #fff;
+  margin: 1em 0;
 }
 #body-sp #seccion-principal-SP .wrapper {
   display: flex;

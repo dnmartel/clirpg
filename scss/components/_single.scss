@@ -115,10 +115,10 @@
                     align-items: center;
                     img {
                         margin-bottom: 2em;
-                        width: 25%;
+                        width: 65%;
 
                         @media screen and (max-width: 1200px) {
-                            width: 50%;
+                            width: 70%;
                         }
 
                         @media screen and (max-width: 650px) {
@@ -129,7 +129,10 @@
             }
 
             .div3-crearPJ {
-                
+                p{
+                    color: #fff;
+                    margin: 1em 0;
+                }
             }
 
         }
