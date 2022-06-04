@@ -2,7 +2,8 @@ import {
     Personajes,
     cargarPartida,
     ocultarBtn,
-    between
+    between,
+    statClase
 } from "./multi.js";
 
 //############### CLASES #####################
@@ -106,8 +107,6 @@ function toIntro() {
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
     <p>
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
-    <p>
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
     </div>
     </div>`
 
@@ -116,48 +115,87 @@ function toIntro() {
         buttonNext.innerHTML = `<button class="buttons fadein btn-next" id="btn-next-Crear-PJ"><span>Siguiente &#8594;</span></button>`;
         document.getElementById("body-sp").appendChild(buttonNext);
         document.getElementById("btn-next-Crear-PJ").addEventListener("click", toCrearPJ)
-    }, 3000);
+    }, 1000);
 
     setTimeout(() => {
-        document.getElementById("seccion-principal-SP").innerHTML = `
+        /*         document.getElementById("seccion-principal-SP").innerHTML = `
 
-        <div class="fadein fixed-text">
-        <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
-        <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
-        <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
-        </div>
-    `
-    }, 10000)
+                <div class="fadein fixed-text">
+                <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
+                <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
+                </div>
+            ` */
+        toCrearPJ();
+    }, 2000)
 }
 
 function toCrearPJ() {
+
+
+
     document.getElementById("body-sp").innerHTML = `
         <div class="div-title fadein" id="title-SP">
             <h1>Crear PJ</h1>
         </div>
-        <section class="fadein" id="seccion-principal-SP">
-        
+        <section class="fadein crearPJ-container cards" id="seccion-principal-SP">
+        <div class="div1-crearPJ"> 
+            <form id="form-clasePJ">
+            <input class="formNewPJ" type="radio" placeholder="paladin" name="clase" value="paladin" checked><span>Paladin</span><br>
+            <input class="formNewPJ" type="radio" placeholder="cazador" name="clase" value="cazador"><span>Cazador</span><br>
+            <input class="formNewPJ" type="radio" placeholder="mago" name="clase" value="mago"><span>Mago</span><br>
+            <input class="formNewPJ" type="radio" placeholder="guerrero" name="clase" value="guerrero"><span>Guerrero</span><br>
+            <input class="formNewPJ" type="radio" placeholder="brujo" name="clase" value="brujo"><span>Brujo</span><br>
+            <input class="formNewPJ" type="radio" placeholder="picaro" name="clase" value="picaro"><span>Picaro</span><br>
+            </form>
+        </div>
+        <div class="div2-crearPJ">
+        <form>
+            <img src="./img/char/paladin.png" id="img-crearPJ">
+            <input class="formNewPJ" type="text" placeholder="Nombre" id="nombre-crearPJ"required><br>
+        </form>
+        </div>
+        <div class="div3-crearPJ" id="stats-crearPJ">
+        <img src="./img/char/paladin.png" id="img-crearPJ">
+        </div>
         </section>
         <a href="./index.html"><button class="buttons fadein" id="btn-back-i"><span>&#8592; volver</span></button></a>
-        `
+        `;
+
+    document.getElementById(`form-clasePJ`).addEventListener("click", () => {
+        document.getElementById(`img-crearPJ`).src = `/img/char/${document.querySelector('input[name=clase]:checked').value}.png`
+
+
+    })
+
     let buttonNext = document.createElement("div");
     buttonNext.innerHTML = `<button class="buttons btn-next" id="btn-next-loader"><span>Siguiente &#8594;</span></button>`;
     document.getElementById("body-sp").appendChild(buttonNext);
-    document.getElementById("btn-next-loader").addEventListener("click", toLoader)
+
+    document.getElementById("btn-next-loader").addEventListener("click", () => {
+        //valido el nombre
+        if (document.getElementById(`nombre-crearPJ`).value == "") {
+            document.getElementById(`nombre-crearPJ`).focus();
+            return;
+        };
+
+        //Obtengo Nombre y Clase del formulario
+        let nombrePJ = document.getElementById(`nombre-crearPJ`).value;
+        let clasePJ = document.querySelector('input[name=clase]:checked').value;
+        pjActivoSP.push(new Personajes(`${nombrePJ}`, `${clasePJ}`));
+        statClase(pjActivoSP);
+        /* toLoader(); DESCOMENTAR AL TERMINAR*/
+    });
 }
 
 
 // ################### INICIALIZO E IMPRIMO ###################
-//Válido que se inicie solo en Single Player
+//Valido que se inicie solo en Single Player
 (document.title == 'RPG CLI - SP') && initSingle();
 
 // TESTS
-
-pjActivoSP.push(new Personajes("myle", "paladin"));
-pjActivoSP.push(new Personajes("brotana", "cazador"));
+/* 
 arrEnemigos.push(new Enemigos("a"));
 console.log(pjActivoSP);
-console.log(arrEnemigos);
+console.log(arrEnemigos); */

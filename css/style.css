@@ -115,6 +115,24 @@
     opacity: 1;
   }
 }
+.cards {
+  background: rgba(2, 56, 89, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+}
+
+.cards-kill {
+  background: #000000a0;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  filter: grayscale(100%);
+}
+.cards-kill img {
+  height: 70px;
+  padding: 0 11px;
+}
+
 /* Mapas */
 /* Mixins */
 /* Mixins */
@@ -324,6 +342,8 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+}
+.body-mp #seccion-principal.h65 {
   height: 65%;
 }
 .body-mp #seccion-principal #gifPJ {
@@ -461,22 +481,6 @@
   .body-mp #seccion-principal .container .ata-def {
     font-size: 1em;
   }
-}
-.body-mp #seccion-principal .cards {
-  background: rgba(2, 56, 89, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-}
-.body-mp #seccion-principal .cards-kill {
-  background: #000000a0;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  filter: grayscale(100%);
-}
-.body-mp #seccion-principal .cards-kill img {
-  height: 70px;
-  padding: 0 11px;
 }
 .body-mp #formNewPJ {
   display: flex;
@@ -687,6 +691,56 @@
 #body-sp #seccion-principal-SP .img-SP img {
   width: 150px;
   height: 150px;
+}
+#body-sp #seccion-principal-SP.crearPJ-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+  align-self: center;
+  width: 90%;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP.crearPJ-container {
+    margin: 0.5em;
+    flex-flow: column;
+  }
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > input,
+#body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > span {
+  color: #fff;
+  margin: 1em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > input,
+#body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > span {
+    margin: 0.5em;
+  }
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form img {
+  margin-bottom: 2em;
+  width: 25%;
+}
+@media screen and (max-width: 1200px) {
+  #body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form img {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form img {
+    width: 100%;
+  }
 }
 #body-sp #seccion-principal-SP .wrapper {
   display: flex;

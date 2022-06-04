@@ -74,3 +74,22 @@
         opacity: 1;
     }
 }
+
+.cards {
+    background: rgba(2, 56, 89, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+}
+
+.cards-kill {
+    background: #000000a0;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    filter: grayscale(100%);
+
+    img {
+        height: 70px;
+        padding: 0 11px;
+    }
+}

@@ -266,7 +266,7 @@ function initMulti() {
 
             pjActivo.splice(aBorrar, 1);
 
-            statClase();
+            statClase(pjActivo);
 
             if (pjActivo.length == 0) {
                 document.getElementById("seccion-principal").innerHTML = `
@@ -366,9 +366,9 @@ function initMulti() {
 }
 
 // Funcion que agregar stats segun clase   ---- Acá también las defino
-function statClase() {
+function statClase(array) {
 
-    pjActivo.forEach(element => {
+    array.forEach(element => {
         switch (element.clase.toLowerCase()) {
             case `paladin`:
                 element.nivel = 1;
@@ -482,7 +482,7 @@ function newPJ() {
 
         pjActivo.push(new Personajes((document.getElementById("nombreNewPJ").value).toLowerCase(), document.getElementById("claseNewPJ").value));
 
-        statClase();
+        statClase(pjActivo);
 
         printPJ(pjActivo);
 
@@ -576,23 +576,23 @@ function refreshStats(array) {
             document.getElementById(`img-${pjActivo.indexOf(element)}`).innerHTML = `<img src="./img/char/rip.png">`;
         }
 
-        document.getElementById(`ncn-${parseInt(array.indexOf(element))}`).innerHTML = `
+        document.getElementById(`ncn-${array.indexOf(element)}`).innerHTML = `
         <span class="nombre-card">${element.nombre}</span><br>
         <span class="clase-card">${element.clase}</span><br>
         <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>`;
 
-        document.getElementById(`ncn-${parseInt(array.indexOf(element))}`).innerHTML = `
+        document.getElementById(`ncn-${array.indexOf(element)}`).innerHTML = `
         <span class="nombre-card">${element.nombre}</span><br>
         <span class="clase-card">${element.clase}</span><br>
         <span class="nivel-card"><strong>Nivel: </strong>${element.nivel}</span>`;
 
-        document.getElementById(`ev-${parseInt(array.indexOf(element))}`).innerHTML = `
+        document.getElementById(`ev-${array.indexOf(element)}`).innerHTML = `
         <span>
             <strong>Exp.: </strong>${element.exp}<br>
             <strong>Vida: </strong>${element.vida}<br>
         </span>`
 
-        document.getElementById(`atadef-${parseInt(array.indexOf(element))}`).innerHTML = `
+        document.getElementById(`atadef-${array.indexOf(element)}`).innerHTML = `
         <span>
             <strong>Ataque: </strong>${element.ataque}<br>
             <strong>Defensa: </strong>${element.defensa}<br>
@@ -870,5 +870,6 @@ export {
     battleLog,
     ocultarBtn,
     mostrarBtn,
-    cargarPartida
+    cargarPartida,
+    statClase
 }

@@ -10,6 +10,7 @@
     display: flex;
     flex-flow: column nowrap;
     height: 100vh;
+
     @media screen and (max-width: 650px) {
         height: 95vh;
     }
@@ -67,12 +68,70 @@
         &.SPbody {
             overflow: hidden;
         }
-        .img-SP{
+
+        .img-SP {
             text-align: center;
+
             img {
                 width: 150px;
                 height: 150px;
             }
+        }
+
+        &.crearPJ-container {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-around;
+            align-items: center;
+            align-self: center;
+            width: 90%;
+            @media screen and (max-width: 650px) {
+                margin: .5em;
+                flex-flow: column;
+            }
+
+
+            .div1-crearPJ {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                form>input,
+                form>span {
+                    color: #fff;
+                    margin: 1em;
+                    @media screen and (max-width: 650px) {
+                        margin: .5em;
+                    }
+                }
+            }
+
+            .div2-crearPJ {
+
+                form {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: center;
+                    align-items: center;
+                    img {
+                        margin-bottom: 2em;
+                        width: 25%;
+
+                        @media screen and (max-width: 1200px) {
+                            width: 50%;
+                        }
+
+                        @media screen and (max-width: 650px) {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .div3-crearPJ {
+                
+            }
+
         }
 
         .wrapper {
@@ -81,6 +140,7 @@
             width: 60%;
             margin: 0 auto;
             perspective: 350px;
+
             @media screen and (max-width: 650px) {
                 perspective: 250px;
                 width: 80%;
@@ -113,7 +173,7 @@
             text-align: center;
 
             @media screen and (max-width: 650px) {
-                width: 85%; 
+                width: 85%;
                 font-size: 1em;
             }
         }
