@@ -11,12 +11,13 @@ function botonRecursivo(btn) {
 
         //Pruebo redirecciones evitando mostrar <a> en el html
         document.getElementById("btnToSingle").addEventListener("click", () => {
-            location.pathname = '/single.html';
+            location.pathname = '/clirpg/single.html';
         })
 
         //Pruebo redirecciones evitando mostrar <a> en el html
         document.getElementById("btnToMulti").addEventListener("click", () => {
-            location.pathname = '/multiplayer.html';
+
+            location.pathname = '/clirpg/multiplayer.html';
         })
 
         //Le doy acción al botón "volver"

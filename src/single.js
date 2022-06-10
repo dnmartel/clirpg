@@ -94,16 +94,16 @@ function toLoader() {
         `
         setTimeout(() => {
             document.getElementById("body-sp").innerHTML = `
-    <div class="div-title" id="title-SP">
-        <h1>LALALA</h1>
+    <div class="div-title fadein" id="title-SP">
+        <h1> </h1>
     </div>
     <section id="seccion-principal-SP">
     a
     </section>
     <a href="./index.html"><button class="buttons" id="opciones"><span>Opciones</span></button></a>
     `
-        }, 2000);
-    }, 1500);
+        }, 1500);
+    }, 300);
 }
 
 //Renueva la pantalla y Muestra texto introductorio
@@ -212,7 +212,7 @@ function toCrearPJ() {
         let clasePJ = document.querySelector('input[name=clase]:checked').placeholder;
         pjActivoSP.push(new Personajes(`${nombrePJ}`, `${clasePJ}`));
         statClase(pjActivoSP);
-        /* toLoader(); DESCOMENTAR AL TERMINAR*/
+        toLoader(); 
     });
 }
 

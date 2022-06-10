@@ -742,6 +742,9 @@
     width: 100%;
   }
 }
+#body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ {
+  min-width: 150px;
+}
 #body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ p {
   color: #fff;
   margin: 1em 0;
