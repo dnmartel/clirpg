@@ -126,27 +126,6 @@ function initSingle() {
 
 }
 
-function toLoader() {
-    setTimeout(() => {
-        document.getElementById("body-sp").innerHTML = `
-        <div class="loader">
-        <div class="lds-dual-ring"></div>
-        </div>
-        `
-        setTimeout(() => {
-            document.getElementById("body-sp").innerHTML = `
-    <div class="div-title fadein" id="title-SP">
-        <h1> </h1>
-    </div>
-    <section id="seccion-principal-SP">
-    a
-    </section>
-    <button class="buttons btn-next" id="opciones"><span>Opciones</span></button>
-    `
-        }, 1500);
-    }, 300);
-}
-
 //Renueva la pantalla y Muestra texto introductorio
 function toIntro() {
     document.getElementById("title-SP").innerHTML = `
@@ -170,15 +149,6 @@ function toIntro() {
     }, 1000);
 
     setTimeout(() => {
-        /*         document.getElementById("seccion-principal-SP").innerHTML = `
-
-                <div class="fadein fixed-text">
-                <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
-                <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
-                </div>
-            ` */
         toCrearPJ();
     }, 2000)
 }
@@ -262,6 +232,32 @@ function toCrearPJ() {
         statClase(pjActivoSP);
         toLoader();
     });
+}
+
+//Loader + "main" del juego single player
+function toLoader() {
+    setTimeout(() => {
+        document.getElementById("body-sp").innerHTML = `
+        <div class="loader">
+        <div class="lds-dual-ring"></div>
+        </div>
+        `
+        setTimeout(() => {
+            document.getElementById("body-sp").innerHTML = `
+    <div class="div-title fadein" id="title-SP">
+    </div>
+    <section class="mainSP fadein" id="seccion-principal-SP">
+        <div class="div1-mainSP" id="battleLog"> 1 </div>
+        <div class="div2-mainSP"> stats </div>
+        <div class="div3-mainSP"> img </div>
+        <div class="div4-mainSP"> img </div>
+        <div class="div5-mainSP"> stats </div>
+        <div class="div6-mainSP"> form </div>
+    </section>
+    <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
+    `
+        }, 1500);
+    }, 300);
 }
 
 

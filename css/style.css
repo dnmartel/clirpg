@@ -789,6 +789,31 @@
 #body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ p span {
   color: #F26444;
 }
+#body-sp #seccion-principal-SP.mainSP {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 30px;
+}
+#body-sp #seccion-principal-SP.mainSP .div1-mainSP {
+  grid-area: 1/1/2/2;
+}
+#body-sp #seccion-principal-SP.mainSP .div2-mainSP {
+  grid-area: 1/2/2/3;
+}
+#body-sp #seccion-principal-SP.mainSP .div3-mainSP {
+  grid-area: 1/3/2/4;
+}
+#body-sp #seccion-principal-SP.mainSP .div4-mainSP {
+  grid-area: 2/1/3/2;
+}
+#body-sp #seccion-principal-SP.mainSP .div5-mainSP {
+  grid-area: 2/2/3/3;
+}
+#body-sp #seccion-principal-SP.mainSP .div6-mainSP {
+  grid-area: 2/3/3/4;
+}
 #body-sp #seccion-principal-SP .wrapper {
   display: flex;
   height: 100%;
@@ -846,6 +871,34 @@
     top: -7500px;
     transform: translateZ(-3500px) rotateX(2deg);
   }
+}
+#body-sp #battleLog {
+  align-self: center;
+  width: 50%;
+  height: 120px;
+  background-color: #ffffffce;
+  margin: 1em;
+  overflow-y: scroll;
+}
+#body-sp #battleLog p {
+  font-size: 1.1em;
+}
+#body-sp #battleLog h5 {
+  font-family: Kindly;
+  color: #F26444;
+  font-size: 0.9em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #battleLog {
+    width: 95%;
+    height: 150px;
+  }
+}
+#body-sp #battleLog::-webkit-scrollbar {
+  width: 10px;
+}
+#body-sp #battleLog::-webkit-scrollbar-thumb {
+  background: #F26444;
 }
 #body-sp .botones {
   display: flex;
