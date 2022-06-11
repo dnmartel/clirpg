@@ -59,10 +59,19 @@
 }
 
 .btn-next {
+    font-size: 1.2em !important;
     margin: 2em !important;
     position: absolute;
-    bottom: .3em;
+    top: .3em;
     right: .3em;
+    span{
+        background-color: map-get($colors, primary );
+        color: map-get($colors, secondary );
+    }
+
+    @media screen and (max-width: 650px) {
+        font-size: 1em !important;
+    }
 }
 
 @keyframes fadein {

@@ -17,13 +17,54 @@ class Enemigos {
 let pjActivoSP = [];
 
 let pjBaseSP = new Array(6);
-pjBaseSP = [
-    {clase: "paladin", vida: 170, ataque: 10, defensa: 6, magicPower:9, magicDefense: 6},
-    {clase: "cazador", vida: 150, ataque: 13, defensa: 6, magicPower:5, magicDefense: 6},
-    {clase: "mago", vida: 120, ataque: 5, defensa: 3, magicPower:16, magicDefense: 12},
-    {clase: "guerrero", vida: 200, ataque: 14, defensa: 10, magicPower:3, magicDefense: 3},
-    {clase: "brujo", vida: 120, ataque: 6, defensa: 2, magicPower:17, magicDefense: 11},
-    {clase: "picaro", vida: 110, ataque: 15, defensa: 2, magicPower:2, magicDefense: 7}
+pjBaseSP = [{
+        clase: "paladin",
+        vida: 170,
+        ataque: 10,
+        defensa: 6,
+        magicPower: 9,
+        magicDefense: 6
+    },
+    {
+        clase: "cazador",
+        vida: 150,
+        ataque: 13,
+        defensa: 6,
+        magicPower: 5,
+        magicDefense: 6
+    },
+    {
+        clase: "mago",
+        vida: 120,
+        ataque: 5,
+        defensa: 3,
+        magicPower: 16,
+        magicDefense: 12
+    },
+    {
+        clase: "guerrero",
+        vida: 200,
+        ataque: 14,
+        defensa: 10,
+        magicPower: 3,
+        magicDefense: 3
+    },
+    {
+        clase: "brujo",
+        vida: 120,
+        ataque: 6,
+        defensa: 2,
+        magicPower: 17,
+        magicDefense: 11
+    },
+    {
+        clase: "picaro",
+        vida: 110,
+        ataque: 15,
+        defensa: 2,
+        magicPower: 2,
+        magicDefense: 7
+    }
 ];
 
 let arrEnemigos = [];
@@ -100,7 +141,7 @@ function toLoader() {
     <section id="seccion-principal-SP">
     a
     </section>
-    <a href="./index.html"><button class="buttons" id="opciones"><span>Opciones</span></button></a>
+    <button class="buttons btn-next" id="opciones"><span>Opciones</span></button>
     `
         }, 1500);
     }, 300);
@@ -144,14 +185,14 @@ function toIntro() {
 
 function toCrearPJ() {
 
-
+    let randBG = between(1, 6);
 
     document.getElementById("body-sp").innerHTML = `
         <div class="div-title fadein" id="title-SP">
             <h1>Crear PJ</h1>
         </div>
-        <section class="fadein crearPJ-container cards" id="seccion-principal-SP">
-        <div class="div1-crearPJ"> 
+        <section class="fadein crearPJ-container cards" style="background: url(./img/bgi${randBG}.svg) no-repeat center center / cover" id="seccion-principal-SP">
+        <div class="div1-crearPJ cards"> 
             <form id="form-clasePJ">
             <input class="formNewPJ" type="radio" placeholder="paladin" name="clase" value="0" checked><span>Paladin</span><br>
             <input class="formNewPJ" type="radio" placeholder="cazador" name="clase" value="1"><span>Cazador</span><br>
@@ -162,37 +203,37 @@ function toCrearPJ() {
             </form>
         </div>
         <div class="div2-crearPJ">
-        <form>
+        <form id="formDiv2">
             <img src="./img/char/paladin.png" id="img-crearPJ">
             <input class="formNewPJ" type="text" placeholder="Nombre" id="nombre-crearPJ"required><br>
         </form>
         </div>
-        <div class="div3-crearPJ" id="stats-crearPJ">
+        <div class="div3-crearPJ cards" id="stats-crearPJ">
 
-        <p>Vida: ${pjBaseSP[0].vida}</p>
-        <p>Ataque: ${pjBaseSP[0].ataque}</p>
-        <p>Defensa: ${pjBaseSP[0].defensa}</p>
-        <p>Ataque mágico: ${pjBaseSP[0].magicPower}</p>
-        <p>Defensa mágica: ${pjBaseSP[0].magicDefense}</p>
+        <p><span>Vida:</span> ${pjBaseSP[0].vida}</p>
+        <p><span>Ataque:</span> ${pjBaseSP[0].ataque}</p>
+        <p><span>Defensa:</span> ${pjBaseSP[0].defensa}</p>
+        <p><span>Ataque mágico:</span> ${pjBaseSP[0].magicPower}</p>
+        <p><span>Defensa mágica:</span> ${pjBaseSP[0].magicDefense}</p>
 
         </div>
         </section>
         <a href="./index.html"><button class="buttons fadein" id="btn-back-i"><span>&#8592; volver</span></button></a>
         `;
 
+
     document.getElementById(`form-clasePJ`).addEventListener("click", () => {
-        document.getElementById(`img-crearPJ`).src = `/img/char/${document.querySelector('input[name=clase]:checked').placeholder}.png`;
+        document.getElementById(`img-crearPJ`).src = `./img/char/${document.querySelector('input[name=clase]:checked').placeholder}.png`;
 
         //Extraigo el valor (que indica la pos en el array)
         let selected = document.querySelector('input[name=clase]:checked').value;
-        document.getElementById(`stats-crearPJ`).innerHTML= `        
+        document.getElementById(`stats-crearPJ`).innerHTML = `        
         
-        <p>Vida: ${pjBaseSP[selected].vida}</p>
-        <p>Ataque: ${pjBaseSP[selected].ataque}</p>
-        <p>Defensa: ${pjBaseSP[selected].defensa}</p>
-        <p>Ataque mágico: ${pjBaseSP[selected].magicPower}</p>
-        <p>Defensa mágica: ${pjBaseSP[selected].magicDefense}</p>`;
-
+        <p><span>Vida:</span> ${pjBaseSP[selected].vida}</p>
+        <p><span>Ataque:</span> ${pjBaseSP[selected].ataque}</p>
+        <p><span>Defensa:</span> ${pjBaseSP[selected].defensa}</p>
+        <p><span>Ataque mágico:</span> ${pjBaseSP[selected].magicPower}</p>
+        <p><span>Defensa mágica:</span> ${pjBaseSP[selected].magicDefense}</p>`;
 
     })
 
@@ -204,6 +245,13 @@ function toCrearPJ() {
         //valido el nombre
         if (document.getElementById(`nombre-crearPJ`).value == "") {
             document.getElementById(`nombre-crearPJ`).focus();
+            Swal.fire({
+                icon: 'error',
+                title: 'Debes darle un nombre al personaje',
+                timer: 1500,
+                timerProgressBar: true,
+                showConfirmButton: false
+            });
             return;
         };
 
@@ -212,7 +260,7 @@ function toCrearPJ() {
         let clasePJ = document.querySelector('input[name=clase]:checked').placeholder;
         pjActivoSP.push(new Personajes(`${nombrePJ}`, `${clasePJ}`));
         statClase(pjActivoSP);
-        toLoader(); 
+        toLoader();
     });
 }
 

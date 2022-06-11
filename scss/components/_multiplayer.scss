@@ -7,10 +7,12 @@
     background-color: map-get($colors, backgrounds);
     display: flex;
     flex-flow: column nowrap;
+    /* Esto trajo problemas con la adaptación y superposición de divs - Testear
     height: 100vh;
+
     @media screen and (max-width: 650px) {
         height: 95vh;
-    }
+    } */
 
     .div-title {
         margin: 5em 2em;

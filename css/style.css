@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Importo fuentes de G Fonts */
 @import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
 /* Importo reglas generales */
@@ -101,10 +102,20 @@
 }
 
 .btn-next {
+  font-size: 1.2em !important;
   margin: 2em !important;
   position: absolute;
-  bottom: 0.3em;
+  top: 0.3em;
   right: 0.3em;
+}
+.btn-next span {
+  background-color: #F26444;
+  color: #ffffffce;
+}
+@media screen and (max-width: 650px) {
+  .btn-next {
+    font-size: 1em !important;
+  }
 }
 
 @keyframes fadein {
@@ -295,12 +306,12 @@
   background-color: #023859;
   display: flex;
   flex-flow: column nowrap;
+  /* Esto trajo problemas con la adaptación y superposición de divs - Testear
   height: 100vh;
-}
-@media screen and (max-width: 650px) {
-  .body-mp {
-    height: 95vh;
-  }
+
+  @media screen and (max-width: 650px) {
+      height: 95vh;
+  } */
 }
 .body-mp .div-title {
   margin: 5em 2em;
@@ -635,6 +646,7 @@
 @media screen and (max-width: 650px) {
   #body-sp {
     height: 95vh;
+    min-height: 1000px;
   }
 }
 #body-sp .div-title {
@@ -710,6 +722,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1em 2em 1em 0.5em;
+  min-width: 150px;
+  min-height: 250px;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ {
+    min-height: 125px;
+  }
 }
 #body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > input,
 #body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > span {
@@ -721,6 +741,12 @@
 #body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ form > span {
     margin: 0.5em;
   }
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div1-crearPJ input[type=radio]:checked + span {
+  color: #F26444;
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ {
+  padding: 1em;
 }
 #body-sp #seccion-principal-SP.crearPJ-container .div2-crearPJ form {
   display: flex;
@@ -743,11 +769,25 @@
   }
 }
 #body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
   min-width: 150px;
+  min-height: 250px;
+  padding: 0.5em 2em 1em 2em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ {
+    min-height: 125px;
+  }
 }
 #body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ p {
   color: #fff;
   margin: 1em 0;
+}
+#body-sp #seccion-principal-SP.crearPJ-container .div3-crearPJ p span {
+  color: #F26444;
 }
 #body-sp #seccion-principal-SP .wrapper {
   display: flex;
@@ -806,34 +846,6 @@
     top: -7500px;
     transform: translateZ(-3500px) rotateX(2deg);
   }
-}
-#body-sp #seccion-principal-SP #battleLog {
-  align-self: center;
-  width: 50%;
-  height: 120px;
-  background-color: #ffffffce;
-  margin: 1em;
-  overflow-y: scroll;
-}
-#body-sp #seccion-principal-SP #battleLog p {
-  font-size: 1.1em;
-}
-#body-sp #seccion-principal-SP #battleLog h5 {
-  font-family: Kindly;
-  color: #F26444;
-  font-size: 0.9em;
-}
-@media screen and (max-width: 650px) {
-  #body-sp #seccion-principal-SP #battleLog {
-    width: 95%;
-    height: 150px;
-  }
-}
-#body-sp #seccion-principal-SP #battleLog::-webkit-scrollbar {
-  width: 10px;
-}
-#body-sp #seccion-principal-SP #battleLog::-webkit-scrollbar-thumb {
-  background: #F26444;
 }
 #body-sp .botones {
   display: flex;
