@@ -183,22 +183,78 @@
 
             .div1-mainSP {
                 grid-area: 1 / 1 / 2 / 2;
+                min-width: 300px;
+                min-height: 300px;
             }
 
             .div2-mainSP {
                 grid-area: 1 / 2 / 2 / 3;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-flow: column;
+                min-width: 150px;
+                min-height: 250px;
+                padding: 0.5em 2em 1em 2em;
+                min-width: 250px;
+                min-height: 250px;
+
+                @media screen and (max-width: 650px) {
+                    min-height: 125px;
+                }
+
+                p {
+                    color: #fff;
+                    margin: 1em 0;
+
+                    span {
+                        color: map-get($colors, primary);
+                    }
+                }
             }
 
             .div3-mainSP {
                 grid-area: 1 / 3 / 2 / 4;
+
+                img {
+                    width: 400px;
+                }
+
             }
 
             .div4-mainSP {
                 grid-area: 2 / 1 / 3 / 2;
+
+                img {
+                    width: 150px;
+
+                }
             }
 
             .div5-mainSP {
                 grid-area: 2 / 2 / 3 / 3;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-flow: column;
+                min-width: 150px;
+                min-height: 250px;
+                padding: 0.5em 2em 1em 2em;
+                min-width: 250px;
+                min-height: 250px;
+
+                @media screen and (max-width: 650px) {
+                    min-height: 125px;
+                }
+
+                p {
+                    color: #fff;
+                    margin: 1em 0;
+
+                    span {
+                        color: map-get($colors, primary);
+                    }
+                }
             }
 
             .div6-mainSP {

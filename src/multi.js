@@ -868,10 +868,6 @@ let horaInicio = Date.now();
 
 export {
     Personajes,
-    pjA,
-    pjC,
-    pjS,
-    buscarNombres,
     expNivel,
     between,
     retornaAQuienID,

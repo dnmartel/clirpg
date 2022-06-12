@@ -1,17 +1,278 @@
 import {
-    Personajes,
     cargarPartida,
     ocultarBtn,
     between,
-    statClase
+    statClase,
+    battleLog
 } from "./multi.js";
 
 //############### CLASES #####################
-class Enemigos {
-    constructor(asd) {
-        this.asd = asd;
+//Defino variables globales
+let nombreOrigenSP, nombreDestinoSP;
+
+class PersonajesSP {
+    constructor(nombre, clase) {
+        this.nombre = nombre;
+        this.clase = clase;
+        this.vida;
+        this.ataque;
+        this.defensa;
+        this.nivel;
+        this.exp;
+        this.magicPower;
+        this.magicDefense;
     }
-}
+
+    atacar(origen, destino) {
+        buscarNombresSP(origen, destino);
+
+        if (nombreOrigenSP.vida == 0) {
+            battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
+            setTimeout(toPerdiste(), 3000);
+        } else if (nombreDestinoSP.vida == 0) {
+            battleLog(`Ya dejalo, ${destino} está muerto.`);
+            setTimeout(toGanaste(), 3000);
+        } else if (nombreOrigenSP === nombreDestinoSP) {
+            battleLog(`No puedes atacarte a ti mismo.`);
+        } else {
+            let luckyNumber = between((nombreOrigenSP.ataque - nombreDestinoSP.defensa), nombreOrigenSP.ataque);
+            let puntosADescontar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 8) {
+                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))) * (luckyNumber - 2));
+                battleLog(`<h5>El ataque ha sido critico!</h5>`);
+            } else {
+                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))));
+            }
+
+            if (puntosADescontar < 0) {
+                puntosADescontar = 0;
+            }
+            nombreDestinoSP.vida -= puntosADescontar;
+            battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+            if (nombreDestinoSP.vida <= 0) {
+                nombreDestinoSP.vida = 0;
+                document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill");
+            }
+            nombreOrigenSP.exp += Math.floor(Math.random() * 20);
+            expNivelSP(nombreOrigenSP);
+        }
+    };
+
+    curar(origen, destino) {
+        buscarNombresSP(origen, destino);
+
+        if (nombreOrigenSP.vida == 0) {
+            battleLog(`${origen} está muerto! Ya no puede curarse.`);
+        } else if (nombreDestinoSP.vida == 0) {
+            battleLog(`Un vendaje no revivira a ${destino}.`);
+        } else if (nombreDestinoSP.vida == nombreDestinoSP.vidaMax) {
+            battleLog(`${destino} ya tiene la vida al máximo.`);
+        } else {
+            let luckyNumber = between(1, (nombreOrigenSP.vida / 10));
+            let puntosASumar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 8) {
+                puntosASumar = (Math.ceil((nombreOrigenSP.vida + 20) * 0.15)) * (luckyNumber);
+                battleLog("<h5>El efecto ha sido critico!</h5>");
+            } else {
+                puntosASumar = Math.ceil((nombreOrigenSP.vida + 10) * 0.10);
+            }
+            nombreDestinoSP.vida += puntosASumar;
+            battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
+            nombreOrigenSP.exp += Math.floor(Math.random() * 15);
+            expNivelSP(nombreOrigenSP);
+
+            if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
+                nombreDestinoSP.vida = nombreDestinoSP.vidaMax;
+            }
+        }
+    }
+
+    spell(origen, destino) {
+        buscarNombresSP(origen, destino);
+
+        if (nombreOrigenSP.vida == 0) {
+            battleLog(`Los muertos no pueden lanzar hechizos!`);
+            setTimeout(toPerdiste(), 3000);
+        } else if (nombreDestinoSP.vida == 0) {
+            battleLog(`Ya dejalo, ${destino} está muerto.`);
+            setTimeout(toGanaste(), 3000);
+        } else if (nombreOrigenSP === nombreDestinoSP) {
+            battleLog(`No puedes atacarte a ti mismo.`);
+        } else {
+            let luckyNumber = Math.round(between(0, nombreOrigenSP.magicPower));
+            let puntosADescontar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 9) {
+                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 4))) * (luckyNumber - 5));
+                battleLog(`<h5>El ataque ha sido critico!</h5>`);
+            } else {
+                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 2))));
+            }
+
+            /* OPTIMIZADO
+            if (puntosADescontar < 0) {
+                puntosADescontar = 0;
+            } */
+
+            (puntosADescontar < 0) && (puntosADescontar = 0);
+
+            nombreDestinoSP.vida -= puntosADescontar;
+
+
+            //FUNCIÓN ASINCRONICA - CAPTURA LOS DATOS DE LA API DE FORMA ALEATORIA Y LOS DEVUELVE DENTRO DEL BATTLE LOG COMO VARIABLE
+            async function nombreSpell() {
+                let response = await fetch(`https://www.dnd5eapi.co/api/spells/`);
+                let resAPI = await response.json();
+                let rand = Math.round(Math.random() * 320)
+                await battleLog(`${origen} ha utlizado ${resAPI.results[rand].name} sobre ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+            };
+
+            nombreSpell();
+
+            if (nombreDestinoSP.vida <= 0) {
+                nombreDestinoSP.vida = 0;
+                document.getElementById(`card-${pjActivoSP[0]}`).classList.add("cards-kill");
+            }
+            nombreOrigenSP.exp += Math.floor(Math.random() * 20);
+            expNivelSP(nombreOrigenSP);
+        }
+    }
+};
+
+class Enemigos {
+    constructor(nombre, vida, ata, def, magP, magD, img) {
+        this.nombre = nombre;
+        this.vida = vida;
+        this.ataque = ata;
+        this.defensa = def;
+        this.magicPower = magP;
+        this.magicDefense = magD;
+        this.img = img;
+    }
+
+    atacar(origen, destino) {
+        buscarNombresE(origen, destino);
+
+        if (nombreOrigenSP.vida == 0) {
+            battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
+            setTimeout(toGanaste(), 3000);
+        } else if (nombreDestinoSP.vida == 0) {
+            battleLog(`Ya dejalo, ${destino} está muerto.`);
+            setTimeout(toPerdiste(), 3000);
+        } else {
+            let luckyNumber = between((arrEnemigos[0].ataque - nombreDestinoSP.defensa), arrEnemigos[0].ataque);
+            let puntosADescontar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 8) {
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))) * (luckyNumber - 2));
+                battleLog(`<h5>El ataque ha sido critico!</h5>`);
+            } else {
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))));
+            }
+
+            if (puntosADescontar < 0) {
+                puntosADescontar = 0;
+            }
+            nombreDestinoSP.vida -= puntosADescontar;
+            battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+            if (nombreDestinoSP.vida <= 0) {
+                nombreDestinoSP.vida = 0;
+                battleLog(`<h5>${nombreDestinoSP} ha muerto !</h5><br>
+                <h5>Has Ganado !</h5>`)
+
+                setTimeout(toGanaste(), 3000);
+            }
+        }
+    };
+
+    curar(origen, destino) {
+        buscarNombresE(origen, destino);
+
+        if (arrEnemigos[0].vida == 0) {
+            battleLog(`${origen} está muerto! Ya no puede curarse.`);
+            setTimeout(toGanaste(), 3000);
+        } else if (nombreDestinoSP.vida == 0) {
+            battleLog(`Un vendaje no revivira a ${destino}.`);
+            setTimeout(toGanaste(), 3000);
+        } else if (nombreDestinoSP.vida == nombreDestinoSP.vidaMax) {
+            battleLog(`${destino} ya tiene la vida al máximo.`);
+        } else {
+            let luckyNumber = between(1, (arrEnemigos[0].vida / 10));
+            let puntosASumar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 8) {
+                puntosASumar = (Math.ceil((arrEnemigos[0].vida + 20) * 0.15)) * (luckyNumber);
+                battleLog("<h5>El efecto ha sido critico!</h5>");
+            } else {
+                puntosASumar = Math.ceil((arrEnemigos[0].vida + 10) * 0.10);
+            }
+            nombreDestinoSP.vida += puntosASumar;
+            battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
+
+            if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
+                nombreDestinoSP.vida = nombreDestinoSP.vidaMax;
+            }
+        }
+    }
+
+    spell(origen, destino) {
+        buscarNombresE(origen, destino);
+
+        if (arrEnemigos[0].vida == 0) {
+            battleLog(`Los muertos no pueden lanzar hechizos!`);
+            setTimeout(toGanaste(), 3000);
+        } else if (nombreDestinoSP.vida == 0) {
+            battleLog(`Ya dejalo, ${destino} está muerto.`);
+            setTimeout(toPerdiste(), 3000);
+        } else if (arrEnemigos[0] === nombreDestinoSP) {
+            battleLog(`No puedes atacarte a ti mismo.`);
+        } else {
+            let luckyNumber = Math.round(between(0, arrEnemigos[0].magicPower));
+            let puntosADescontar = 0;
+            let esCrit = (Math.random() * 11);
+
+            if (esCrit > 9) {
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 4))) * (luckyNumber - 5));
+                battleLog(`<h5>El ataque ha sido critico!</h5>`);
+            } else {
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 2))));
+            }
+
+            /* OPTIMIZADO
+            if (puntosADescontar < 0) {
+                puntosADescontar = 0;
+            } */
+
+            (puntosADescontar < 0) && (puntosADescontar = 0);
+
+            nombreDestinoSP.vida -= puntosADescontar;
+
+
+            //FUNCIÓN ASINCRONICA - CAPTURA LOS DATOS DE LA API DE FORMA ALEATORIA Y LOS DEVUELVE DENTRO DEL BATTLE LOG COMO VARIABLE
+            async function nombreSpell() {
+                let response = await fetch(`https://www.dnd5eapi.co/api/spells/`);
+                let resAPI = await response.json();
+                let rand = Math.round(Math.random() * 320)
+                await battleLog(`${origen} ha utlizado ${resAPI.results[rand].name} sobre ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
+            };
+
+            nombreSpell();
+
+            if (nombreDestinoSP.vida <= 0) {
+                nombreDestinoSP.vida = 0;
+                document.getElementById(`card-${pjActivoSP[0]}`).classList.add("cards-kill");
+            }
+
+        }
+    }
+};
 
 //############### ARRAYS ####################
 let pjActivoSP = [];
@@ -69,6 +330,123 @@ pjBaseSP = [{
 
 let arrEnemigos = [];
 
+// ############# FUNCIONES ##################
+// ############# FUNCIONES AUX ##################
+//buscarNombres adaptado a los arrays del SP
+function buscarNombresE(origen, destino) {
+
+    //Reemplazo IF por &&
+    arrEnemigos.forEach(element => {
+        element.nombre.toLowerCase() == origen.toLowerCase() && (nombreOrigenSP = element);
+    });
+
+    //Reemplazo IF por &&
+    pjActivoSP.forEach(element => {
+        element.nombre.toLowerCase() == destino.toLowerCase() && (nombreDestinoSP = element);
+    });
+};
+
+function buscarNombresSP(origen, destino) {
+
+    //Reemplazo IF por &&
+    pjActivoSP.forEach(element => {
+        element.nombre.toLowerCase() == origen.toLowerCase() && (nombreOrigenSP = element);
+    });
+
+    //Reemplazo IF por &&
+    arrEnemigos.forEach(element => {
+        element.nombre.toLowerCase() == destino.toLowerCase() && (nombreDestinoSP = element);
+    });
+};
+
+function expNivelSP(nombreOrigen) {
+
+    if (nombreOrigen.exp > 100) {
+        nombreOrigen.exp -= 100;
+        nombreOrigen.nivel += 1;
+        battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.08);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.08);
+    }
+};
+
+//Función randAction = ejecuta una acción al azar del enemigo actual
+function randAction() {
+    let randN = between(1, 4);
+    console.log(Math.round(randN));
+    switch (Math.round(randN)) {
+        case 1:
+            arrEnemigos[0].atacar(arrEnemigos[0].nombre, pjActivoSP[0].nombre)
+            break;
+        case 2:
+            arrEnemigos[0].curar(arrEnemigos[0].nombre, arrEnemigos[0].nombre)
+            break;
+        case 3:
+            arrEnemigos[0].spell(arrEnemigos[0].nombre, pjActivoSP[0].nombre)
+            break;
+
+        default:
+            arrEnemigos[0].atacar(arrEnemigos[0].nombre, pjActivoSP[0].nombre)
+            break;
+    }
+
+}
+
+//Abreviación del metodo para atacar
+function pjAE(origen, destino) {
+    pjActivoSP[0].atacar(origen, destino)
+};
+
+//Abreviación del metodo para curarse
+function pjCE(origen, destino) {
+    pjActivoSP[0].curar(origen, destino)
+};
+
+//Abreviación del metodo para Lanzar hechizo
+function pjSE(origen, destino) {
+    pjActivoSP[0].spell(origen, destino)
+};
+
+function actualizaStatsSP() {
+    document.getElementById("statsE").innerHTML = `
+    <p><span>Vida:</span> ${arrEnemigos[0].vida}</p>
+    <p><span>Ataque:</span> ${arrEnemigos[0].ataque}</p>
+    <p><span>Defensa:</span> ${arrEnemigos[0].defensa}</p>
+    <p><span>Ataque mágico:</span> ${arrEnemigos[0].magicPower}</p>
+    <p><span>Defensa mágica:</span> ${arrEnemigos[0].magicDefense}</p>
+    `;
+
+    document.getElementById("statsPJSP").innerHTML = `
+    <p><span>Vida:</span> ${pjActivoSP[0].vida}</p>
+    <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
+    <p><span>Defensa:</span> ${pjActivoSP[0].defensa}</p>
+    <p><span>Ataque mágico:</span> ${pjActivoSP[0].magicPower}</p>
+    <p><span>Defensa mágica:</span> ${pjActivoSP[0].magicDefense}</p>
+    `;
+
+}
+
+
+
+// Inicializo enemigos
+function initEnemys() {
+    arrEnemigos.push(new Enemigos("Budoh", 100, 14, 2, 4, 2, `./img/enemy/enemy (1).gif`));
+    arrEnemigos.push(new Enemigos("Eyedor", 110, 16, 3, 6, 3, `./img/enemy/enemy (2).gif`));
+    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 19, 5, 9, 5, `./img/enemy/enemy (3).gif`));
+    arrEnemigos.push(new Enemigos("Gary", 135, 12, 17, 12, 7, `./img/enemy/enemy (4).gif`));
+    arrEnemigos.push(new Enemigos("Booky", 150, 18, 9, 14, 9, `./img/enemy/enemy (5).gif`));
+    arrEnemigos.push(new Enemigos("Spiro", 165, 19, 10, 16, 10, `./img/enemy/enemy (6).gif`));
+    arrEnemigos.push(new Enemigos("Litto", 190, 21, 12, 19, 12, `./img/enemy/enemy (7).gif`));
+    arrEnemigos.push(new Enemigos("Metrav", 200, 22, 12, 21, 12, `./img/enemy/enemy (8).gif`));
+    arrEnemigos.push(new Enemigos("Kinua", 210, 24, 15, 24, 15, `./img/enemy/enemy (9).gif`));
+    arrEnemigos.push(new Enemigos("Blups", 225, 26, 18, 26, 18, `./img/enemy/enemy (10).gif`));
+    arrEnemigos.push(new Enemigos("Zorito", 250, 30, 16, 32, 16, `./img/enemy/enemy (11).gif`));
+    arrEnemigos.push(new Enemigos("Vlem", 300, 36, 15, 36, 15, `./img/enemy/enemy (12).gif`));
+};
+
+// ############# FUNCIONES PRINCIPALES Y QUE SE MUEVEN POR EL FLOW DE LA APP ##################
 //Da funcionalidad a los botones de Nueva Partida y Cargar Partida
 function initSingle() {
     let number = between(1, 4);
@@ -132,7 +510,7 @@ function toIntro() {
     <h2>Intro</h2>`
     document.getElementById("seccion-principal-SP").classList.add("SPbody");
     document.getElementById("seccion-principal-SP").innerHTML = `
-    <div class="wrapper">
+    <div class="wrapper fadein">
     <div class="fadein scroll-text">
     <p>
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus maxime incidunt maiores accusantium eum molestias, cupiditate eius quis laborum qui a, ut in deleniti necessitatibus consectetur debitis quidem dicta repudiandae minima dolor et quibusdam. Ea ut quam voluptate nemo inventore nostrum, repudiandae quae, dolore consequatur beatae culpa exercitationem recusandae perferendis cum voluptatum fugit nobis doloribus neque harum similique facilis.</p>
@@ -146,11 +524,11 @@ function toIntro() {
         buttonNext.innerHTML = `<button class="buttons fadein btn-next" id="btn-next-Crear-PJ"><span>Siguiente &#8594;</span></button>`;
         document.getElementById("body-sp").appendChild(buttonNext);
         document.getElementById("btn-next-Crear-PJ").addEventListener("click", toCrearPJ)
-    }, 1000);
+    }, 1500);
 
     setTimeout(() => {
         toCrearPJ();
-    }, 2000)
+    }, 3000)
 }
 
 function toCrearPJ() {
@@ -172,13 +550,13 @@ function toCrearPJ() {
             <input class="formNewPJ" type="radio" placeholder="picaro" name="clase" value="5"><span>Picaro</span><br>
             </form>
         </div>
-        <div class="div2-crearPJ">
+        <div class="div2-crearPJ fadein">
         <form id="formDiv2">
             <img src="./img/char/paladin.png" id="img-crearPJ">
             <input class="formNewPJ" type="text" placeholder="Nombre" id="nombre-crearPJ"required><br>
         </form>
         </div>
-        <div class="div3-crearPJ cards" id="stats-crearPJ">
+        <div class="div3-crearPJ cards fadein" id="stats-crearPJ">
 
         <p><span>Vida:</span> ${pjBaseSP[0].vida}</p>
         <p><span>Ataque:</span> ${pjBaseSP[0].ataque}</p>
@@ -228,7 +606,7 @@ function toCrearPJ() {
         //Obtengo Nombre y Clase del formulario
         let nombrePJ = document.getElementById(`nombre-crearPJ`).value;
         let clasePJ = document.querySelector('input[name=clase]:checked').placeholder;
-        pjActivoSP.push(new Personajes(`${nombrePJ}`, `${clasePJ}`));
+        pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
         statClase(pjActivoSP);
         toLoader();
     });
@@ -246,28 +624,133 @@ function toLoader() {
             document.getElementById("body-sp").innerHTML = `
     <div class="div-title fadein" id="title-SP">
     </div>
-    <section class="mainSP fadein" id="seccion-principal-SP">
-        <div class="div1-mainSP" id="battleLog"> 1 </div>
-        <div class="div2-mainSP"> stats </div>
-        <div class="div3-mainSP"> img </div>
-        <div class="div4-mainSP"> img </div>
-        <div class="div5-mainSP"> stats </div>
-        <div class="div6-mainSP"> form </div>
+    <section class="mainSP fadein cards" id="seccion-principal-SP">
+        <div class="div1-mainSP " id="battleLog"></div>
+        <div class="div2-mainSP cards" id="statsE">
+        <p><span>Vida:</span> ${arrEnemigos[0].vida}</p>
+        <p><span>Ataque:</span> ${arrEnemigos[0].ataque}</p>
+        <p><span>Defensa:</span> ${arrEnemigos[0].defensa}</p>
+        <p><span>Ataque mágico:</span> ${arrEnemigos[0].magicPower}</p>
+        <p><span>Defensa mágica:</span> ${arrEnemigos[0].magicDefense}</p>
+        </div>
+        <div class="div3-mainSP"> <img src="${arrEnemigos[0].img}"> </div>
+        <div class="div4-mainSP"> <img src="${pjActivoSP[0].img}"> </div>
+        <div class="div5-mainSP cards" id="statsPJSP">
+
+        <p><span>Vida:</span> ${pjActivoSP[0].vida}</p>
+        <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
+        <p><span>Defensa:</span> ${pjActivoSP[0].defensa}</p>
+        <p><span>Ataque mágico:</span> ${pjActivoSP[0].magicPower}</p>
+        <p><span>Defensa mágica:</span> ${pjActivoSP[0].magicDefense}</p>
+        
+        </div>
+        <div class="div6-mainSP"> 
+            <button class="buttons fadein" id="btnASP"><span>Atacar</span></button> 
+            <button class="buttons fadein" id="btnCSP"><span>Curarse</span></button>
+            <button class="buttons fadein" id="btnHSP"><span>Hechizo</span></button>
+        </div>
     </section>
     <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
     `
+            document.getElementById(`opciones`).addEventListener("click", () => {
+                alert("Acá va el menu de opciones")
+            })
+
+
+            document.getElementById(`btnASP`).addEventListener("click", () => {
+                setTimeout(() => {
+                    pjAE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
+                    actualizaStatsSP();
+                }, 500);
+
+                setTimeout(() => {
+                    randAction();
+                    actualizaStatsSP();
+                }, 2000);
+            });
+            document.getElementById(`btnCSP`).addEventListener("click", () => {
+                setTimeout(() => {
+                    pjCE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
+                    actualizaStatsSP();
+                }, 500);
+
+                setTimeout(() => {
+                    randAction();
+                    actualizaStatsSP();
+                }, 2000);
+            });
+            document.getElementById(`btnHSP`).addEventListener("click", () => {
+                setTimeout(() => {
+                    pjSE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
+                    actualizaStatsSP();
+                }, 500);
+
+                setTimeout(() => {
+                    randAction();
+                    actualizaStatsSP();
+                }, 2000);
+            });
+
+        }, 1500);
+    }, 300)
+
+    ;
+}
+
+//Placa Ganaste
+function toGanaste() {
+
+
+    setTimeout(() => {
+        document.getElementById("body-sp").innerHTML = `
+        <div class="loader">
+        <div class="lds-dual-ring"></div>
+        </div>
+        `
+        setTimeout(() => {
+            document.getElementById("body-sp").innerHTML = `
+    <div class="div-title fadein" id="title-SP">
+    </div>
+    <section class="mainSP fadein" id="ganaste">
+        <div>GANASTE</div>
+    </section>
+    <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
+    `
+            document.getElementById(`opciones`).addEventListener("click", () => {
+                alert("Acá va el menu de opciones")
+            })
         }, 1500);
     }, 300);
 }
+
+//Placa perdiste
+function toPerdiste() {
+    setTimeout(() => {
+        document.getElementById("body-sp").innerHTML = `
+        <div class="loader">
+        <div class="lds-dual-ring"></div>
+        </div>
+        `
+        setTimeout(() => {
+            document.getElementById("body-sp").innerHTML = `
+    <div class="div-title fadein" id="title-SP">
+    </div>
+    <section class="mainSP fadein" id="ganaste">
+        <div>PERDISTE</div>
+    </section>
+    <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
+    `
+            document.getElementById(`opciones`).addEventListener("click", () => {
+                alert("Acá va el menu de opciones")
+            })
+        }, 1500);
+    }, 300);
+}
+
 
 
 // ################### INICIALIZO E IMPRIMO ###################
 //Valido que se inicie solo en Single Player
 (document.title == 'RPG CLI - SP') && initSingle();
 
-// TESTS
-
-arrEnemigos.push(new Enemigos("a"));
-console.log(pjActivoSP);
-console.log(pjBaseSP);
-console.log(arrEnemigos);
+initEnemys()
