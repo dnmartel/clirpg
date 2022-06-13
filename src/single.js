@@ -419,7 +419,6 @@ function pjSE(origen, destino) {
 //Refresca el renderizado de stats
 function actualizaStatsSP() {
     document.getElementById("statsE").innerHTML = `
-    <p><span>Vida:</span> ${arrEnemigos[0].vida}</p>
     <p><span>Ataque:</span> ${arrEnemigos[0].ataque}</p>
     <p><span>Defensa:</span> ${arrEnemigos[0].defensa}</p>
     <p><span>Ataque mágico:</span> ${arrEnemigos[0].magicPower}</p>
@@ -427,12 +426,20 @@ function actualizaStatsSP() {
     `;
 
     document.getElementById("statsPJSP").innerHTML = `
-    <p><span>Vida:</span> ${pjActivoSP[0].vida}</p>
     <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
     <p><span>Defensa:</span> ${pjActivoSP[0].defensa}</p>
     <p><span>Ataque mágico:</span> ${pjActivoSP[0].magicPower}</p>
     <p><span>Defensa mágica:</span> ${pjActivoSP[0].magicDefense}</p>
     `;
+
+    document.getElementById("div3-mainSP").innerHTML = `
+        <img src="${arrEnemigos[0].img}">
+        <progress id="vidaPJ" max="${arrEnemigos[0].vidaMax}" value="${arrEnemigos[0].vida}"></progress>
+        `;
+    document.getElementById("div4-mainSP").innerHTML = `
+        <img src="${pjActivoSP[0].img}">
+        <progress id="vidaPJ" max="${pjActivoSP[0].vidaMax}" value="${pjActivoSP[0].vida}"></progress>
+        `;
 
 }
 
@@ -533,10 +540,6 @@ function toIntro() {
         document.getElementById("body-sp").appendChild(buttonNext);
         document.getElementById("btn-next-Crear-PJ").addEventListener("click", toCrearPJ)
     }, 1500);
-
-    setTimeout(() => {
-        toCrearPJ();
-    }, 3000)
 }
 
 function toCrearPJ() {
@@ -638,20 +641,20 @@ function toLoader() {
         <div class="div1-mainSP" id="battleLog"></div>
         <div class="div7-mainSP cards">
         <div class="div2-mainSP" id="statsE">
-        <p><span>Vida:</span> ${arrEnemigos[0].vida}</p>
         <p><span>Ataque:</span> ${arrEnemigos[0].ataque}</p>
         <p><span>Defensa:</span> ${arrEnemigos[0].defensa}</p>
         <p><span>Ataque mágico:</span> ${arrEnemigos[0].magicPower}</p>
         <p><span>Defensa mágica:</span> ${arrEnemigos[0].magicDefense}</p>
         </div>
-        <div class="div3-mainSP"> <img src="${arrEnemigos[0].img}"> </div>
+        <div class="div3-mainSP" id="div3-mainSP"> <img src="${arrEnemigos[0].img}">
+        <progress id="vidaPJ" max="${arrEnemigos[0].vidaMax}" value="${arrEnemigos[0].vida}"></progress> </div>
         </div>
                 
         <div class="div8-mainSP cards">
-        <div class="div4-mainSP"> <img src="${pjActivoSP[0].img}"> </div>
+        <div class="div4-mainSP" id="div4-mainSP"> <img src="${pjActivoSP[0].img}">
+        <progress id="vidaPJ" max="${pjActivoSP[0].vidaMax}" value="${pjActivoSP[0].vida}"></progress> </div>
         <div class="div5-mainSP" id="statsPJSP">
 
-        <p><span>Vida:</span> ${pjActivoSP[0].vida}</p>
         <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
         <p><span>Defensa:</span> ${pjActivoSP[0].defensa}</p>
         <p><span>Ataque mágico:</span> ${pjActivoSP[0].magicPower}</p>
@@ -762,13 +765,13 @@ function toGanaste() {
         `
         setTimeout(() => {
             document.getElementById("body-sp").innerHTML = `
-    <div class="div-title fadein" id="title-SP">
-    </div>
-    <section class="mainSP fadein" id="ganaste">
-        <div>GANASTE</div>
-    </section>
-    <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
-    `
+            <div class="div-title fadein" id="title-SP">
+            </div>
+            <section class="mainSP fadein" id="ganaste">
+                <div><h1>GANASTE</h1></div>
+            </section>
+            <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
+            `
             document.getElementById(`opciones`).addEventListener("click", () => {
                 alert("Acá va el menu de opciones")
             })
