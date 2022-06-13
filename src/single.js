@@ -51,7 +51,7 @@ class PersonajesSP {
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
-/*                 document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill"); */
+                /*                 document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill"); */
             }
             nombreOrigenSP.exp += Math.floor(Math.random() * 20);
             expNivelSP(nombreOrigenSP);
@@ -182,7 +182,6 @@ class Enemigos {
                 nombreDestinoSP.vida = 0;
                 battleLog(`<h5>${nombreDestinoSP} ha muerto !</h5><br>
                 <h5>Has Ganado !</h5>`)
-
                 setTimeout(toGanaste(), 3000);
             }
         }
@@ -264,7 +263,6 @@ class Enemigos {
 
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
-                document.getElementById(`card-${pjActivoSP[0]}`).classList.add("cards-kill");
             }
 
         }
@@ -418,6 +416,7 @@ function pjSE(origen, destino) {
     pjActivoSP[0].spell(origen, destino)
 };
 
+//Refresca el renderizado de stats
 function actualizaStatsSP() {
     document.getElementById("statsE").innerHTML = `
     <p><span>Vida:</span> ${arrEnemigos[0].vida}</p>
@@ -623,6 +622,7 @@ function toCrearPJ() {
 
 //Loader + "main" del juego single player
 function toLoader() {
+    let randBG = between(7, 13);
     setTimeout(() => {
         document.getElementById("body-sp").innerHTML = `
         <div class="loader">
@@ -633,9 +633,11 @@ function toLoader() {
             document.getElementById("body-sp").innerHTML = `
     <div class="div-title fadein" id="title-SP">
     </div>
-    <section class="mainSP fadein cards" id="seccion-principal-SP">
-        <div class="div1-mainSP " id="battleLog"></div>
-        <div class="div2-mainSP cards" id="statsE">
+    <section class="mainSP fadein" style="background: url(./img/bgi${randBG}.svg) no-repeat center center / cover" id="seccion-principal-SP">
+        
+        <div class="div1-mainSP" id="battleLog"></div>
+        <div class="div7-mainSP cards">
+        <div class="div2-mainSP" id="statsE">
         <p><span>Vida:</span> ${arrEnemigos[0].vida}</p>
         <p><span>Ataque:</span> ${arrEnemigos[0].ataque}</p>
         <p><span>Defensa:</span> ${arrEnemigos[0].defensa}</p>
@@ -643,8 +645,11 @@ function toLoader() {
         <p><span>Defensa mágica:</span> ${arrEnemigos[0].magicDefense}</p>
         </div>
         <div class="div3-mainSP"> <img src="${arrEnemigos[0].img}"> </div>
+        </div>
+                
+        <div class="div8-mainSP cards">
         <div class="div4-mainSP"> <img src="${pjActivoSP[0].img}"> </div>
-        <div class="div5-mainSP cards" id="statsPJSP">
+        <div class="div5-mainSP" id="statsPJSP">
 
         <p><span>Vida:</span> ${pjActivoSP[0].vida}</p>
         <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
@@ -653,11 +658,11 @@ function toLoader() {
         <p><span>Defensa mágica:</span> ${pjActivoSP[0].magicDefense}</p>
         
         </div>
-        <div class="div6-mainSP"> 
+        <div class="div6-mainSP" id="div6-mainSP"> 
             <button class="buttons fadein" id="btnASP"><span>Atacar</span></button> 
             <button class="buttons fadein" id="btnCSP"><span>Curarse</span></button>
             <button class="buttons fadein" id="btnHSP"><span>Hechizo</span></button>
-        </div>
+        </div></div>
     </section>
     <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
     `
@@ -665,39 +670,80 @@ function toLoader() {
                 alert("Acá va el menu de opciones")
             })
 
-
+            //Comportamiento de los botones
             document.getElementById(`btnASP`).addEventListener("click", () => {
-                setTimeout(() => {
-                    pjAE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
-                    actualizaStatsSP();
-                }, 500);
+                document.getElementById(`btnASP`).disabled = true;
+                document.getElementById(`btnASP`).classList.add("disabledBtn");
+                document.getElementById(`btnCSP`).disabled = true;
+                document.getElementById(`btnCSP`).classList.add("disabledBtn");
+                document.getElementById(`btnHSP`).disabled = true;
+                document.getElementById(`btnHSP`).classList.add("disabledBtn");
+                pjAE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
+                actualizaStatsSP();
 
                 setTimeout(() => {
                     randAction();
                     actualizaStatsSP();
                 }, 2000);
+
+                setTimeout(() => {
+                    document.getElementById(`btnASP`).disabled = false;
+                    document.getElementById(`btnASP`).classList.remove("disabledBtn");
+                    document.getElementById(`btnCSP`).disabled = false;
+                    document.getElementById(`btnCSP`).classList.remove("disabledBtn");
+                    document.getElementById(`btnHSP`).disabled = false;
+                    document.getElementById(`btnHSP`).classList.remove("disabledBtn");
+                }, 3000)
             });
+
             document.getElementById(`btnCSP`).addEventListener("click", () => {
-                setTimeout(() => {
-                    pjCE(pjActivoSP[0].nombre, pjActivoSP[0].nombre);
-                    actualizaStatsSP();
-                }, 500);
+                document.getElementById(`btnASP`).disabled = true;
+                document.getElementById(`btnASP`).classList.add("disabledBtn");
+                document.getElementById(`btnCSP`).disabled = true;
+                document.getElementById(`btnCSP`).classList.add("disabledBtn");
+                document.getElementById(`btnHSP`).disabled = true;
+                document.getElementById(`btnHSP`).classList.add("disabledBtn");
+                pjCE(pjActivoSP[0].nombre, pjActivoSP[0].nombre);
+                actualizaStatsSP();
 
                 setTimeout(() => {
                     randAction();
                     actualizaStatsSP();
                 }, 2000);
+
+                setTimeout(() => {
+                    document.getElementById(`btnASP`).disabled = false;
+                    document.getElementById(`btnASP`).classList.remove("disabledBtn");
+                    document.getElementById(`btnCSP`).disabled = false;
+                    document.getElementById(`btnCSP`).classList.remove("disabledBtn");
+                    document.getElementById(`btnHSP`).disabled = false;
+                    document.getElementById(`btnHSP`).classList.remove("disabledBtn");
+                }, 3000)
             });
+
             document.getElementById(`btnHSP`).addEventListener("click", () => {
-                setTimeout(() => {
-                    pjSE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
-                    actualizaStatsSP();
-                }, 500);
+                document.getElementById(`btnASP`).disabled = true;
+                document.getElementById(`btnASP`).classList.add("disabledBtn");
+                document.getElementById(`btnCSP`).disabled = true;
+                document.getElementById(`btnCSP`).classList.add("disabledBtn");
+                document.getElementById(`btnHSP`).disabled = true;
+                document.getElementById(`btnHSP`).classList.add("disabledBtn");
+                pjSE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
+                actualizaStatsSP();
 
                 setTimeout(() => {
                     randAction();
                     actualizaStatsSP();
                 }, 2000);
+
+                setTimeout(() => {
+                    document.getElementById(`btnASP`).disabled = false;
+                    document.getElementById(`btnASP`).classList.remove("disabledBtn");
+                    document.getElementById(`btnCSP`).disabled = false;
+                    document.getElementById(`btnCSP`).classList.remove("disabledBtn");
+                    document.getElementById(`btnHSP`).disabled = false;
+                    document.getElementById(`btnHSP`).classList.remove("disabledBtn");
+                }, 3000)
             });
 
         }, 1500);
@@ -727,11 +773,11 @@ function toGanaste() {
                 alert("Acá va el menu de opciones")
             })
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 arrEnemigos.shift();
                 console.log(arrEnemigos);
                 toLoader();
-            } ,2000)
+            }, 2000)
 
         }, 1500);
     }, 300);
