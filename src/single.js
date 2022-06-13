@@ -28,10 +28,8 @@ class PersonajesSP {
 
         if (nombreOrigenSP.vida == 0) {
             battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
-            setTimeout(toPerdiste(), 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
-            setTimeout(toGanaste(), 3000);
         } else if (nombreOrigenSP === nombreDestinoSP) {
             battleLog(`No puedes atacarte a ti mismo.`);
         } else {
@@ -53,7 +51,7 @@ class PersonajesSP {
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
-                document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill");
+/*                 document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill"); */
             }
             nombreOrigenSP.exp += Math.floor(Math.random() * 20);
             expNivelSP(nombreOrigenSP);
@@ -96,10 +94,8 @@ class PersonajesSP {
 
         if (nombreOrigenSP.vida == 0) {
             battleLog(`Los muertos no pueden lanzar hechizos!`);
-            setTimeout(toPerdiste(), 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
-            setTimeout(toGanaste(), 3000);
         } else if (nombreOrigenSP === nombreDestinoSP) {
             battleLog(`No puedes atacarte a ti mismo.`);
         } else {
@@ -145,9 +141,10 @@ class PersonajesSP {
 };
 
 class Enemigos {
-    constructor(nombre, vida, ata, def, magP, magD, img) {
+    constructor(nombre, vida, vidaMax, ata, def, magP, magD, img) {
         this.nombre = nombre;
         this.vida = vida;
+        this.vidaMax = vidaMax;
         this.ataque = ata;
         this.defensa = def;
         this.magicPower = magP;
@@ -281,50 +278,62 @@ let pjBaseSP = new Array(6);
 pjBaseSP = [{
         clase: "paladin",
         vida: 170,
+        vidaMax: 170,
         ataque: 10,
         defensa: 6,
         magicPower: 9,
-        magicDefense: 6
+        magicDefense: 6,
+        nivel: 1
     },
     {
         clase: "cazador",
         vida: 150,
+        vidaMax: 150,
         ataque: 13,
         defensa: 6,
         magicPower: 5,
-        magicDefense: 6
+        magicDefense: 6,
+        nivel: 1
     },
     {
         clase: "mago",
         vida: 120,
+        vidaMax: 120,
         ataque: 5,
         defensa: 3,
         magicPower: 16,
-        magicDefense: 12
+        magicDefense: 12,
+        nivel: 1
     },
     {
         clase: "guerrero",
         vida: 200,
+        vidaMax: 200,
         ataque: 14,
         defensa: 10,
         magicPower: 3,
-        magicDefense: 3
+        magicDefense: 3,
+        nivel: 1
     },
     {
         clase: "brujo",
         vida: 120,
+        vidaMax: 120,
         ataque: 6,
         defensa: 2,
         magicPower: 17,
-        magicDefense: 11
+        magicDefense: 11,
+        nivel: 1
     },
     {
         clase: "picaro",
         vida: 110,
+        vidaMax: 110,
         ataque: 15,
         defensa: 2,
         magicPower: 2,
-        magicDefense: 7
+        magicDefense: 7,
+        nivel: 1
     }
 ];
 
@@ -432,18 +441,18 @@ function actualizaStatsSP() {
 
 // Inicializo enemigos
 function initEnemys() {
-    arrEnemigos.push(new Enemigos("Budoh", 100, 14, 2, 4, 2, `./img/enemy/enemy1.gif`));
-    arrEnemigos.push(new Enemigos("Eyedor", 110, 16, 3, 6, 3, `./img/enemy/enemy2.gif`));
-    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 19, 5, 9, 5, `./img/enemy/enemy3.gif`));
-    arrEnemigos.push(new Enemigos("Gary", 135, 12, 17, 12, 7, `./img/enemy/enemy4.gif`));
-    arrEnemigos.push(new Enemigos("Booky", 150, 18, 9, 14, 9, `./img/enemy/enemy5.gif`));
-    arrEnemigos.push(new Enemigos("Spiro", 165, 19, 10, 16, 10, `./img/enemy/enemy6.gif`));
-    arrEnemigos.push(new Enemigos("Litto", 190, 21, 12, 19, 12, `./img/enemy/enemy7.gif`));
-    arrEnemigos.push(new Enemigos("Metrav", 200, 22, 12, 21, 12, `./img/enemy/enemy8.gif`));
-    arrEnemigos.push(new Enemigos("Kinua", 210, 24, 15, 24, 15, `./img/enemy/enemy9.gif`));
-    arrEnemigos.push(new Enemigos("Blups", 225, 26, 18, 26, 18, `./img/enemy/enemy10.gif`));
-    arrEnemigos.push(new Enemigos("Zorito", 250, 30, 16, 32, 16, `./img/enemy/enemy11.gif`));
-    arrEnemigos.push(new Enemigos("Vlem", 300, 36, 15, 36, 15, `./img/enemy/enemy12.gif`));
+    arrEnemigos.push(new Enemigos("Budoh", 100, 100, 14, 2, 4, 2, `./img/enemy/enemy1.gif`));
+    arrEnemigos.push(new Enemigos("Eyedor", 110, 110, 16, 3, 6, 3, `./img/enemy/enemy2.gif`));
+    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 125, 19, 5, 9, 5, `./img/enemy/enemy3.gif`));
+    arrEnemigos.push(new Enemigos("Gary", 135, 135, 12, 17, 12, 7, `./img/enemy/enemy4.gif`));
+    arrEnemigos.push(new Enemigos("Booky", 150, 150, 18, 9, 14, 9, `./img/enemy/enemy5.gif`));
+    arrEnemigos.push(new Enemigos("Spiro", 165, 165, 19, 10, 16, 10, `./img/enemy/enemy6.gif`));
+    arrEnemigos.push(new Enemigos("Litto", 190, 190, 21, 12, 19, 12, `./img/enemy/enemy7.gif`));
+    arrEnemigos.push(new Enemigos("Metrav", 200, 200, 22, 12, 21, 12, `./img/enemy/enemy8.gif`));
+    arrEnemigos.push(new Enemigos("Kinua", 210, 210, 24, 15, 24, 15, `./img/enemy/enemy9.gif`));
+    arrEnemigos.push(new Enemigos("Blups", 225, 225, 26, 18, 26, 18, `./img/enemy/enemy10.gif`));
+    arrEnemigos.push(new Enemigos("Zorito", 250, 250, 30, 16, 32, 16, `./img/enemy/enemy11.gif`));
+    arrEnemigos.push(new Enemigos("Vlem", 300, 300, 36, 15, 36, 15, `./img/enemy/enemy12.gif`));
 };
 
 // ############# FUNCIONES PRINCIPALES Y QUE SE MUEVEN POR EL FLOW DE LA APP ##################
@@ -670,7 +679,7 @@ function toLoader() {
             });
             document.getElementById(`btnCSP`).addEventListener("click", () => {
                 setTimeout(() => {
-                    pjCE(pjActivoSP[0].nombre, arrEnemigos[0].nombre);
+                    pjCE(pjActivoSP[0].nombre, pjActivoSP[0].nombre);
                     actualizaStatsSP();
                 }, 500);
 
