@@ -432,18 +432,18 @@ function actualizaStatsSP() {
 
 // Inicializo enemigos
 function initEnemys() {
-    arrEnemigos.push(new Enemigos("Budoh", 100, 14, 2, 4, 2, `./img/enemy/enemy (1).gif`));
-    arrEnemigos.push(new Enemigos("Eyedor", 110, 16, 3, 6, 3, `./img/enemy/enemy (2).gif`));
-    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 19, 5, 9, 5, `./img/enemy/enemy (3).gif`));
-    arrEnemigos.push(new Enemigos("Gary", 135, 12, 17, 12, 7, `./img/enemy/enemy (4).gif`));
-    arrEnemigos.push(new Enemigos("Booky", 150, 18, 9, 14, 9, `./img/enemy/enemy (5).gif`));
-    arrEnemigos.push(new Enemigos("Spiro", 165, 19, 10, 16, 10, `./img/enemy/enemy (6).gif`));
-    arrEnemigos.push(new Enemigos("Litto", 190, 21, 12, 19, 12, `./img/enemy/enemy (7).gif`));
-    arrEnemigos.push(new Enemigos("Metrav", 200, 22, 12, 21, 12, `./img/enemy/enemy (8).gif`));
-    arrEnemigos.push(new Enemigos("Kinua", 210, 24, 15, 24, 15, `./img/enemy/enemy (9).gif`));
-    arrEnemigos.push(new Enemigos("Blups", 225, 26, 18, 26, 18, `./img/enemy/enemy (10).gif`));
-    arrEnemigos.push(new Enemigos("Zorito", 250, 30, 16, 32, 16, `./img/enemy/enemy (11).gif`));
-    arrEnemigos.push(new Enemigos("Vlem", 300, 36, 15, 36, 15, `./img/enemy/enemy (12).gif`));
+    arrEnemigos.push(new Enemigos("Budoh", 100, 14, 2, 4, 2, `./img/enemy/enemy1.gif`));
+    arrEnemigos.push(new Enemigos("Eyedor", 110, 16, 3, 6, 3, `./img/enemy/enemy2.gif`));
+    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 19, 5, 9, 5, `./img/enemy/enemy3.gif`));
+    arrEnemigos.push(new Enemigos("Gary", 135, 12, 17, 12, 7, `./img/enemy/enemy4.gif`));
+    arrEnemigos.push(new Enemigos("Booky", 150, 18, 9, 14, 9, `./img/enemy/enemy5.gif`));
+    arrEnemigos.push(new Enemigos("Spiro", 165, 19, 10, 16, 10, `./img/enemy/enemy6.gif`));
+    arrEnemigos.push(new Enemigos("Litto", 190, 21, 12, 19, 12, `./img/enemy/enemy7.gif`));
+    arrEnemigos.push(new Enemigos("Metrav", 200, 22, 12, 21, 12, `./img/enemy/enemy8.gif`));
+    arrEnemigos.push(new Enemigos("Kinua", 210, 24, 15, 24, 15, `./img/enemy/enemy9.gif`));
+    arrEnemigos.push(new Enemigos("Blups", 225, 26, 18, 26, 18, `./img/enemy/enemy10.gif`));
+    arrEnemigos.push(new Enemigos("Zorito", 250, 30, 16, 32, 16, `./img/enemy/enemy11.gif`));
+    arrEnemigos.push(new Enemigos("Vlem", 300, 36, 15, 36, 15, `./img/enemy/enemy12.gif`));
 };
 
 // ############# FUNCIONES PRINCIPALES Y QUE SE MUEVEN POR EL FLOW DE LA APP ##################
@@ -699,8 +699,6 @@ function toLoader() {
 
 //Placa Ganaste
 function toGanaste() {
-
-
     setTimeout(() => {
         document.getElementById("body-sp").innerHTML = `
         <div class="loader">
@@ -719,6 +717,13 @@ function toGanaste() {
             document.getElementById(`opciones`).addEventListener("click", () => {
                 alert("Acá va el menu de opciones")
             })
+
+            setTimeout(()=>{
+                arrEnemigos.shift();
+                console.log(arrEnemigos);
+                toLoader();
+            } ,2000)
+
         }, 1500);
     }, 300);
 }
