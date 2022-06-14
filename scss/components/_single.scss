@@ -209,7 +209,10 @@
                 width: 85%;
                 height: 250px;
 
-                font-size: .75em;
+                @media screen and (max-width: 650px) {
+                    font-size: .8em;
+                }
+
             }
 
             .div2-mainSP {
@@ -357,12 +360,11 @@
 
         }
 
-    #ganaste{
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        
-    }
+        #ganaste {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .wrapper {
             display: flex;

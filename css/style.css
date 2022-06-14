@@ -817,7 +817,11 @@
   margin: auto;
   width: 85%;
   height: 250px;
-  font-size: 0.75em;
+}
+@media screen and (max-width: 650px) {
+  #body-sp #seccion-principal-SP.mainSP .div1-mainSP {
+    font-size: 0.8em;
+  }
 }
 #body-sp #seccion-principal-SP.mainSP .div2-mainSP {
   grid-area: 1/2/2/3;
@@ -952,6 +956,11 @@
     justify-content: center;
     overflow: hidden;
   }
+}
+#body-sp #seccion-principal-SP #ganaste {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #body-sp #seccion-principal-SP .wrapper {
   display: flex;

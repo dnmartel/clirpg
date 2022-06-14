@@ -43,6 +43,10 @@ function retornaAQuienID(index) {
 
 //Función que loguea de forma inversa, añadiendo siempre al principio el contenido
 function battleLog(mensaje) {
+    if (document.getElementById("battleLog") == null){
+        return;
+    };
+    
     let mensajeConHora = "";
     let horaFin = Date.now();
     let tiempoTranscurrido = Number(((horaFin - horaInicio) / 1000) / 60);
@@ -375,8 +379,8 @@ function statClase(array) {
                 element.exp = 0;
                 element.vida = 170;
                 element.vidaMax = 170;
-                element.ataque = 10;
-                element.defensa = 6;
+                element.ataque = 12;
+                element.defensa = 7;
                 element.img = `./img/char/paladin.png`;
                 element.magicPower = 9;
                 element.magicDefense = 6;

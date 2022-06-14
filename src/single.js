@@ -43,7 +43,7 @@ class PersonajesSP {
             } else {
                 puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))));
             }
-
+            dañoRealizado += puntosADescontar;
             if (puntosADescontar < 0) {
                 puntosADescontar = 0;
             }
@@ -54,17 +54,18 @@ class PersonajesSP {
                 /*                 document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill"); */
             }
             nombreOrigenSP.exp += Math.floor(Math.random() * 20);
+            expGanada += nombreOrigenSP.exp;
             expNivelSP(nombreOrigenSP);
+            
         }
     };
 
     curar(origen, destino) {
         buscarNombresSP(origen, destino);
 
+        nombreDestinoSP = nombreOrigenSP;
         if (nombreOrigenSP.vida == 0) {
             battleLog(`${origen} está muerto! Ya no puede curarse.`);
-        } else if (nombreDestinoSP.vida == 0) {
-            battleLog(`Un vendaje no revivira a ${destino}.`);
         } else if (nombreDestinoSP.vida == nombreDestinoSP.vidaMax) {
             battleLog(`${destino} ya tiene la vida al máximo.`);
         } else {
@@ -78,9 +79,11 @@ class PersonajesSP {
             } else {
                 puntosASumar = Math.ceil((nombreOrigenSP.vida + 10) * 0.10);
             }
+            curacionRealizada += puntosASumar;
             nombreDestinoSP.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
             nombreOrigenSP.exp += Math.floor(Math.random() * 15);
+            expGanada += nombreOrigenSP.exp;
             expNivelSP(nombreOrigenSP);
 
             if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
@@ -110,11 +113,7 @@ class PersonajesSP {
                 puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 2))));
             }
 
-            /* OPTIMIZADO
-            if (puntosADescontar < 0) {
-                puntosADescontar = 0;
-            } */
-
+            dañoRealizado += puntosADescontar;
             (puntosADescontar < 0) && (puntosADescontar = 0);
 
             nombreDestinoSP.vida -= puntosADescontar;
@@ -135,6 +134,7 @@ class PersonajesSP {
                 document.getElementById(`card-${pjActivoSP[0]}`).classList.add("cards-kill");
             }
             nombreOrigenSP.exp += Math.floor(Math.random() * 20);
+            expGanada += nombreOrigenSP.exp;
             expNivelSP(nombreOrigenSP);
         }
     }
@@ -173,6 +173,7 @@ class Enemigos {
                 puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))));
             }
 
+            dañoRecibido += puntosADescontar;
             if (puntosADescontar < 0) {
                 puntosADescontar = 0;
             }
@@ -241,14 +242,11 @@ class Enemigos {
                 puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 2))));
             }
 
-            /* OPTIMIZADO
-            if (puntosADescontar < 0) {
-                puntosADescontar = 0;
-            } */
-
+            dañoRecibido += puntosADescontar;
             (puntosADescontar < 0) && (puntosADescontar = 0);
 
             nombreDestinoSP.vida -= puntosADescontar;
+            
 
 
             //FUNCIÓN ASINCRONICA - CAPTURA LOS DATOS DE LA API DE FORMA ALEATORIA Y LOS DEVUELVE DENTRO DEL BATTLE LOG COMO VARIABLE
@@ -372,10 +370,10 @@ function expNivelSP(nombreOrigen) {
         nombreOrigen.exp -= 100;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.08);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.08);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.15);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.15);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.18);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.18);
     }
 };
 
@@ -446,7 +444,7 @@ function actualizaStatsSP() {
 
 
 // Inicializo enemigos
-function initEnemys() {
+function initEnemies() {
     arrEnemigos.push(new Enemigos("Budoh", 100, 100, 14, 2, 4, 2, `./img/enemy/enemy1.gif`));
     arrEnemigos.push(new Enemigos("Eyedor", 110, 110, 16, 3, 6, 3, `./img/enemy/enemy2.gif`));
     arrEnemigos.push(new Enemigos("Puro Hueso", 125, 125, 19, 5, 9, 5, `./img/enemy/enemy3.gif`));
@@ -534,14 +532,30 @@ function toIntro() {
     </div>
     </div>`
 
+    //Asigno ID al timeout a través de una función para poder cortarlo
+    let tToCrearPJ;
+
+    function timeoutToCrearPJ() {
+        tToCrearPJ = setTimeout(() => {
+            toCrearPJ()
+        }, 8000);
+    }
+    // LLamo a la función
+    timeoutToCrearPJ();
+
     setTimeout(() => {
         let buttonNext = document.createElement("div");
         buttonNext.innerHTML = `<button class="buttons fadein btn-next" id="btn-next-Crear-PJ"><span>Siguiente &#8594;</span></button>`;
         document.getElementById("body-sp").appendChild(buttonNext);
-        document.getElementById("btn-next-Crear-PJ").addEventListener("click", toCrearPJ)
+        document.getElementById("btn-next-Crear-PJ").addEventListener("click", () => {
+            clearTimeout(tToCrearPJ);;
+            toCrearPJ();
+        });
     }, 1500);
+
 }
 
+//Renderiza la selección del pj
 function toCrearPJ() {
 
     let randBG = between(1, 6);
@@ -675,6 +689,7 @@ function toLoader() {
 
             //Comportamiento de los botones
             document.getElementById(`btnASP`).addEventListener("click", () => {
+                movimientos++;
                 document.getElementById(`btnASP`).disabled = true;
                 document.getElementById(`btnASP`).classList.add("disabledBtn");
                 document.getElementById(`btnCSP`).disabled = true;
@@ -700,12 +715,14 @@ function toLoader() {
             });
 
             document.getElementById(`btnCSP`).addEventListener("click", () => {
+                movimientos++;
                 document.getElementById(`btnASP`).disabled = true;
                 document.getElementById(`btnASP`).classList.add("disabledBtn");
                 document.getElementById(`btnCSP`).disabled = true;
                 document.getElementById(`btnCSP`).classList.add("disabledBtn");
                 document.getElementById(`btnHSP`).disabled = true;
                 document.getElementById(`btnHSP`).classList.add("disabledBtn");
+                console.log(pjActivoSP[0].nombre);
                 pjCE(pjActivoSP[0].nombre, pjActivoSP[0].nombre);
                 actualizaStatsSP();
 
@@ -725,6 +742,7 @@ function toLoader() {
             });
 
             document.getElementById(`btnHSP`).addEventListener("click", () => {
+                movimientos++;
                 document.getElementById(`btnASP`).disabled = true;
                 document.getElementById(`btnASP`).classList.add("disabledBtn");
                 document.getElementById(`btnCSP`).disabled = true;
@@ -764,23 +782,38 @@ function toGanaste() {
         </div>
         `
         setTimeout(() => {
-            document.getElementById("body-sp").innerHTML = `
-            <div class="div-title fadein" id="title-SP">
-            </div>
-            <section class="mainSP fadein" id="ganaste">
-                <div><h1>GANASTE</h1></div>
-            </section>
-            <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
-            `
-            document.getElementById(`opciones`).addEventListener("click", () => {
-                alert("Acá va el menu de opciones")
-            })
+            // Elimino al enemigo derrotado
+            arrEnemigos.shift();
 
-            setTimeout(() => {
-                arrEnemigos.shift();
-                console.log(arrEnemigos);
+            //imprimo stats
+            document.getElementById("body-sp").innerHTML = `
+            <section class="div-title fadein" id="ganaste">
+                <img src="">
+                <div>
+                    <h2>Resumen batalla</h2>
+                    <p>Movimientos realizados: ${movimientos}</p>
+                    <p>Daño efectuado: ${dañoRealizado}</p>
+                    <p>Curación realizada: ${curacionRealizada}</p>
+                    <p>Daño recibido: ${dañoRecibido} </p>
+                    <p>Experiencia ganada: ${expGanada} </p>
+                    <p>Enemigos derrotados: ${12 - arrEnemigos.length}</p>
+                    <p>Enemigos restantes: ${arrEnemigos.length}</p>
+                </div>
+            </section>
+            <section class="div-title fadein" id="ganaste">
+                <h1>GANASTE</h1>
+                <button class="buttons btn-next fadein" id="ganasteNext"><span>Avanzar</span></button>
+            </section>
+            `;
+
+            //PowerUp Victoria
+            pjActivoSP[0].exp = expGanada * 3;
+            expNivelSP(pjActivoSP[0]);
+            pjActivoSP[0].vida += 30;
+            
+            document.getElementById(`ganasteNext`).addEventListener("click", () => {
                 toLoader();
-            }, 2000)
+            });
 
         }, 1500);
     }, 300);
@@ -795,16 +828,30 @@ function toPerdiste() {
         </div>
         `
         setTimeout(() => {
+            //imprimo stats
             document.getElementById("body-sp").innerHTML = `
-    <div class="div-title fadein" id="title-SP">
-    </div>
-    <section class="mainSP fadein" id="ganaste">
-        <div>PERDISTE</div>
-    </section>
-    <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
-    `
-            document.getElementById(`opciones`).addEventListener("click", () => {
-                alert("Acá va el menu de opciones")
+            <section class="div-title fadein" id="perdiste">
+                <img src="./img/gifs/perdiste.gif">
+                <div>
+                    <h2>Resumen batalla</h2>
+                    <p>Movimientos realizados: ${movimientos}</p>
+                    <p>Daño efectuado: ${dañoRealizado}</p>
+                    <p>Curación realizada: ${curacionRealizada}</p>
+                    <p>Daño recibido: ${dañoRecibido} </p>
+                    <p>Experiencia ganada: ${expGanada} </p>
+                    <p>Enemigos derrotados: ${12 - arrEnemigos.length}</p>
+                    <p>Enemigos restantes: ${arrEnemigos.length}</p>
+                </div>
+            </section>
+            <section class="div-title fadein" id="perdiste">
+                <h1>PERDISTE</h1>
+                <button class="buttons btn-next fadein" id="ganasteNext"><span>Avanzar</span></button>
+            </section>
+            `;
+
+            document.getElementById(`reintentar`).addEventListener("click", () => {
+                pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
+                toLoader();
             })
         }, 1500);
     }, 300);
@@ -815,5 +862,6 @@ function toPerdiste() {
 // ################### INICIALIZO E IMPRIMO ###################
 //Valido que se inicie solo en Single Player
 (document.title == 'RPG CLI - SP') && initSingle();
-
-initEnemys()
+//Inicializo variables de registro
+let expGanada = 0, dañoRecibido = 0, dañoRealizado = 0, movimientos = 0, curacionRealizada = 0;
+initEnemies();
