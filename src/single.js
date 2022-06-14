@@ -8,7 +8,7 @@ import {
 
 //############### CLASES #####################
 //Defino variables globales
-let nombreOrigenSP, nombreDestinoSP;
+let nombreOrigenSP, nombreDestinoSP, expNecesaria = 100;
 
 class PersonajesSP {
     constructor(nombre, clase) {
@@ -365,15 +365,16 @@ function buscarNombresSP(origen, destino) {
 };
 
 function expNivelSP(nombreOrigen) {
-
-    if (nombreOrigen.exp > 100) {
-        nombreOrigen.exp -= 100;
+    
+    while (nombreOrigen.exp > expNecesaria) {
+        nombreOrigen.exp -= expNecesaria;
+        expNecesaria += 100;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.15);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.15);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.18);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.18);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.12);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.12);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.15);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.15);
     }
 };
 
@@ -807,7 +808,7 @@ function toGanaste() {
             `;
 
             //PowerUp Victoria
-            pjActivoSP[0].exp = expGanada * 3;
+            pjActivoSP[0].exp += expGanada;
             expNivelSP(pjActivoSP[0]);
             pjActivoSP[0].vida += 30;
             
