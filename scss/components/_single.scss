@@ -360,156 +360,234 @@
 
         }
 
-        #ganaste {
+
+    }
+
+    #ganaste,
+    #perdiste {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+
+        .img-resumen {
             display: flex;
             justify-content: center;
             align-items: center;
-        }
+            flex-flow: row nowrap;
+            gap: 2em;
+            width: 100vw;
+            margin-bottom: 4em;
 
-        .wrapper {
-            display: flex;
-            height: 100%;
-            width: 60%;
-            margin: 0 auto;
-            perspective: 350px;
-
-            @media screen and (max-width: 650px) {
-                perspective: 250px;
-                width: 80%;
-            }
-        }
-
-        .scroll-text {
-            color: map-get($colors, primary);
-            font-size: 2.5em;
-            line-height: 1.3em;
-            text-align: justify;
-            position: relative;
-            animation: scroll 90s linear forwards;
-
-            @media screen and (max-width: 650px) {
-                font-size: 1.8em;
-            }
-        }
-
-        .fixed-text {
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: center;
-            margin: 0 auto;
-            height: 100%;
-            width: 60%;
-            color: map-get($colors, primary);
-            font-size: 2vw;
-            line-height: 1.5em;
-            text-align: center;
-
-            @media screen and (max-width: 650px) {
-                width: 85%;
-                font-size: 1em;
-            }
-        }
-
-        h1,
-        h2 {
-            text-align: center;
-        }
-
-        @keyframes scroll {
-            from {
-                top: 0;
-                transform: translateZ(0) rotateX(20deg);
+            img {
+                width: 150px;
             }
 
-            to {
-                top: -7500px;
-                transform: translateZ(-3500px) rotateX(2deg);
-            }
-        }
-    }
-
-    #battleLog {
-
-        align-self: center;
-        width: 50%;
-        height: 120px;
-        background-color: map-get($colors, secondary);
-        margin: 1em;
-        overflow-y: scroll;
-
-
-        p {
-            font-size: 1.1em;
-        }
-
-        h5 {
-            font-family: Kindly;
-            color: map-get($colors, primary);
-            font-size: .9em;
-        }
-
-        @media screen and (max-width: 650px) {
-            width: 95%;
-            height: 150px;
-        }
-
-        &::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background: map-get($colors, primary);
-        }
-
-    }
-
-    .botones {
-        display: flex;
-        flex-flow: column wrap;
-        justify-content: center;
-        align-items: center;
-
-        button {
-            align-self: center;
-            width: 180px;
-            margin: 2em 1em;
-        }
-
-        .mostrar-margin {
-            margin-top: 5em;
-        }
-
-        @media screen and (max-width: 650px) {
-
-            .botones-container {
-                margin-top: 2em;
+            div.resumen {
                 display: flex;
-                flex-flow: column wrap;
-                justify-content: center;
-                align-items: center;
+                flex-flow: column;
+                justify-content: flex-start;
+                text-align: justify;
 
-                button {
-                    width: 180px;
-                    margin-top: .1em;
+                h2 {
+                    text-align: start;
+                    color: map-get($colors, primary);
+                }
+
+                p {
+
+                    font-size: 1.2em;
+                    font-weight: 500;
+                    color: map-get($colors, secondary);
+
+                    span {
+                        color: map-get($colors, primary);
+                    }
+
+                    ;
                 }
             }
         }
 
-        .btn-principal {
-            background: map-get($colors, primary);
-            font-size: 1.01em;
+        hr{
+            width: 60%;
+            border-color: map-get($colors, primary);
+            margin: 1em;
+        }
 
-            @media screen and (max-width: 650px) {
-                font-size: 1.2em;
+        #nextEnemy{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column nowrap;
+            gap: 3em;
 
+            h3{
+                text-align: center;
+                color: map-get($colors, secondary);
+                span {
+                    color: map-get($colors, primary);
+                }
+            }
+        }
+
+        #ganasteNext, #reintentar {
+            width: 50%;
+            margin-top: 3em;
+
+            span {
+                color: map-get($colors, secondary);
+                background-color: map-get($colors, primary);
+            }
+
+            ;
+        }
+    }
+
+    .wrapper {
+        display: flex;
+        height: 100%;
+        width: 60%;
+        margin: 0 auto;
+        perspective: 350px;
+
+        @media screen and (max-width: 650px) {
+            perspective: 250px;
+            width: 80%;
+        }
+    }
+
+    .scroll-text {
+        color: map-get($colors, primary);
+        font-size: 2.5em;
+        line-height: 1.3em;
+        text-align: justify;
+        position: relative;
+        animation: scroll 90s linear forwards;
+
+        @media screen and (max-width: 650px) {
+            font-size: 1.8em;
+        }
+    }
+
+    .fixed-text {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        margin: 0 auto;
+        height: 100%;
+        width: 60%;
+        color: map-get($colors, primary);
+        font-size: 2vw;
+        line-height: 1.5em;
+        text-align: center;
+
+        @media screen and (max-width: 650px) {
+            width: 85%;
+            font-size: 1em;
+        }
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    @keyframes scroll {
+        from {
+            top: 0;
+            transform: translateZ(0) rotateX(20deg);
+        }
+
+        to {
+            top: -7500px;
+            transform: translateZ(-3500px) rotateX(2deg);
+        }
+    }
+}
+
+#battleLog {
+
+    align-self: center;
+    width: 50%;
+    height: 120px;
+    background-color: map-get($colors, secondary);
+    margin: 1em;
+    overflow-y: scroll;
+
+
+    p {
+        font-size: 1.1em;
+    }
+
+    h5 {
+        font-family: Kindly;
+        color: map-get($colors, primary);
+        font-size: .9em;
+    }
+
+    @media screen and (max-width: 650px) {
+        width: 95%;
+        height: 150px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: map-get($colors, primary);
+    }
+
+}
+
+.botones {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        align-self: center;
+        width: 180px;
+        margin: 2em 1em;
+    }
+
+    .mostrar-margin {
+        margin-top: 5em;
+    }
+
+    @media screen and (max-width: 650px) {
+
+        .botones-container {
+            margin-top: 2em;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center;
+
+            button {
+                width: 180px;
+                margin-top: .1em;
             }
         }
     }
 
-    .ocultar {
-        display: none;
+    .btn-principal {
+        background: map-get($colors, primary);
+        font-size: 1.01em;
+
+        @media screen and (max-width: 650px) {
+            font-size: 1.2em;
+
+        }
     }
 }
+
+.ocultar {
+    display: none;
+}
+
 
 
 .loader {

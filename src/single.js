@@ -8,7 +8,7 @@ import {
 
 //############### CLASES #####################
 //Defino variables globales
-let nombreOrigenSP, nombreDestinoSP, expNecesaria = 100;
+let nombreOrigenSP, nombreDestinoSP, expNecesaria = 100, nombrePJ, clasePJ, vidas = 3;
 
 class PersonajesSP {
     constructor(nombre, clase) {
@@ -51,12 +51,11 @@ class PersonajesSP {
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
-                /*                 document.getElementById(`card-${arrEnemigos.indexOf(nombreDestinoSP)}`).classList.add("cards-kill"); */
             }
             nombreOrigenSP.exp += Math.floor(Math.random() * 20);
             expGanada += nombreOrigenSP.exp;
             expNivelSP(nombreOrigenSP);
-            
+
         }
     };
 
@@ -131,7 +130,6 @@ class PersonajesSP {
 
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
-                document.getElementById(`card-${pjActivoSP[0]}`).classList.add("cards-kill");
             }
             nombreOrigenSP.exp += Math.floor(Math.random() * 20);
             expGanada += nombreOrigenSP.exp;
@@ -246,7 +244,7 @@ class Enemigos {
             (puntosADescontar < 0) && (puntosADescontar = 0);
 
             nombreDestinoSP.vida -= puntosADescontar;
-            
+
 
 
             //FUNCIÓN ASINCRONICA - CAPTURA LOS DATOS DE LA API DE FORMA ALEATORIA Y LOS DEVUELVE DENTRO DEL BATTLE LOG COMO VARIABLE
@@ -365,7 +363,7 @@ function buscarNombresSP(origen, destino) {
 };
 
 function expNivelSP(nombreOrigen) {
-    
+
     while (nombreOrigen.exp > expNecesaria) {
         nombreOrigen.exp -= expNecesaria;
         expNecesaria += 100;
@@ -381,7 +379,6 @@ function expNivelSP(nombreOrigen) {
 //Función randAction = ejecuta una acción al azar del enemigo actual
 function randAction() {
     let randN = between(1, 4);
-    console.log(Math.round(randN));
     switch (Math.round(randN)) {
         case 1:
             arrEnemigos[0].atacar(arrEnemigos[0].nombre, pjActivoSP[0].nombre)
@@ -441,8 +438,6 @@ function actualizaStatsSP() {
         `;
 
 }
-
-
 
 // Inicializo enemigos
 function initEnemies() {
@@ -630,8 +625,8 @@ function toCrearPJ() {
         };
 
         //Obtengo Nombre y Clase del formulario
-        let nombrePJ = document.getElementById(`nombre-crearPJ`).value;
-        let clasePJ = document.querySelector('input[name=clase]:checked').placeholder;
+        nombrePJ = document.getElementById(`nombre-crearPJ`).value;
+        clasePJ = document.querySelector('input[name=clase]:checked').placeholder;
         pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
         statClase(pjActivoSP);
         toLoader();
@@ -684,11 +679,14 @@ function toLoader() {
     </section>
     <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
     `
-            document.getElementById(`opciones`).addEventListener("click", () => {
-                alert("Acá va el menu de opciones")
-            })
+
+            actualizaStatsSP;
 
             //Comportamiento de los botones
+            document.getElementById(`opciones`).addEventListener("click", () => {
+                alert("Acá va el menu de opciones");
+            })
+
             document.getElementById(`btnASP`).addEventListener("click", () => {
                 movimientos++;
                 document.getElementById(`btnASP`).disabled = true;
@@ -723,7 +721,6 @@ function toLoader() {
                 document.getElementById(`btnCSP`).classList.add("disabledBtn");
                 document.getElementById(`btnHSP`).disabled = true;
                 document.getElementById(`btnHSP`).classList.add("disabledBtn");
-                console.log(pjActivoSP[0].nombre);
                 pjCE(pjActivoSP[0].nombre, pjActivoSP[0].nombre);
                 actualizaStatsSP();
 
@@ -786,35 +783,64 @@ function toGanaste() {
             // Elimino al enemigo derrotado
             arrEnemigos.shift();
 
-            //imprimo stats
-            document.getElementById("body-sp").innerHTML = `
-            <section class="div-title fadein" id="ganaste">
-                <img src="">
-                <div>
-                    <h2>Resumen batalla</h2>
-                    <p>Movimientos realizados: ${movimientos}</p>
-                    <p>Daño efectuado: ${dañoRealizado}</p>
-                    <p>Curación realizada: ${curacionRealizada}</p>
-                    <p>Daño recibido: ${dañoRecibido} </p>
-                    <p>Experiencia ganada: ${expGanada} </p>
-                    <p>Enemigos derrotados: ${12 - arrEnemigos.length}</p>
-                    <p>Enemigos restantes: ${arrEnemigos.length}</p>
+            if (arrEnemigos.length == 0) {
+                document.getElementById("body-sp").innerHTML = `
+                <section class="fadein" id="ganaste">
+                
+                <section class="div-title fadein">
+                    <h1>GANASTE EL JUEGO !</h1>
+                </section>
+                <a href="./index.html">
+                <button class="buttons fadein" ><span>Volver al menu principal</span></button></a>
+                `
+            } else {
+
+                //imprimo stats
+                document.getElementById("body-sp").innerHTML = `
+                <section class="fadein" id="ganaste">
+                
+                <section class="div-title fadein">
+                    <h1>GANASTE !</h1>
+                </section>
+    
+                <section class="img-resumen">
+                    <img src="${pjActivoSP[0].img}">
+                    <div class="resumen">
+                        <h2>Resumen batalla</h2>
+                        <p>Movimientos realizados: <span>${movimientos}</span></p>
+                        <p>Daño efectuado: <span>${dañoRealizado}</span></p>
+                        <p>Curación realizada: <span>${curacionRealizada}</span></p>
+                        <p>Daño recibido: <span>${dañoRecibido}</span></p>
+                        <p>Experiencia ganada: <span>${expGanada}</span></p>
+                        <p>Enemigos derrotados: <span>${12 - arrEnemigos.length}</span></p>
+                        <p>Enemigos restantes: <span>${arrEnemigos.length}</span></p>
+                        <p>Vidas: <span>${vidas}</span></p>
+                    </div>
+                </section>
+                <hr>
+                <div id="nextEnemy">
+                    <img src="${arrEnemigos[0].img}">
+                    <h3>Siguiente enemigo: <span>${arrEnemigos[0].nombre}</span></h3>
                 </div>
-            </section>
-            <section class="div-title fadein" id="ganaste">
-                <h1>GANASTE</h1>
-                <button class="buttons btn-next fadein" id="ganasteNext"><span>Avanzar</span></button>
+            
+            
+                <button class="buttons fadein" id="ganasteNext"><span>Avanzar</span></button>
+            
             </section>
             `;
 
-            //PowerUp Victoria
-            pjActivoSP[0].exp += expGanada;
-            expNivelSP(pjActivoSP[0]);
-            pjActivoSP[0].vida += 30;
-            
-            document.getElementById(`ganasteNext`).addEventListener("click", () => {
-                toLoader();
-            });
+                //PowerUp Victoria
+                pjActivoSP[0].exp += expGanada;
+                expNivelSP(pjActivoSP[0]);
+                pjActivoSP[0].vida += 30;
+                if (pjActivoSP[0].vida > pjActivoSP[0].vidaMax) {
+                    pjActivoSP[0].vida = pjActivoSP[0].vidaMax;
+                }
+
+                document.getElementById(`ganasteNext`).addEventListener("click", () => {
+                    toLoader();
+                });
+            }
 
         }, 1500);
     }, 300);
@@ -822,6 +848,9 @@ function toGanaste() {
 
 //Placa perdiste
 function toPerdiste() {
+
+    vidas -= 1;
+
     setTimeout(() => {
         document.getElementById("body-sp").innerHTML = `
         <div class="loader">
@@ -831,29 +860,51 @@ function toPerdiste() {
         setTimeout(() => {
             //imprimo stats
             document.getElementById("body-sp").innerHTML = `
-            <section class="div-title fadein" id="perdiste">
-                <img src="./img/gifs/perdiste.gif">
-                <div>
-                    <h2>Resumen batalla</h2>
-                    <p>Movimientos realizados: ${movimientos}</p>
-                    <p>Daño efectuado: ${dañoRealizado}</p>
-                    <p>Curación realizada: ${curacionRealizada}</p>
-                    <p>Daño recibido: ${dañoRecibido} </p>
-                    <p>Experiencia ganada: ${expGanada} </p>
-                    <p>Enemigos derrotados: ${12 - arrEnemigos.length}</p>
-                    <p>Enemigos restantes: ${arrEnemigos.length}</p>
+                <section class="fadein" id="perdiste">
+                
+                <section class="div-title fadein">
+                    <h1>GAME OVER</h1>
+                </section>
+    
+                <section class="img-resumen">
+                    <img src="${pjActivoSP[0].img}">
+                    <div class="resumen">
+                        <h2>Resumen batalla</h2>
+                        <p>Movimientos realizados: <span>${movimientos}</span></p>
+                        <p>Daño efectuado: <span>${dañoRealizado}</span></p>
+                        <p>Curación realizada: <span>${curacionRealizada}</span></p>
+                        <p>Daño recibido: <span>${dañoRecibido}</span></p>
+                        <p>Experiencia ganada: <span>${expGanada}</span></p>
+                        <p>Enemigos derrotados: <span>${12 - arrEnemigos.length}</span></p>
+                        <p>Enemigos restantes: <span>${arrEnemigos.length}</span></p>
+                        <p>Vidas: <span>${vidas}</span></p>
+                    </div>
+                </section>
+                <hr>
+                <div id="nextEnemy">
+                    <img src="${arrEnemigos[0].img}">
+                    <h3>Te derrotó: <span>${arrEnemigos[0].nombre}</span></h3>
                 </div>
-            </section>
-            <section class="div-title fadein" id="perdiste">
-                <h1>PERDISTE</h1>
-                <button class="buttons btn-next fadein" id="ganasteNext"><span>Avanzar</span></button>
+            
+            
+                <button class="buttons fadein" id="reintentar"><span>Continuar</span></button>
+            
             </section>
             `;
+            
+            if (vidas <= 0) {
+                document.getElementById(`reintentar`).addEventListener("click", () => {
+                    location.href = "/clirpg/";
+                })
+            } else {
+                document.getElementById(`reintentar`).addEventListener("click", () => {
+                    pjActivoSP.shift();
+                    pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
+                    statClase(pjActivoSP);
 
-            document.getElementById(`reintentar`).addEventListener("click", () => {
-                pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
-                toLoader();
-            })
+                    toLoader();
+                })
+            }
         }, 1500);
     }, 300);
 }
@@ -864,5 +915,9 @@ function toPerdiste() {
 //Valido que se inicie solo en Single Player
 (document.title == 'RPG CLI - SP') && initSingle();
 //Inicializo variables de registro
-let expGanada = 0, dañoRecibido = 0, dañoRealizado = 0, movimientos = 0, curacionRealizada = 0;
+let expGanada = 0,
+    dañoRecibido = 0,
+    dañoRealizado = 0,
+    movimientos = 0,
+    curacionRealizada = 0;
 initEnemies();

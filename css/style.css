@@ -957,12 +957,85 @@
     overflow: hidden;
   }
 }
-#body-sp #seccion-principal-SP #ganaste {
+#body-sp #ganaste,
+#body-sp #perdiste {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-flow: column;
 }
-#body-sp #seccion-principal-SP .wrapper {
+#body-sp #ganaste .img-resumen,
+#body-sp #perdiste .img-resumen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row nowrap;
+  gap: 2em;
+  width: 100vw;
+  margin-bottom: 4em;
+}
+#body-sp #ganaste .img-resumen img,
+#body-sp #perdiste .img-resumen img {
+  width: 150px;
+}
+#body-sp #ganaste .img-resumen div.resumen,
+#body-sp #perdiste .img-resumen div.resumen {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  text-align: justify;
+}
+#body-sp #ganaste .img-resumen div.resumen h2,
+#body-sp #perdiste .img-resumen div.resumen h2 {
+  text-align: start;
+  color: #F26444;
+}
+#body-sp #ganaste .img-resumen div.resumen p,
+#body-sp #perdiste .img-resumen div.resumen p {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #ffffffce;
+}
+#body-sp #ganaste .img-resumen div.resumen p span,
+#body-sp #perdiste .img-resumen div.resumen p span {
+  color: #F26444;
+}
+#body-sp #ganaste hr,
+#body-sp #perdiste hr {
+  width: 60%;
+  border-color: #F26444;
+  margin: 1em;
+}
+#body-sp #ganaste #nextEnemy,
+#body-sp #perdiste #nextEnemy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 3em;
+}
+#body-sp #ganaste #nextEnemy h3,
+#body-sp #perdiste #nextEnemy h3 {
+  text-align: center;
+  color: #ffffffce;
+}
+#body-sp #ganaste #nextEnemy h3 span,
+#body-sp #perdiste #nextEnemy h3 span {
+  color: #F26444;
+}
+#body-sp #ganaste #ganasteNext, #body-sp #ganaste #reintentar,
+#body-sp #perdiste #ganasteNext,
+#body-sp #perdiste #reintentar {
+  width: 50%;
+  margin-top: 3em;
+}
+#body-sp #ganaste #ganasteNext span, #body-sp #ganaste #reintentar span,
+#body-sp #perdiste #ganasteNext span,
+#body-sp #perdiste #reintentar span {
+  color: #ffffffce;
+  background-color: #F26444;
+}
+#body-sp .wrapper {
   display: flex;
   height: 100%;
   width: 60%;
@@ -970,12 +1043,12 @@
   perspective: 350px;
 }
 @media screen and (max-width: 650px) {
-  #body-sp #seccion-principal-SP .wrapper {
+  #body-sp .wrapper {
     perspective: 250px;
     width: 80%;
   }
 }
-#body-sp #seccion-principal-SP .scroll-text {
+#body-sp .scroll-text {
   color: #F26444;
   font-size: 2.5em;
   line-height: 1.3em;
@@ -984,11 +1057,11 @@
   animation: scroll 90s linear forwards;
 }
 @media screen and (max-width: 650px) {
-  #body-sp #seccion-principal-SP .scroll-text {
+  #body-sp .scroll-text {
     font-size: 1.8em;
   }
 }
-#body-sp #seccion-principal-SP .fixed-text {
+#body-sp .fixed-text {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -1001,13 +1074,13 @@
   text-align: center;
 }
 @media screen and (max-width: 650px) {
-  #body-sp #seccion-principal-SP .fixed-text {
+  #body-sp .fixed-text {
     width: 85%;
     font-size: 1em;
   }
 }
-#body-sp #seccion-principal-SP h1,
-#body-sp #seccion-principal-SP h2 {
+#body-sp h1,
+#body-sp h2 {
   text-align: center;
 }
 @keyframes scroll {
@@ -1020,7 +1093,8 @@
     transform: translateZ(-3500px) rotateX(2deg);
   }
 }
-#body-sp #battleLog {
+
+#battleLog {
   align-self: center;
   width: 50%;
   height: 120px;
@@ -1028,63 +1102,65 @@
   margin: 1em;
   overflow-y: scroll;
 }
-#body-sp #battleLog p {
+#battleLog p {
   font-size: 1.1em;
 }
-#body-sp #battleLog h5 {
+#battleLog h5 {
   font-family: Kindly;
   color: #F26444;
   font-size: 0.9em;
 }
 @media screen and (max-width: 650px) {
-  #body-sp #battleLog {
+  #battleLog {
     width: 95%;
     height: 150px;
   }
 }
-#body-sp #battleLog::-webkit-scrollbar {
+#battleLog::-webkit-scrollbar {
   width: 10px;
 }
-#body-sp #battleLog::-webkit-scrollbar-thumb {
+#battleLog::-webkit-scrollbar-thumb {
   background: #F26444;
 }
-#body-sp .botones {
+
+.botones {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 }
-#body-sp .botones button {
+.botones button {
   align-self: center;
   width: 180px;
   margin: 2em 1em;
 }
-#body-sp .botones .mostrar-margin {
+.botones .mostrar-margin {
   margin-top: 5em;
 }
 @media screen and (max-width: 650px) {
-  #body-sp .botones .botones-container {
+  .botones .botones-container {
     margin-top: 2em;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
     align-items: center;
   }
-  #body-sp .botones .botones-container button {
+  .botones .botones-container button {
     width: 180px;
     margin-top: 0.1em;
   }
 }
-#body-sp .botones .btn-principal {
+.botones .btn-principal {
   background: #F26444;
   font-size: 1.01em;
 }
 @media screen and (max-width: 650px) {
-  #body-sp .botones .btn-principal {
+  .botones .btn-principal {
     font-size: 1.2em;
   }
 }
-#body-sp .ocultar {
+
+.ocultar {
   display: none;
 }
 
