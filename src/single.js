@@ -171,10 +171,10 @@ class Enemigos {
 
         if (nombreOrigenSP.vida == 0) {
             battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
-            setTimeout(toGanaste(), 3000);
+            setTimeout(()=>{toGanaste()}, 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
-            setTimeout(toPerdiste(), 3000);
+            setTimeout(()=>{toPerdiste()}, 3000);
         } else {
             let luckyNumber = between((arrEnemigos[0].ataque - nombreDestinoSP.defensa), arrEnemigos[0].ataque);
             let puntosADescontar = 0;
@@ -195,9 +195,9 @@ class Enemigos {
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
-                battleLog(`<h5>${nombreDestinoSP} ha muerto !</h5><br>
+                battleLog(`<h5>${pjActivoSP[0].nombre} ha muerto !</h5><br>
                 <h5>Has Ganado !</h5>`)
-                setTimeout(toGanaste(), 3000);
+                setTimeout(()=>{toPerdiste()}, 3000);
             }
         }
     };
@@ -207,10 +207,10 @@ class Enemigos {
 
         if (arrEnemigos[0].vida == 0) {
             battleLog(`${origen} está muerto! Ya no puede curarse.`);
-            setTimeout(toGanaste(), 3000);
+            setTimeout(()=>{toGanaste()}, 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Un vendaje no revivira a ${destino}.`);
-            setTimeout(toGanaste(), 3000);
+            setTimeout(()=>{toGanaste()}, 3000);
         } else if (nombreDestinoSP.vida == nombreDestinoSP.vidaMax) {
             battleLog(`${destino} ya tiene la vida al máximo.`);
         } else {
@@ -238,10 +238,10 @@ class Enemigos {
 
         if (arrEnemigos[0].vida == 0) {
             battleLog(`Los muertos no pueden lanzar hechizos!`);
-            setTimeout(toGanaste(), 3000);
+            setTimeout(()=>{toGanaste()}, 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
-            setTimeout(toPerdiste(), 3000);
+            setTimeout(()=>{toPerdiste()}, 3000);
         } else if (arrEnemigos[0] === nombreDestinoSP) {
             battleLog(`No puedes atacarte a ti mismo.`);
         } else {
