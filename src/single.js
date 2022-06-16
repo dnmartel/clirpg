@@ -920,7 +920,7 @@ function toLoader() {
             })
 
             document.getElementById(`reiniciarSP`).addEventListener("click", () => {
-                location.href = "/clirpg/single.html";
+                location.href = "/clirpg/";
             })
 
         }, 1500);
