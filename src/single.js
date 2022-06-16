@@ -207,7 +207,7 @@ class Enemigos {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
                 battleLog(`<h5>${pjActivoSP[0].nombre} ha muerto !</h5><br>
-                <h5>Has Ganado !</h5>`)
+                <h5>${arrEnemigos[0].nombre} ha ganado !</h5>`)
                 setTimeout(() => {
                     toPerdiste()
                 }, 3000);
@@ -485,18 +485,18 @@ function actualizaStatsSP() {
 
 // Inicializo enemigos
 function initEnemies() {
-    arrEnemigos.push(new Enemigos("Budoh", 100, 100, 14, 2, 4, 2, `./img/enemy/enemy1.gif`));
-    arrEnemigos.push(new Enemigos("Eyedor", 110, 110, 16, 3, 6, 3, `./img/enemy/enemy2.gif`));
-    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 125, 19, 5, 9, 5, `./img/enemy/enemy3.gif`));
-    arrEnemigos.push(new Enemigos("Gary", 135, 135, 12, 17, 12, 7, `./img/enemy/enemy4.gif`));
-    arrEnemigos.push(new Enemigos("Booky", 150, 150, 18, 9, 14, 9, `./img/enemy/enemy5.gif`));
-    arrEnemigos.push(new Enemigos("Spiro", 165, 165, 19, 10, 17, 12, `./img/enemy/enemy6.gif`));
-    arrEnemigos.push(new Enemigos("Litto", 190, 190, 21, 12, 21, 14, `./img/enemy/enemy7.gif`));
-    arrEnemigos.push(new Enemigos("Metrav", 200, 200, 22, 12, 23, 15, `./img/enemy/enemy8.gif`));
-    arrEnemigos.push(new Enemigos("Kinua", 210, 210, 24, 15, 26, 16, `./img/enemy/enemy9.gif`));
-    arrEnemigos.push(new Enemigos("Blups", 225, 225, 26, 18, 28, 18, `./img/enemy/enemy10.gif`));
-    arrEnemigos.push(new Enemigos("Zorito", 250, 250, 30, 16, 32, 19, `./img/enemy/enemy11.gif`));
-    arrEnemigos.push(new Enemigos("Vlem", 300, 300, 36, 15, 38, 24, `./img/enemy/enemy12.gif`));
+    arrEnemigos.push(new Enemigos("Budoh", 100, 100, 14, 2, 12, 2, `./img/enemy/enemy1.gif`));
+    arrEnemigos.push(new Enemigos("Eyedor", 110, 110, 16, 7, 10, 6, `./img/enemy/enemy2.gif`));
+    arrEnemigos.push(new Enemigos("Puro Hueso", 125, 125, 19, 5, 14, 7, `./img/enemy/enemy3.gif`));
+    arrEnemigos.push(new Enemigos("Gary", 135, 135, 14, 20, 12, 18, `./img/enemy/enemy4.gif`));
+    arrEnemigos.push(new Enemigos("Booky", 150, 150, 24, 15, 14, 13, `./img/enemy/enemy5.gif`));
+    arrEnemigos.push(new Enemigos("Spiro", 165, 165, 29, 20, 24, 21, `./img/enemy/enemy6.gif`));
+    arrEnemigos.push(new Enemigos("Litto", 190, 190, 28, 35, 21, 14, `./img/enemy/enemy7.gif`));
+    arrEnemigos.push(new Enemigos("Metrav", 220, 220, 32, 25, 30, 26, `./img/enemy/enemy8.gif`));
+    arrEnemigos.push(new Enemigos("Kinua", 240, 240, 38, 30, 36, 26, `./img/enemy/enemy9.gif`));
+    arrEnemigos.push(new Enemigos("Blups", 275, 275, 44, 40, 44, 34, `./img/enemy/enemy10.gif`));
+    arrEnemigos.push(new Enemigos("Zorito", 300, 300, 48, 46, 52, 39, `./img/enemy/enemy11.gif`));
+    arrEnemigos.push(new Enemigos("Vlem", 350, 350, 65, 55, 65, 55, `./img/enemy/enemy12.gif`));
 };
 
 // ############# FUNCIONES PRINCIPALES Y QUE SE MUEVEN POR EL FLOW DE LA APP ##################
@@ -945,7 +945,9 @@ function toPerdiste() {
                     pjActivoSP.shift();
                     pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
                     statClase(pjActivoSP);
-
+                    expNecesaria = 100;
+                    pjActivoSP[0].exp = expGanada;
+                    expNivelSP(pjActivoSP[0]);
                     toLoader();
                 })
             }
