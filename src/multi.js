@@ -25,6 +25,8 @@ function expNivel(nombreOrigen) {
         nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
         nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.08);
         nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.08);
+        nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.08);
+        nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.08);
     }
 };
 
