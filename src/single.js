@@ -36,23 +36,22 @@ class PersonajesSP {
         } else {
             //defino el daño que va a aplicar, tratando de que no tienda a infinito limitando los extremos y controlando negativos
             let luckyNumber = between((nombreOrigenSP.ataque - nombreDestinoSP.defensa), nombreOrigenSP.ataque + 1);
-            luckyNumber.toFixed(2);
             (luckyNumber < 0) && (luckyNumber = 1.2);
             let puntosADescontar = 0;
             let esCrit = (Math.random() * 11);
 
-            if (esCrit > 8) {
-                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / (luckyNumber))) * (luckyNumber));
+            if (esCrit > 9) {
+                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / between(1,4))) * (luckyNumber-2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / (luckyNumber))));
+                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / between(1,4))));
             };
 
             //limito los crit y lows
             if (puntosADescontar < 0) {
                 puntosADescontar = 1;
-            } else if (puntosADescontar > 300) {
-                puntosADescontar = 299
+            } else if (puntosADescontar >= 250) {
+                puntosADescontar = 249
             };
 
             dañoRealizado += puntosADescontar;
@@ -61,9 +60,9 @@ class PersonajesSP {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
             }
-            nombreOrigenSP.exp += Math.floor(Math.random() * 20);
+            nombreOrigenSP.exp += between(1,9);
             expGanada += nombreOrigenSP.exp;
-            expNivelSP(nombreOrigenSP);
+            expNivelSP(pjActivoSP[0].nombre);
 
         }
     };
@@ -90,9 +89,9 @@ class PersonajesSP {
             curacionRealizada += puntosASumar;
             nombreDestinoSP.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-            nombreOrigenSP.exp += Math.floor(Math.random() * 15);
+            nombreOrigenSP.exp += between(1,6);
             expGanada += nombreOrigenSP.exp;
-            expNivelSP(nombreOrigenSP);
+            expNivelSP(pjActivoSP[0].nombre);
 
             if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
                 nombreDestinoSP.vida = nombreDestinoSP.vidaMax;
@@ -113,25 +112,24 @@ class PersonajesSP {
 
             //defino el daño que va a aplicar, tratando de que no tienda a infinito limitando los extremos y controlando negativos
 
-            let luckyNumber = between(0, nombreOrigenSP.magicPower);;
-            luckyNumber.toFixed(2);
+            let luckyNumber = between(0, nombreOrigenSP.magicPower);
             (luckyNumber < 0) && (luckyNumber = 1.2);
 
             let puntosADescontar = 0;
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))) * (luckyNumber));
+                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / between(1,4))) * (luckyNumber-2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))));
+                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / between(1,4))));
             };
 
             //limito los crit y lows
             if (puntosADescontar < 0) {
                 puntosADescontar = 1;
-            } else if (puntosADescontar > 300) {
-                puntosADescontar = 299
+            } else if (puntosADescontar >= 250) {
+                puntosADescontar = 249
             };
 
             dañoRealizado += puntosADescontar;
@@ -151,9 +149,9 @@ class PersonajesSP {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
             }
-            nombreOrigenSP.exp += Math.floor(Math.random() * 20);
+            nombreOrigenSP.exp += between(1,8);
             expGanada += nombreOrigenSP.exp;
-            expNivelSP(nombreOrigenSP);
+            expNivelSP(pjActivoSP[0].nombre);
         }
     }
 };
@@ -188,24 +186,23 @@ class Enemigos {
             let puntosADescontar = 0;
             let esCrit = (Math.random() * 11);
 
-            if (esCrit > 8) {
-                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber))) * (luckyNumber));
+            if (esCrit > 9) {
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / between(1,4))) * (luckyNumber-2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber))));
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / between(1,4))));
             }
-
             
             //limito los crit y lows
             if (puntosADescontar < 0) {
                 puntosADescontar = 1;
-            } else if (puntosADescontar > 300) {
-                puntosADescontar = 299
+            } else if (puntosADescontar >= 250) {
+                puntosADescontar = 249
             };
 
             dañoRecibido += puntosADescontar;
-
             nombreDestinoSP.vida -= puntosADescontar;
+
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
@@ -274,17 +271,17 @@ class Enemigos {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))) * (luckyNumber - 5));
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / between(1,4)) ) * (luckyNumber-2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))));
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / between(1,4))));
             };
 
             //limito los crit y lows
             if (puntosADescontar < 0) {
                 puntosADescontar = 1;
-            } else if (puntosADescontar > 300) {
-                puntosADescontar = 299
+            } else if (puntosADescontar > 250) {
+                puntosADescontar = 249
             };
 
             dañoRecibido += puntosADescontar;
@@ -318,8 +315,8 @@ pjBaseSP = [{
         clase: "paladin",
         vida: 170,
         vidaMax: 170,
-        ataque: 10,
-        defensa: 6,
+        ataque: 12,
+        defensa: 7,
         magicPower: 9,
         magicDefense: 6,
         nivel: 1
@@ -411,15 +408,15 @@ function expNivelSP(nombreOrigen) {
 
     while (nombreOrigen.exp > expNecesaria) {
         nombreOrigen.exp -= expNecesaria;
-        expNecesaria += 100;
+        expNecesaria += 80;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.08);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.08);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.05);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.05);
-        nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.05);
-        nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.05);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.07);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.07);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.04);
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.04) + 1 ;
+        nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.04) + 1;
+        nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.04) + 1;
     }
 };
 
