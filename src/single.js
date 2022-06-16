@@ -773,6 +773,8 @@ function toCrearPJ() {
 
 //Loader + "main" del juego single player
 function toLoader() {
+    document.getElementById("body-sp").classList.remove("swal2-shown", "swal2-height-auto")
+
     let randBG = between(7, 13);
     setTimeout(() => {
         document.getElementById("body-sp").innerHTML = `
