@@ -65,7 +65,11 @@
         justify-content: center;
         align-items: center;
         min-width: 400px;
-        height: 65%;
+        height: 55%;
+
+        @media screen and (max-width: 650px) {
+            height: 40%;
+        }
 
         &.SPbody {
             overflow: hidden;
