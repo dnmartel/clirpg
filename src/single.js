@@ -41,10 +41,10 @@ class PersonajesSP {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / between(1,4))) * (luckyNumber-2));
+                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / between(1, 4))) * (luckyNumber - 2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / between(1,4))));
+                puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / between(1, 4))));
             };
 
             //limito los crit y lows
@@ -60,7 +60,7 @@ class PersonajesSP {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
             }
-            nombreOrigenSP.exp += between(1,9);
+            nombreOrigenSP.exp += between(1, 9);
             expGanada += nombreOrigenSP.exp;
             expNivelSP(pjActivoSP[0].nombre);
 
@@ -89,7 +89,7 @@ class PersonajesSP {
             curacionRealizada += puntosASumar;
             nombreDestinoSP.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-            nombreOrigenSP.exp += between(1,6);
+            nombreOrigenSP.exp += between(1, 6);
             expGanada += nombreOrigenSP.exp;
             expNivelSP(pjActivoSP[0].nombre);
 
@@ -119,10 +119,10 @@ class PersonajesSP {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / between(1,4))) * (luckyNumber-2));
+                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / between(1, 4))) * (luckyNumber - 2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / between(1,4))));
+                puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / between(1, 4))));
             };
 
             //limito los crit y lows
@@ -149,7 +149,7 @@ class PersonajesSP {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
             }
-            nombreOrigenSP.exp += between(1,8);
+            nombreOrigenSP.exp += between(1, 8);
             expGanada += nombreOrigenSP.exp;
             expNivelSP(pjActivoSP[0].nombre);
         }
@@ -187,12 +187,12 @@ class Enemigos {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / between(1,4))) * (luckyNumber-2));
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / between(1, 4))) * (luckyNumber - 2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / between(1,4))));
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / between(1, 4))));
             }
-            
+
             //limito los crit y lows
             if (puntosADescontar < 0) {
                 puntosADescontar = 1;
@@ -271,10 +271,10 @@ class Enemigos {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / between(1,4)) ) * (luckyNumber-2));
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / between(1, 4))) * (luckyNumber - 2));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / between(1,4))));
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / between(1, 4))));
             };
 
             //limito los crit y lows
@@ -414,9 +414,9 @@ function expNivelSP(nombreOrigen) {
         nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
         nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
         nombreOrigen.ataque = (Math.round(nombreOrigen.ataque * 1.02) < 1) ? nombreOrigen.ataque + 1 : Math.round(nombreOrigen.ataque * 1.02);
-        nombreOrigen.defensa = (Math.round(nombreOrigen.defensa * 1.02) < 1 ) ?  nombreOrigen.defensa + 1 : Math.round(nombreOrigen.defensa * 1.02);
-        nombreOrigen.magicPower = (Math.round(nombreOrigen.magicPower * 1.02) < 1 ) ?  nombreOrigen.magicPower + 1 : Math.round(nombreOrigen.magicPower * 1.02);
-        nombreOrigen.magicDefense = (Math.round(nombreOrigen.magicDefense * 1.02) < 1 ) ?  nombreOrigen.magicDefense + 1 : Math.round(nombreOrigen.magicDefense * 1.02);
+        nombreOrigen.defensa = (Math.round(nombreOrigen.defensa * 1.02) < 1) ? nombreOrigen.defensa + 1 : Math.round(nombreOrigen.defensa * 1.02);
+        nombreOrigen.magicPower = (Math.round(nombreOrigen.magicPower * 1.02) < 1) ? nombreOrigen.magicPower + 1 : Math.round(nombreOrigen.magicPower * 1.02);
+        nombreOrigen.magicDefense = (Math.round(nombreOrigen.magicDefense * 1.02) < 1) ? nombreOrigen.magicDefense + 1 : Math.round(nombreOrigen.magicDefense * 1.02);
     }
 };
 
@@ -631,9 +631,12 @@ function toCrearPJ() {
 
         </div>
         </section>
-        <a href="./index.html"><button class="buttons fadein" id="btn-back-i"><span>&#8592; volver</span></button></a>
+        <button class="buttons fadein" id="btn-back-i"><span>&#8592; volver</span></button>
         `;
 
+    document.getElementById("btn-back-i").addEventListener("click", () => {
+        location.href = "/clirpg/single.html"
+    });
 
     document.getElementById(`form-clasePJ`).addEventListener("click", () => {
         document.getElementById(`img-crearPJ`).src = `./img/char/${document.querySelector('input[name=clase]:checked').placeholder}.png`;
@@ -676,6 +679,11 @@ function toCrearPJ() {
         toLoader();
     });
 }
+
+document.documentElement.addEventListener("keypress", (e) => {
+    if (e.key == "Enter"){
+        e.preventDefault()};
+})
 
 //Loader + "main" del juego single player
 function toLoader() {
