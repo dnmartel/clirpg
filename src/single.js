@@ -175,12 +175,12 @@ class Enemigos {
             battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
             setTimeout(() => {
                 toGanaste()
-            }, 3000);
+            }, 1500);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
             setTimeout(() => {
                 toPerdiste()
-            }, 3000);
+            }, 1500);
         } else {
             let luckyNumber = between((arrEnemigos[0].ataque - nombreDestinoSP.defensa), arrEnemigos[0].ataque);
             let puntosADescontar = 0;
@@ -222,13 +222,13 @@ class Enemigos {
             battleLog(`${origen} está muerto! Ya no puede curarse.`);
             setTimeout(() => {
                 toGanaste()
-            }, 3000);
-        } else if (nombreDestinoSP.vida == 0) {
+            }, 1500);
+        } else if (arrEnemigos[0].vida == 0) {
             battleLog(`Un vendaje no revivira a ${destino}.`);
             setTimeout(() => {
                 toGanaste()
-            }, 3000);
-        } else if (nombreDestinoSP.vida == nombreDestinoSP.vidaMax) {
+            }, 1500);
+        } else if (arrEnemigos[0].vida == arrEnemigos[0].vidaMax) {
             battleLog(`${destino} ya tiene la vida al máximo.`);
         } else {
             let luckyNumber = between(1, (arrEnemigos[0].vida / 10));
@@ -241,11 +241,11 @@ class Enemigos {
             } else {
                 puntosASumar = Math.ceil((arrEnemigos[0].vida + 10) * 0.10);
             }
-            nombreDestinoSP.vida += puntosASumar;
+            arrEnemigos[0].vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
 
-            if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
-                nombreDestinoSP.vida = nombreDestinoSP.vidaMax;
+            if (arrEnemigos[0].vida > arrEnemigos[0].vidaMax) {
+                arrEnemigos[0].vida = arrEnemigos[0].vidaMax;
             }
         }
     }
@@ -257,12 +257,12 @@ class Enemigos {
             battleLog(`Los muertos no pueden lanzar hechizos!`);
             setTimeout(() => {
                 toGanaste()
-            }, 3000);
+            }, 1500);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
             setTimeout(() => {
                 toPerdiste()
-            }, 3000);
+            }, 1500);
         } else if (arrEnemigos[0] === nombreDestinoSP) {
             battleLog(`No puedes atacarte a ti mismo.`);
         } else {
@@ -411,12 +411,12 @@ function expNivelSP(nombreOrigen) {
         expNecesaria += 80;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.04);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.04);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.03) +1;
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.03) + 1 ;
-        nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.03) + 1;
-        nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.03) + 1;
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.03);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.03);
+        nombreOrigen.ataque = (Math.round(nombreOrigen.ataque * 1.01) < 1) ? nombreOrigen.ataque + 1 : Math.round(nombreOrigen.ataque * 1.01);
+        nombreOrigen.defensa = (Math.round(nombreOrigen.defensa * 1.01) < 1 ) ?  nombreOrigen.defensa + 1 : Math.round(nombreOrigen.defensa * 1.01);
+        nombreOrigen.magicPower = (Math.round(nombreOrigen.magicPower * 1.01) < 1 ) ?  nombreOrigen.magicPower + 1 : Math.round(nombreOrigen.magicPower * 1.01);
+        nombreOrigen.magicDefense = (Math.round(nombreOrigen.magicDefense * 1.01) < 1 ) ?  nombreOrigen.magicDefense + 1 : Math.round(nombreOrigen.magicDefense * 1.01);
     }
 };
 
