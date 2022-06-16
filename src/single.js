@@ -48,12 +48,14 @@ class PersonajesSP {
                 puntosADescontar = Math.round((nombreOrigenSP.ataque - (nombreDestinoSP.defensa / (luckyNumber))));
             };
 
-            //limito el crit superior
-            (puntosADescontar > 300) && (puntosADescontar == 299);
-            dañoRealizado += puntosADescontar;
+            //limito los crit y lows
             if (puntosADescontar < 0) {
-                puntosADescontar = 0;
-            }
+                puntosADescontar = 1;
+            } else if (puntosADescontar > 300) {
+                puntosADescontar = 299
+            };
+
+            dañoRealizado += puntosADescontar;
             nombreDestinoSP.vida -= puntosADescontar;
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
@@ -110,7 +112,7 @@ class PersonajesSP {
         } else {
 
             //defino el daño que va a aplicar, tratando de que no tienda a infinito limitando los extremos y controlando negativos
-            
+
             let luckyNumber = between(0, nombreOrigenSP.magicPower);;
             luckyNumber.toFixed(2);
             (luckyNumber < 0) && (luckyNumber = 1.2);
@@ -125,12 +127,14 @@ class PersonajesSP {
                 puntosADescontar = Math.round((nombreOrigenSP.magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))));
             };
 
-            //limito el crit superior
-            (puntosADescontar > 300) && (puntosADescontar == 299);
+            //limito los crit y lows
+            if (puntosADescontar < 0) {
+                puntosADescontar = 1;
+            } else if (puntosADescontar > 300) {
+                puntosADescontar = 299
+            };
 
             dañoRealizado += puntosADescontar;
-            (puntosADescontar < 0) && (puntosADescontar = 0);
-
             nombreDestinoSP.vida -= puntosADescontar;
 
 
@@ -169,35 +173,47 @@ class Enemigos {
     atacar(origen, destino) {
         buscarNombresE(origen, destino);
 
-        if (nombreOrigenSP.vida == 0) {
+        if (arrEnemigos[0].vida == 0) {
             battleLog(`${origen} está muerto. Los muertos no pueden atacar.. o si?`);
-            setTimeout(()=>{toGanaste()}, 3000);
+            setTimeout(() => {
+                toGanaste()
+            }, 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
-            setTimeout(()=>{toPerdiste()}, 3000);
+            setTimeout(() => {
+                toPerdiste()
+            }, 3000);
         } else {
             let luckyNumber = between((arrEnemigos[0].ataque - nombreDestinoSP.defensa), arrEnemigos[0].ataque);
             let puntosADescontar = 0;
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 8) {
-                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))) * (luckyNumber - 2));
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber))) * (luckyNumber));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber - 2))));
+                puntosADescontar = Math.round((arrEnemigos[0].ataque - (nombreDestinoSP.defensa / (luckyNumber))));
             }
 
-            dañoRecibido += puntosADescontar;
+            
+            //limito los crit y lows
             if (puntosADescontar < 0) {
-                puntosADescontar = 0;
-            }
+                puntosADescontar = 1;
+            } else if (puntosADescontar > 300) {
+                puntosADescontar = 299
+            };
+
+            dañoRecibido += puntosADescontar;
+
             nombreDestinoSP.vida -= puntosADescontar;
             battleLog(`${origen} ha atacado a ${destino}, quitandole ${puntosADescontar} puntos de vida !`);
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
                 battleLog(`<h5>${pjActivoSP[0].nombre} ha muerto !</h5><br>
                 <h5>Has Ganado !</h5>`)
-                setTimeout(()=>{toPerdiste()}, 3000);
+                setTimeout(() => {
+                    toPerdiste()
+                }, 3000);
             }
         }
     };
@@ -207,10 +223,14 @@ class Enemigos {
 
         if (arrEnemigos[0].vida == 0) {
             battleLog(`${origen} está muerto! Ya no puede curarse.`);
-            setTimeout(()=>{toGanaste()}, 3000);
+            setTimeout(() => {
+                toGanaste()
+            }, 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Un vendaje no revivira a ${destino}.`);
-            setTimeout(()=>{toGanaste()}, 3000);
+            setTimeout(() => {
+                toGanaste()
+            }, 3000);
         } else if (nombreDestinoSP.vida == nombreDestinoSP.vidaMax) {
             battleLog(`${destino} ya tiene la vida al máximo.`);
         } else {
@@ -238,10 +258,14 @@ class Enemigos {
 
         if (arrEnemigos[0].vida == 0) {
             battleLog(`Los muertos no pueden lanzar hechizos!`);
-            setTimeout(()=>{toGanaste()}, 3000);
+            setTimeout(() => {
+                toGanaste()
+            }, 3000);
         } else if (nombreDestinoSP.vida == 0) {
             battleLog(`Ya dejalo, ${destino} está muerto.`);
-            setTimeout(()=>{toPerdiste()}, 3000);
+            setTimeout(() => {
+                toPerdiste()
+            }, 3000);
         } else if (arrEnemigos[0] === nombreDestinoSP) {
             battleLog(`No puedes atacarte a ti mismo.`);
         } else {
@@ -250,15 +274,20 @@ class Enemigos {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 9) {
-                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 4))) * (luckyNumber - 5));
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))) * (luckyNumber - 5));
                 battleLog(`<h5>El ataque ha sido critico!</h5>`);
             } else {
-                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber - 2))));
-            }
+                puntosADescontar = Math.round((arrEnemigos[0].magicPower - (nombreDestinoSP.magicDefense / (luckyNumber))));
+            };
+
+            //limito los crit y lows
+            if (puntosADescontar < 0) {
+                puntosADescontar = 1;
+            } else if (puntosADescontar > 300) {
+                puntosADescontar = 299
+            };
 
             dañoRecibido += puntosADescontar;
-            (puntosADescontar < 0) && (puntosADescontar = 0);
-
             nombreDestinoSP.vida -= puntosADescontar;
 
 
