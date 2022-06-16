@@ -693,12 +693,7 @@
   justify-content: center;
   align-items: center;
   min-width: 400px;
-  height: 55%;
-}
-@media screen and (max-width: 650px) {
-  #body-sp #seccion-principal-SP {
-    height: 40%;
-  }
+  height: 65%;
 }
 #body-sp #seccion-principal-SP.SPbody {
   overflow: hidden;

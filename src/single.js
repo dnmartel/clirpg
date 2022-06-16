@@ -411,12 +411,12 @@ function expNivelSP(nombreOrigen) {
         expNecesaria += 80;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.03);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.03);
-        nombreOrigen.ataque = (Math.round(nombreOrigen.ataque * 1.01) < 1) ? nombreOrigen.ataque + 1 : Math.round(nombreOrigen.ataque * 1.01);
-        nombreOrigen.defensa = (Math.round(nombreOrigen.defensa * 1.01) < 1 ) ?  nombreOrigen.defensa + 1 : Math.round(nombreOrigen.defensa * 1.01);
-        nombreOrigen.magicPower = (Math.round(nombreOrigen.magicPower * 1.01) < 1 ) ?  nombreOrigen.magicPower + 1 : Math.round(nombreOrigen.magicPower * 1.01);
-        nombreOrigen.magicDefense = (Math.round(nombreOrigen.magicDefense * 1.01) < 1 ) ?  nombreOrigen.magicDefense + 1 : Math.round(nombreOrigen.magicDefense * 1.01);
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
+        nombreOrigen.ataque = (Math.round(nombreOrigen.ataque * 1.02) < 1) ? nombreOrigen.ataque + 1 : Math.round(nombreOrigen.ataque * 1.02);
+        nombreOrigen.defensa = (Math.round(nombreOrigen.defensa * 1.02) < 1 ) ?  nombreOrigen.defensa + 1 : Math.round(nombreOrigen.defensa * 1.02);
+        nombreOrigen.magicPower = (Math.round(nombreOrigen.magicPower * 1.02) < 1 ) ?  nombreOrigen.magicPower + 1 : Math.round(nombreOrigen.magicPower * 1.02);
+        nombreOrigen.magicDefense = (Math.round(nombreOrigen.magicDefense * 1.02) < 1 ) ?  nombreOrigen.magicDefense + 1 : Math.round(nombreOrigen.magicDefense * 1.02);
     }
 };
 
