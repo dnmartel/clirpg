@@ -1,15 +1,14 @@
 import {
-    cargarPartida,
     ocultarBtn,
     between,
     statClase,
     battleLog
 } from "./multi.js";
 
+let nombreOrigenSP, nombreDestinoSP, nombrePJ, clasePJ, vidas = 3;
+
 //############### CLASES #####################
 //Defino variables globales
-let nombreOrigenSP, nombreDestinoSP, expNecesaria = 100,
-    nombrePJ, clasePJ, vidas = 3;
 
 class PersonajesSP {
     constructor(nombre, clase) {
@@ -60,8 +59,8 @@ class PersonajesSP {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
             }
-            nombreOrigenSP.exp += between(1, 9);
-            expGanada += nombreOrigenSP.exp;
+            nombreOrigenSP.exp += between(2, 15);
+            expGanada = pjActivoSP[0].exp;
             expNivelSP(nombreOrigenSP);
 
         }
@@ -89,8 +88,8 @@ class PersonajesSP {
             curacionRealizada += puntosASumar;
             nombreDestinoSP.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
-            nombreOrigenSP.exp += between(1, 6);
-            expGanada += nombreOrigenSP.exp;
+            nombreOrigenSP.exp += between(2, 9);
+            expGanada = pjActivoSP[0].exp;
             expNivelSP(nombreOrigenSP);
 
             if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
@@ -149,8 +148,8 @@ class PersonajesSP {
             if (nombreDestinoSP.vida <= 0) {
                 nombreDestinoSP.vida = 0;
             }
-            nombreOrigenSP.exp += between(1, 8);
-            expGanada += nombreOrigenSP.exp;
+            nombreOrigenSP.exp += between(2, 15);
+            expGanada = pjActivoSP[0].exp;
             expNivelSP(nombreOrigenSP);
         }
     }
@@ -409,7 +408,7 @@ function expNivelSP(nombreOrigen) {
     while (nombreOrigen.exp > expNecesaria) {
         nombreOrigen.exp -= expNecesaria;
         expNecesaria += 100;
-        nombreOrigen.nivel += 1;
+        nombreOrigen.nivel++;
         battleLog(`<h5>${pjActivoSP[0].nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
         if (nombreOrigen.nivel < 4) {
             nombreOrigen.vida++
@@ -475,6 +474,8 @@ function actualizaStatsSP() {
     `;
 
     document.getElementById("statsPJSP").innerHTML = `
+    <p><span>Nivel:</span> ${pjActivoSP[0].nivel}</p>
+    <p><span>Exp.:</span> ${pjActivoSP[0].exp} / ${expNecesaria}</p>
     <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
     <p><span>Defensa:</span> ${pjActivoSP[0].defensa}</p>
     <p><span>Ataque mágico:</span> ${pjActivoSP[0].magicPower}</p>
@@ -487,7 +488,7 @@ function actualizaStatsSP() {
         `;
     document.getElementById("div4-mainSP").innerHTML = `
         <img src="${pjActivoSP[0].img}">
-        <progress id="vidaPJ" max="${pjActivoSP[0].vidaMax}" value="${pjActivoSP[0].vida}"></progress>
+        <progress id="vidaPJ" max="${pjActivoSP[0].vidaMax}" value="${pjActivoSP[0].vida}">Vida: ${pjActivoSP[0].vida}/${pjActivoSP[0].vidaMax}</progress>
         `;
 
 }
@@ -507,6 +508,64 @@ function initEnemies() {
     arrEnemigos.push(new Enemigos("Zorito", 300, 300, 48, 46, 52, 39, `./img/enemy/enemy11.gif`));
     arrEnemigos.push(new Enemigos("Vlem", 350, 350, 65, 55, 65, 55, `./img/enemy/enemy12.gif`));
 };
+
+function guardarPartidaSP() {
+
+    //Guardo según titlePage
+    if (document.title == "RPG CLI - SP") {
+        localStorage.setItem(`partidaGuardadaSP`, JSON.stringify(pjActivoSP));
+        localStorage.setItem(`partidaGuardadaESP`, JSON.stringify(arrEnemigos));
+    };
+
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Partida guardada',
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
+function cargarPartidaSP() {
+    if (JSON.parse(localStorage.getItem(`partidaGuardadaSP`)) != null && (document.title == "RPG CLI - SP")) {
+        let objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardadaSP`));
+        let objetoRecuperadoE = JSON.parse(localStorage.getItem(`partidaGuardadaESP`));
+
+        pjActivoSP.splice(0, pjActivoSP.length);
+        arrEnemigos.splice(0, arrEnemigos.length);
+
+        objetoRecuperado.forEach(element => {
+            pjActivoSP.push(new PersonajesSP(element.nombre, element.clase));
+            statClase(pjActivoSP);
+
+            pjActivoSP[0].vida = element.vida;
+            pjActivoSP[0].ataque = element.ataque;
+            pjActivoSP[0].defensa = element.defensa;
+            pjActivoSP[0].nivel = element.nivel;
+            pjActivoSP[0].exp = element.exp;
+            pjActivoSP[0].vidaMax = element.vidaMax;
+            pjActivoSP[0].img = element.img;
+            pjActivoSP[0].magicPower = element.magicPower;
+            pjActivoSP[0].magicDefense = element.magicDefense;
+
+
+        });
+
+        objetoRecuperadoE.forEach(element => {
+            arrEnemigos.push(new Enemigos (element.nombre, element.vida = element.vida, element.vidaMax, element.ataque, element.defensa, element.magicPower, element.magicDefense, element.img));
+        });
+
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Partida cargada',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    } else {
+        return;
+    }
+}
 
 // ############# FUNCIONES PRINCIPALES Y QUE SE MUEVEN POR EL FLOW DE LA APP ##################
 //Da funcionalidad a los botones de Nueva Partida y Cargar Partida
@@ -557,12 +616,11 @@ function initSingle() {
     //BOTON CARGAR PARTIDA
     let btnCP = document.getElementById("btnCP");
     btnCP.addEventListener("click", () => {
-        alert("En desarrollo");
-        /* document.getElementById("seccion-principal-SP").innerHTML = "";
+        document.getElementById("seccion-principal-SP").innerHTML = "";
         ocultarBtn("btnIniciar-SP");
         ocultarBtn("btnCP");
-        cargarPartida()
-        toLoader() */
+        cargarPartidaSP()
+        toLoader()
     })
 
 }
@@ -719,9 +777,11 @@ function toLoader() {
                 
         <div class="div8-mainSP cards">
         <div class="div4-mainSP" id="div4-mainSP"> <img src="${pjActivoSP[0].img}">
-        <progress id="vidaPJ" max="${pjActivoSP[0].vidaMax}" value="${pjActivoSP[0].vida}"></progress> </div>
+        <progress id="vidaPJ" max="${pjActivoSP[0].vidaMax}" value="${pjActivoSP[0].vida}">Vida: ${pjActivoSP[0].vida}/${pjActivoSP[0].vidaMax}</progress></div>
         <div class="div5-mainSP" id="statsPJSP">
 
+        <p><span>Nivel:</span> ${pjActivoSP[0].nivel}</p>
+        <p><span>Exp.:</span> ${pjActivoSP[0].exp} / ${expNecesaria}</p>
         <p><span>Ataque:</span> ${pjActivoSP[0].ataque}</p>
         <p><span>Defensa:</span> ${pjActivoSP[0].defensa}</p>
         <p><span>Ataque mágico:</span> ${pjActivoSP[0].magicPower}</p>
@@ -735,13 +795,19 @@ function toLoader() {
         </div></div>
     </section>
     <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
+    <div class="ocultar" id="menuOpciones"> 
+            <button class="buttons" id="guardarPartidaSP"><span>Guardar</span></button> 
+            <button class="buttons" id="cargarPartidaSP"><span>Cargar</span></button>
+            <button class="buttons" id="reiniciarSP"><span>Reiniciar</span></button>
+    </div>
     `
 
-            actualizaStatsSP;
+            actualizaStatsSP();
 
             //Comportamiento de los botones
             document.getElementById(`opciones`).addEventListener("click", () => {
-                alert("Acá va el menu de opciones");
+                document.getElementById("menuOpciones").classList.toggle("ocultar");
+                document.getElementById("menuOpciones").classList.toggle("menuOpciones");
             })
 
             document.getElementById(`btnASP`).addEventListener("click", () => {
@@ -822,10 +888,23 @@ function toLoader() {
                 }, 3000)
             });
 
-        }, 1500);
-    }, 300)
+            document.getElementById(`guardarPartidaSP`).addEventListener("click", () => {
+                guardarPartidaSP();
+            })
 
-    ;
+            document.getElementById(`cargarPartidaSP`).addEventListener("click", () => {
+                cargarPartidaSP();
+            })
+
+            document.getElementById(`reiniciarSP`).addEventListener("click", () => {
+                location.href = "/clirpg/single.html";
+            })
+
+        }, 1500);
+    }, 300);
+
+
+
 }
 
 //Previene acción por default del enter
@@ -894,7 +973,8 @@ function toGanaste() {
             `;
 
                 //PowerUp Victoria
-                pjActivoSP[0].exp += expGanada;
+                pjActivoSP[0].exp += Math.round(expGanada / 1.3);
+                expGanadaTotal += expGanada;
                 expGanada = 0;
                 expNivelSP(pjActivoSP[0]);
                 pjActivoSP[0].vida += 30;
@@ -914,7 +994,7 @@ function toGanaste() {
 //Placa perdiste
 function toPerdiste() {
 
-    vidas -= 1;
+    vidas--;
 
     setTimeout(() => {
         document.getElementById("body-sp").innerHTML = `
@@ -967,7 +1047,7 @@ function toPerdiste() {
                     pjActivoSP.push(new PersonajesSP(`${nombrePJ}`, `${clasePJ}`));
                     statClase(pjActivoSP);
                     expNecesaria = 100;
-                    pjActivoSP[0].exp = expGanada;
+                    pjActivoSP[0].exp = expGanadaTotal;
                     expNivelSP(pjActivoSP[0]);
                     toLoader();
                 })
@@ -987,5 +1067,7 @@ let expGanada = 0,
     dañoRecibido = 0,
     dañoRealizado = 0,
     movimientos = 0,
-    curacionRealizada = 0;
+    curacionRealizada = 0,
+    expNecesaria = 100,
+    expGanadaTotal;
 initEnemies();

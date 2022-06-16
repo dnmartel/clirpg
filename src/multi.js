@@ -45,10 +45,10 @@ function retornaAQuienID(index) {
 
 //Función que loguea de forma inversa, añadiendo siempre al principio el contenido
 function battleLog(mensaje) {
-    if (document.getElementById("battleLog") == null){
+    if (document.getElementById("battleLog") == null) {
         return;
     };
-    
+
     let mensajeConHora = "";
     let horaFin = Date.now();
     let tiempoTranscurrido = Number(((horaFin - horaInicio) / 1000) / 60);
@@ -611,7 +611,12 @@ function refreshStats(array) {
 function guardarPartida() {
 
     //Guardo según titlePage
-    (document.title == "RPG CLI - MP") ? localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo)): localStorage.setItem(`partidaGuardadaSP`, JSON.stringify(pjActivoSP));
+    if (document.title == "RPG CLI - MP") {
+        localStorage.setItem(`partidaGuardada`, JSON.stringify(pjActivo))
+    } else if (document.title == "RPG CLI - SP") {
+        localStorage.setItem(`partidaGuardadaSP`, JSON.stringify(pjActivoSP));
+        localStorage.setItem(`partidaGuardadaESP`,JSON.stringify(arrEnemigos));
+    };
 
     Swal.fire({
         position: 'center',
@@ -662,37 +667,6 @@ function cargarPartida() {
         })
 
         initG();
-    } else if (JSON.parse(localStorage.getItem(`partidaGuardadaSP`)) == null && (document.title == "RPG CLI - SP")) {
-        /* let objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardadaSP`));
-
-        pjActivo.splice(0, pjActivo.length);
-        let indexRec = 0;
-
-        objetoRecuperado.forEach(element => {
-            pjActivo.push(new Personajes(element.nombre, element.clase));
-
-            pjActivo[indexRec].vida = element.vida;
-            pjActivo[indexRec].ataque = element.ataque;
-            pjActivo[indexRec].defensa = element.defensa;
-            pjActivo[indexRec].nivel = element.nivel;
-            pjActivo[indexRec].exp = element.exp;
-            pjActivo[indexRec].vidaMax = element.vidaMax;
-            pjActivo[indexRec].img = element.img;
-            pjActivo[indexRec].magicPower = element.magicPower;
-            pjActivo[indexRec].magicDefense = element.magicDefense;
-
-            indexRec += 1;
-        });
-
-        printPJ(pjActivo); */
-
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Partida cargada',
-            showConfirmButton: false,
-            timer: 1500
-        })
     } else {
         return;
     }
@@ -880,6 +854,5 @@ export {
     battleLog,
     ocultarBtn,
     mostrarBtn,
-    cargarPartida,
     statClase
 }

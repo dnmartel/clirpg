@@ -357,10 +357,26 @@
                     overflow: hidden;
                 }
             }
-
         }
+    }
 
+    .menuOpciones {
+        background-color: map-get($colors, backgrounds);
+        width: 200px;
+        border: 2px solid map-get($colors, black );
+        position: absolute;
+        align-self: center;
+        top: 5%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1;
+        border-radius: 1em;
 
+        span {
+            font-size: .75em;
+        }
     }
 
     #ganaste,
@@ -409,29 +425,31 @@
             }
         }
 
-        hr{
+        hr {
             width: 60%;
             border-color: map-get($colors, primary);
             margin: 1em;
         }
 
-        #nextEnemy{
+        #nextEnemy {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-flow: column nowrap;
             gap: 3em;
 
-            h3{
+            h3 {
                 text-align: center;
                 color: map-get($colors, secondary);
+
                 span {
                     color: map-get($colors, primary);
                 }
             }
         }
 
-        #ganasteNext, #reintentar {
+        #ganasteNext,
+        #reintentar {
             width: 50%;
             margin-top: 3em;
 

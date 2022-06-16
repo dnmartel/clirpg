@@ -957,6 +957,23 @@
     overflow: hidden;
   }
 }
+#body-sp .menuOpciones {
+  background-color: #023859;
+  width: 200px;
+  border: 2px solid;
+  position: absolute;
+  align-self: center;
+  top: 5%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1;
+  border-radius: 1em;
+}
+#body-sp .menuOpciones span {
+  font-size: 0.75em;
+}
 #body-sp #ganaste,
 #body-sp #perdiste {
   display: flex;
@@ -1023,13 +1040,15 @@
 #body-sp #perdiste #nextEnemy h3 span {
   color: #F26444;
 }
-#body-sp #ganaste #ganasteNext, #body-sp #ganaste #reintentar,
+#body-sp #ganaste #ganasteNext,
+#body-sp #ganaste #reintentar,
 #body-sp #perdiste #ganasteNext,
 #body-sp #perdiste #reintentar {
   width: 50%;
   margin-top: 3em;
 }
-#body-sp #ganaste #ganasteNext span, #body-sp #ganaste #reintentar span,
+#body-sp #ganaste #ganasteNext span,
+#body-sp #ganaste #reintentar span,
 #body-sp #perdiste #ganasteNext span,
 #body-sp #perdiste #reintentar span {
   color: #ffffffce;
