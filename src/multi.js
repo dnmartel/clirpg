@@ -381,10 +381,10 @@ function statClase(array) {
                 element.exp = 0;
                 element.vida = 170;
                 element.vidaMax = 170;
-                element.ataque = 12;
+                element.ataque = 14;
                 element.defensa = 7;
                 element.img = `./img/char/paladin.png`;
-                element.magicPower = 9;
+                element.magicPower = 12;
                 element.magicDefense = 6;
                 break;
             case `cazador`:
@@ -392,10 +392,10 @@ function statClase(array) {
                 element.exp = 0;
                 element.vida = 150;
                 element.vidaMax = 150;
-                element.ataque = 13;
+                element.ataque = 15;
                 element.defensa = 6;
                 element.img = `./img/char/cazador.png`;
-                element.magicPower = 5;
+                element.magicPower = 9;
                 element.magicDefense = 6;
                 break;
             case `mago`:
@@ -403,10 +403,10 @@ function statClase(array) {
                 element.exp = 0;
                 element.vida = 120;
                 element.vidaMax = 120;
-                element.ataque = 5;
+                element.ataque = 8;
                 element.defensa = 3;
                 element.img = `./img/char/mago.png`;
-                element.magicPower = 16;
+                element.magicPower = 17;
                 element.magicDefense = 12;
                 break;
             case `guerrero`:
@@ -414,8 +414,8 @@ function statClase(array) {
                 element.exp = 0;
                 element.vida = 200;
                 element.vidaMax = 200;
-                element.ataque = 14;
-                element.defensa = 10;
+                element.ataque = 16;
+                element.defensa = 12;
                 element.img = `./img/char/guerrero.png`;
                 element.magicPower = 3;
                 element.magicDefense = 3;
@@ -428,7 +428,7 @@ function statClase(array) {
                 element.ataque = 6;
                 element.defensa = 2;
                 element.img = `./img/char/brujo.png`;
-                element.magicPower = 17;
+                element.magicPower = 18;
                 element.magicDefense = 11;
                 break;
 
@@ -437,11 +437,11 @@ function statClase(array) {
                 element.exp = 0;
                 element.vida = 110;
                 element.vidaMax = 110;
-                element.ataque = 15;
+                element.ataque = 19;
                 element.defensa = 2;
                 element.img = `./img/char/picaro.png`;
                 element.magicPower = 2;
-                element.magicDefense = 7;
+                element.magicDefense = 9;
                 break;
             default:
                 break;

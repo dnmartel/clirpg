@@ -315,9 +315,9 @@ pjBaseSP = [{
         clase: "paladin",
         vida: 170,
         vidaMax: 170,
-        ataque: 12,
+        ataque: 14,
         defensa: 7,
-        magicPower: 9,
+        magicPower: 12,
         magicDefense: 6,
         nivel: 1
     },
@@ -325,9 +325,9 @@ pjBaseSP = [{
         clase: "cazador",
         vida: 150,
         vidaMax: 150,
-        ataque: 13,
+        ataque: 15,
         defensa: 6,
-        magicPower: 5,
+        magicPower: 9,
         magicDefense: 6,
         nivel: 1
     },
@@ -335,9 +335,9 @@ pjBaseSP = [{
         clase: "mago",
         vida: 120,
         vidaMax: 120,
-        ataque: 5,
+        ataque: 8,
         defensa: 3,
-        magicPower: 16,
+        magicPower: 17,
         magicDefense: 12,
         nivel: 1
     },
@@ -345,8 +345,8 @@ pjBaseSP = [{
         clase: "guerrero",
         vida: 200,
         vidaMax: 200,
-        ataque: 14,
-        defensa: 10,
+        ataque: 16,
+        defensa: 12,
         magicPower: 3,
         magicDefense: 3,
         nivel: 1
@@ -357,7 +357,7 @@ pjBaseSP = [{
         vidaMax: 120,
         ataque: 6,
         defensa: 2,
-        magicPower: 17,
+        magicPower: 18,
         magicDefense: 11,
         nivel: 1
     },
@@ -365,10 +365,10 @@ pjBaseSP = [{
         clase: "picaro",
         vida: 110,
         vidaMax: 110,
-        ataque: 15,
+        ataque: 19,
         defensa: 2,
         magicPower: 2,
-        magicDefense: 7,
+        magicDefense: 9,
         nivel: 1
     }
 ];
@@ -488,7 +488,7 @@ function initEnemies() {
     arrEnemigos.push(new Enemigos("Budoh", 100, 100, 14, 2, 12, 2, `./img/enemy/enemy1.gif`));
     arrEnemigos.push(new Enemigos("Eyedor", 110, 110, 16, 7, 10, 6, `./img/enemy/enemy2.gif`));
     arrEnemigos.push(new Enemigos("Puro Hueso", 125, 125, 19, 5, 14, 7, `./img/enemy/enemy3.gif`));
-    arrEnemigos.push(new Enemigos("Gary", 135, 135, 14, 20, 12, 18, `./img/enemy/enemy4.gif`));
+    arrEnemigos.push(new Enemigos("Gary", 105, 105, 12, 20, 11, 18, `./img/enemy/enemy4.gif`));
     arrEnemigos.push(new Enemigos("Booky", 150, 150, 24, 15, 14, 13, `./img/enemy/enemy5.gif`));
     arrEnemigos.push(new Enemigos("Spiro", 165, 165, 29, 20, 24, 21, `./img/enemy/enemy6.gif`));
     arrEnemigos.push(new Enemigos("Litto", 190, 190, 28, 35, 21, 14, `./img/enemy/enemy7.gif`));
