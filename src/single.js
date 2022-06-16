@@ -1092,5 +1092,5 @@ let expGanada = 0,
     movimientos = 0,
     curacionRealizada = 0,
     expNecesaria = 100,
-    expGanadaTotal;
+    expGanadaTotal = 0;
 initEnemies();
