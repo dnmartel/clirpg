@@ -62,7 +62,7 @@ class PersonajesSP {
             }
             nombreOrigenSP.exp += between(1, 9);
             expGanada += nombreOrigenSP.exp;
-            expNivelSP(pjActivoSP[0].nombre);
+            expNivelSP(nombreOrigenSP);
 
         }
     };
@@ -81,17 +81,17 @@ class PersonajesSP {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 8) {
-                puntosASumar = (Math.ceil((nombreOrigenSP.vida + 20) * 0.15)) * (luckyNumber);
+                puntosASumar = (Math.ceil((nombreOrigenSP.vida) * 0.2)) + 30;
                 battleLog("<h5>El efecto ha sido critico!</h5>");
             } else {
-                puntosASumar = Math.ceil((nombreOrigenSP.vida + 10) * 0.10);
+                puntosASumar = Math.ceil((nombreOrigenSP.vida) * 0.10) + 8;
             }
             curacionRealizada += puntosASumar;
             nombreDestinoSP.vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
             nombreOrigenSP.exp += between(1, 6);
             expGanada += nombreOrigenSP.exp;
-            expNivelSP(pjActivoSP[0].nombre);
+            expNivelSP(nombreOrigenSP);
 
             if (nombreDestinoSP.vida > nombreDestinoSP.vidaMax) {
                 nombreDestinoSP.vida = nombreDestinoSP.vidaMax;
@@ -151,7 +151,7 @@ class PersonajesSP {
             }
             nombreOrigenSP.exp += between(1, 8);
             expGanada += nombreOrigenSP.exp;
-            expNivelSP(pjActivoSP[0].nombre);
+            expNivelSP(nombreOrigenSP);
         }
     }
 };
@@ -236,10 +236,10 @@ class Enemigos {
             let esCrit = (Math.random() * 11);
 
             if (esCrit > 8) {
-                puntosASumar = (Math.ceil((arrEnemigos[0].vida + 20) * 0.15)) * (luckyNumber);
+                puntosASumar = (Math.ceil((arrEnemigos[0].vida) * 0.2)) + 28;
                 battleLog("<h5>El efecto ha sido critico!</h5>");
             } else {
-                puntosASumar = Math.ceil((arrEnemigos[0].vida + 10) * 0.10);
+                puntosASumar = Math.ceil((arrEnemigos[0].vida) * 0.10) + 7;
             }
             arrEnemigos[0].vida += puntosASumar;
             battleLog(`${origen} ha curado a ${destino}, sumandole ${puntosASumar} puntos de vida !`);
@@ -408,15 +408,24 @@ function expNivelSP(nombreOrigen) {
 
     while (nombreOrigen.exp > expNecesaria) {
         nombreOrigen.exp -= expNecesaria;
-        expNecesaria += 80;
+        expNecesaria += 100;
         nombreOrigen.nivel += 1;
-        battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
-        nombreOrigen.ataque = (Math.round(nombreOrigen.ataque * 1.02) < 1) ? nombreOrigen.ataque + 1 : Math.round(nombreOrigen.ataque * 1.02);
-        nombreOrigen.defensa = (Math.round(nombreOrigen.defensa * 1.02) < 1) ? nombreOrigen.defensa + 1 : Math.round(nombreOrigen.defensa * 1.02);
-        nombreOrigen.magicPower = (Math.round(nombreOrigen.magicPower * 1.02) < 1) ? nombreOrigen.magicPower + 1 : Math.round(nombreOrigen.magicPower * 1.02);
-        nombreOrigen.magicDefense = (Math.round(nombreOrigen.magicDefense * 1.02) < 1) ? nombreOrigen.magicDefense + 1 : Math.round(nombreOrigen.magicDefense * 1.02);
+        battleLog(`<h5>${pjActivoSP[0].nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
+        if (nombreOrigen.nivel < 4) {
+            nombreOrigen.vida++
+            nombreOrigen.vidaMax++
+            nombreOrigen.ataque++
+            nombreOrigen.defensa++
+            nombreOrigen.magicPower++
+            nombreOrigen.magicDefense++
+        } else {
+            nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
+            nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
+            nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.05);
+            nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.05);
+            nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.05);
+            nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.05);
+        }
     }
 };
 
@@ -548,11 +557,12 @@ function initSingle() {
     //BOTON CARGAR PARTIDA
     let btnCP = document.getElementById("btnCP");
     btnCP.addEventListener("click", () => {
-        document.getElementById("seccion-principal-SP").innerHTML = "";
+        alert("En desarrollo");
+        /* document.getElementById("seccion-principal-SP").innerHTML = "";
         ocultarBtn("btnIniciar-SP");
         ocultarBtn("btnCP");
         cargarPartida()
-        toLoader()
+        toLoader() */
     })
 
 }
@@ -679,11 +689,6 @@ function toCrearPJ() {
         toLoader();
     });
 }
-
-document.documentElement.addEventListener("keypress", (e) => {
-    if (e.key == "Enter"){
-        e.preventDefault()};
-})
 
 //Loader + "main" del juego single player
 function toLoader() {
@@ -823,6 +828,13 @@ function toLoader() {
     ;
 }
 
+//Previene acción por default del enter
+document.documentElement.addEventListener("keypress", (e) => {
+    if (e.key == "Enter") {
+        e.preventDefault()
+    };
+})
+
 //Placa Ganaste
 function toGanaste() {
     setTimeout(() => {
@@ -883,6 +895,7 @@ function toGanaste() {
 
                 //PowerUp Victoria
                 pjActivoSP[0].exp += expGanada;
+                expGanada = 0;
                 expNivelSP(pjActivoSP[0]);
                 pjActivoSP[0].vida += 30;
                 if (pjActivoSP[0].vida > pjActivoSP[0].vidaMax) {
@@ -962,6 +975,7 @@ function toPerdiste() {
         }, 1500);
     }, 300);
 }
+
 
 
 
