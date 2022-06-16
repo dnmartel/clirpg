@@ -513,8 +513,19 @@ function guardarPartidaSP() {
 
     //Guardo según titlePage
     if (document.title == "RPG CLI - SP") {
+        let variablesSP = {
+            gExpGanadaTotal: expGanadaTotal,
+            gExpGanada: expGanada,
+            gDañoRecibido: dañoRecibido,
+            gDañoRealizado: dañoRealizado,
+            gMovimientos: movimientos,
+            gCuracionRealizada: curacionRealizada,
+            gExpNecesaria: expNecesaria,
+            vidas: vidas
+        }
         localStorage.setItem(`partidaGuardadaSP`, JSON.stringify(pjActivoSP));
         localStorage.setItem(`partidaGuardadaESP`, JSON.stringify(arrEnemigos));
+        localStorage.setItem(`variablesSP`, JSON.stringify(variablesSP));
     };
 
     Swal.fire({
@@ -530,7 +541,16 @@ function cargarPartidaSP() {
     if (JSON.parse(localStorage.getItem(`partidaGuardadaSP`)) != null && (document.title == "RPG CLI - SP")) {
         let objetoRecuperado = JSON.parse(localStorage.getItem(`partidaGuardadaSP`));
         let objetoRecuperadoE = JSON.parse(localStorage.getItem(`partidaGuardadaESP`));
+        let variablesSPR = JSON.parse(localStorage.getItem(`variablesSP`));
 
+        expGanadaTotal = variablesSPR.gExpGanadaTotal;
+        expGanada = variablesSPR.gExpGanada;
+        dañoRecibido = variablesSPR.gDañoRecibido;
+        dañoRealizado = variablesSPR.gDañoRealizado;
+        movimientos = variablesSPR.gMovimientos;
+        curacionRealizada = variablesSPR.gCuracionRealizada;
+        expNecesaria = variablesSPR.gExpNecesaria;
+        vidas = variablesSPR.vidas; 
         pjActivoSP.splice(0, pjActivoSP.length);
         arrEnemigos.splice(0, arrEnemigos.length);
 
@@ -548,12 +568,15 @@ function cargarPartidaSP() {
             pjActivoSP[0].magicPower = element.magicPower;
             pjActivoSP[0].magicDefense = element.magicDefense;
 
+            nombrePJ = element.nombre;
+            clasePJ = element.clase;
 
         });
 
         objetoRecuperadoE.forEach(element => {
-            arrEnemigos.push(new Enemigos (element.nombre, element.vida = element.vida, element.vidaMax, element.ataque, element.defensa, element.magicPower, element.magicDefense, element.img));
+            arrEnemigos.push(new Enemigos(element.nombre, element.vida = element.vida, element.vidaMax, element.ataque, element.defensa, element.magicPower, element.magicDefense, element.img));
         });
+
 
         Swal.fire({
             position: 'center',
