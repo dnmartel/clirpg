@@ -411,12 +411,12 @@ function expNivelSP(nombreOrigen) {
         expNecesaria += 80;
         nombreOrigen.nivel += 1;
         battleLog(`<h5>${nombreOrigen.nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.07);
-        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.07);
-        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.04);
-        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.04) + 1 ;
-        nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.04) + 1;
-        nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.04) + 1;
+        nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.04);
+        nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.04);
+        nombreOrigen.ataque = Math.round(nombreOrigen.ataque * 1.03) +1;
+        nombreOrigen.defensa = Math.round(nombreOrigen.defensa * 1.03) + 1 ;
+        nombreOrigen.magicPower = Math.round(nombreOrigen.magicPower * 1.03) + 1;
+        nombreOrigen.magicDefense = Math.round(nombreOrigen.magicDefense * 1.03) + 1;
     }
 };
 
@@ -490,13 +490,13 @@ function initEnemies() {
     arrEnemigos.push(new Enemigos("Puro Hueso", 125, 125, 19, 5, 9, 5, `./img/enemy/enemy3.gif`));
     arrEnemigos.push(new Enemigos("Gary", 135, 135, 12, 17, 12, 7, `./img/enemy/enemy4.gif`));
     arrEnemigos.push(new Enemigos("Booky", 150, 150, 18, 9, 14, 9, `./img/enemy/enemy5.gif`));
-    arrEnemigos.push(new Enemigos("Spiro", 165, 165, 19, 10, 16, 10, `./img/enemy/enemy6.gif`));
-    arrEnemigos.push(new Enemigos("Litto", 190, 190, 21, 12, 19, 12, `./img/enemy/enemy7.gif`));
-    arrEnemigos.push(new Enemigos("Metrav", 200, 200, 22, 12, 21, 12, `./img/enemy/enemy8.gif`));
-    arrEnemigos.push(new Enemigos("Kinua", 210, 210, 24, 15, 24, 15, `./img/enemy/enemy9.gif`));
-    arrEnemigos.push(new Enemigos("Blups", 225, 225, 26, 18, 26, 18, `./img/enemy/enemy10.gif`));
-    arrEnemigos.push(new Enemigos("Zorito", 250, 250, 30, 16, 32, 16, `./img/enemy/enemy11.gif`));
-    arrEnemigos.push(new Enemigos("Vlem", 300, 300, 36, 15, 36, 15, `./img/enemy/enemy12.gif`));
+    arrEnemigos.push(new Enemigos("Spiro", 165, 165, 19, 10, 17, 12, `./img/enemy/enemy6.gif`));
+    arrEnemigos.push(new Enemigos("Litto", 190, 190, 21, 12, 21, 14, `./img/enemy/enemy7.gif`));
+    arrEnemigos.push(new Enemigos("Metrav", 200, 200, 22, 12, 23, 15, `./img/enemy/enemy8.gif`));
+    arrEnemigos.push(new Enemigos("Kinua", 210, 210, 24, 15, 26, 16, `./img/enemy/enemy9.gif`));
+    arrEnemigos.push(new Enemigos("Blups", 225, 225, 26, 18, 28, 18, `./img/enemy/enemy10.gif`));
+    arrEnemigos.push(new Enemigos("Zorito", 250, 250, 30, 16, 32, 19, `./img/enemy/enemy11.gif`));
+    arrEnemigos.push(new Enemigos("Vlem", 300, 300, 36, 15, 38, 24, `./img/enemy/enemy12.gif`));
 };
 
 // ############# FUNCIONES PRINCIPALES Y QUE SE MUEVEN POR EL FLOW DE LA APP ##################
