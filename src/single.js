@@ -407,16 +407,16 @@ function expNivelSP(nombreOrigen) {
 
     while (nombreOrigen.exp > expNecesaria) {
         nombreOrigen.exp -= expNecesaria;
-        expNecesaria += 50;
+        expNecesaria += 25;
         nombreOrigen.nivel++;
         battleLog(`<h5>${pjActivoSP[0].nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        if (nombreOrigen.nivel < 4) {
-            nombreOrigen.vida++
-            nombreOrigen.vidaMax++
-            nombreOrigen.ataque++
-            nombreOrigen.defensa++
-            nombreOrigen.magicPower++
-            nombreOrigen.magicDefense++
+        if (nombreOrigen.nivel < 3) {
+            nombreOrigen.vida += 2;
+            nombreOrigen.vidaMax += 2;
+            nombreOrigen.ataque += 2;
+            nombreOrigen.defensa += 2;
+            nombreOrigen.magicPower += 2;
+            nombreOrigen.magicDefense += 2;
         } else {
             nombreOrigen.vida = Math.round(nombreOrigen.vida * 1.05);
             nombreOrigen.vidaMax = Math.round(nombreOrigen.vidaMax * 1.05);
@@ -550,7 +550,7 @@ function cargarPartidaSP() {
         movimientos = variablesSPR.gMovimientos;
         curacionRealizada = variablesSPR.gCuracionRealizada;
         expNecesaria = variablesSPR.gExpNecesaria;
-        vidas = variablesSPR.vidas; 
+        vidas = variablesSPR.vidas;
         pjActivoSP.splice(0, pjActivoSP.length);
         arrEnemigos.splice(0, arrEnemigos.length);
 
@@ -915,10 +915,13 @@ function toLoader() {
 
             document.getElementById(`guardarPartidaSP`).addEventListener("click", () => {
                 guardarPartidaSP();
+                document.getElementById("menuOpciones").classList.toggle("ocultar");
+                document.getElementById("menuOpciones").classList.toggle("menuOpciones");
             })
 
             document.getElementById(`cargarPartidaSP`).addEventListener("click", () => {
                 cargarPartidaSP();
+                toLoader();
             })
 
             document.getElementById(`reiniciarSP`).addEventListener("click", () => {
