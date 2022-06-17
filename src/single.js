@@ -410,7 +410,7 @@ function expNivelSP(nombreOrigen) {
         expNecesaria += 25;
         nombreOrigen.nivel++;
         battleLog(`<h5>${pjActivoSP[0].nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
-        if (nombreOrigen.nivel < 3) {
+        if (nombreOrigen.nivel <= 3) {
             nombreOrigen.vida += 2;
             nombreOrigen.vidaMax += 2;
             nombreOrigen.ataque += 2;
@@ -820,7 +820,7 @@ function toLoader() {
         </div></div>
     </section>
     <button class="buttons btn-next fadein" id="opciones"><span>Opciones</span></button>
-    <div class="ocultar" id="menuOpciones"> 
+    <div class="ocultar cards" id="menuOpciones"> 
             <button class="buttons" id="guardarPartidaSP"><span>Guardar</span></button> 
             <button class="buttons" id="cargarPartidaSP"><span>Cargar</span></button>
             <button class="buttons" id="reiniciarSP"><span>Reiniciar</span></button>
@@ -921,6 +921,8 @@ function toLoader() {
 
             document.getElementById(`cargarPartidaSP`).addEventListener("click", () => {
                 cargarPartidaSP();
+                document.getElementById("menuOpciones").classList.toggle("ocultar");
+                document.getElementById("menuOpciones").classList.toggle("menuOpciones");
                 toLoader();
             })
 

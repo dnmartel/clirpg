@@ -55,6 +55,7 @@ function battleLog(mensaje) {
 
     mensajeConHora += `<h6> TimeStamp - ${tiempoTranscurrido.toFixed(2)} </h6>  <p style="text-align: center"> ${mensaje} </p> <hr>`;
     document.getElementById("battleLog").insertAdjacentHTML("afterbegin", mensajeConHora);
+    console.log(`TimeStamp - ${tiempoTranscurrido.toFixed(2)} - ${mensaje}`);
 }
 
 //Funciones para ocultar y mostrar botones segun ID
