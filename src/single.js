@@ -407,7 +407,7 @@ function expNivelSP(nombreOrigen) {
 
     while (nombreOrigen.exp > expNecesaria) {
         nombreOrigen.exp -= expNecesaria;
-        expNecesaria += 100;
+        expNecesaria += 50;
         nombreOrigen.nivel++;
         battleLog(`<h5>${pjActivoSP[0].nombre} ha subido al nivel ${nombreOrigen.nivel}</h5>`);
         if (nombreOrigen.nivel < 4) {
