@@ -257,6 +257,11 @@
 .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
   text-align: center;
 }
+.body-i #cafecito {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
 
 /* Mixins */
 /* Mapas */
