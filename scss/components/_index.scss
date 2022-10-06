@@ -1,6 +1,6 @@
-@import '../base/mixins';
-@import '../base/mapas';
-@import '../base/extends';
+@import "../base/mixins";
+@import "../base/mapas";
+@import "../base/extends";
 
 .body-i {
     background-color: map-get($colors, backgrounds);
@@ -25,19 +25,35 @@
                 }
             }
         }
-
     }
 
-    #div-btn-index, #btn-index, #btnToSingle, #btnToMulti, #btn-back-i {
+    #div-btn-index,
+    #btn-index,
+    #btnToSingle,
+    #btnToMulti,
+    #btn-back-i {
         text-align: center;
         @extend %fadein;
     }
 
-    #cafecito{
+    .redes-index {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: absolute;
+        bottom: 1em;
+        left: 1em;
+
+        #linkedin {
+            width: 25px;
+            height: 25px;
+            margin-right: 1em;
+        }
+    }
+    #cafecito {
         position: absolute;
         bottom: 1em;
         right: 1em;
-
     }
-
 }

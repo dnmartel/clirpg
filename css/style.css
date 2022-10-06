@@ -36,7 +36,11 @@
   }
 }
 
-.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+.fadein, #body-sp, .body-i #div-btn-index,
+.body-i #btn-index,
+.body-i #btnToSingle,
+.body-i #btnToMulti,
+.body-i #btn-back-i {
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   /* Firefox */
@@ -177,7 +181,11 @@
   }
 }
 
-.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+.fadein, #body-sp, .body-i #div-btn-index,
+.body-i #btn-index,
+.body-i #btnToSingle,
+.body-i #btnToMulti,
+.body-i #btn-back-i {
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   /* Firefox */
@@ -223,7 +231,11 @@
   }
 }
 
-.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+.fadein, #body-sp, .body-i #div-btn-index,
+.body-i #btn-index,
+.body-i #btnToSingle,
+.body-i #btnToMulti,
+.body-i #btn-back-i {
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   /* Firefox */
@@ -254,8 +266,25 @@
     width: 350px;
   }
 }
-.body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+.body-i #div-btn-index,
+.body-i #btn-index,
+.body-i #btnToSingle,
+.body-i #btnToMulti,
+.body-i #btn-back-i {
   text-align: center;
+}
+.body-i .redes-index {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+}
+.body-i .redes-index #linkedin {
+  width: 25px;
+  height: 25px;
+  margin-right: 1em;
 }
 .body-i #cafecito {
   position: absolute;
@@ -297,7 +326,11 @@
   }
 }
 
-.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+.fadein, #body-sp, .body-i #div-btn-index,
+.body-i #btn-index,
+.body-i #btnToSingle,
+.body-i #btnToMulti,
+.body-i #btn-back-i {
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   /* Firefox */
@@ -632,7 +665,11 @@
   }
 }
 
-.fadein, #body-sp, .body-i #div-btn-index, .body-i #btn-index, .body-i #btnToSingle, .body-i #btnToMulti, .body-i #btn-back-i {
+.fadein, #body-sp, .body-i #div-btn-index,
+.body-i #btn-index,
+.body-i #btnToSingle,
+.body-i #btnToMulti,
+.body-i #btn-back-i {
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   /* Firefox */
